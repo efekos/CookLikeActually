@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "cla",
+  "version": "${version}",
+  "name": "CookLikeActually",
+  "description": "Cook, like actually, as if Minecraft was a cooking game.",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/cla/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "dev.efekos.cla.client.MainClient"
+    ],
+    "main": [
+      "dev.efekos.cla.Main"
+    ]
+  },
+  "mixins": [
+    "cla.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
