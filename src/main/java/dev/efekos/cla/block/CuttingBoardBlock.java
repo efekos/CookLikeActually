@@ -73,8 +73,8 @@ public class CuttingBoardBlock extends BlockWithEntity {
         BlockEntity entity = world.getBlockEntity(pos);
 
         if (entity instanceof CuttingBoardBlockEntity cuttingBoard) {
-            boolean doesMeterHaveAnItem = cuttingBoard.getItem() != ItemStack.EMPTY;
-            boolean doesPlayerHaveAnItem = player.getStackInHand(hand) != ItemStack.EMPTY;
+            boolean doesMeterHaveAnItem = !ItemStack.EMPTY.equals(cuttingBoard.getItem());
+            boolean doesPlayerHaveAnItem = !ItemStack.EMPTY.equals(player.getStackInHand(hand));
 
             if (doesMeterHaveAnItem && !doesPlayerHaveAnItem) {
                 player.setStackInHand(hand, cuttingBoard.getItem());
@@ -90,7 +90,8 @@ public class CuttingBoardBlock extends BlockWithEntity {
                 cuttingBoard.markDirty();
                 world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 1F, 1F, true);
                 return ActionResult.success(true);
-            } else if (doesPlayerHaveAnItem) {
+            } else if (doesMeterHaveAnItem && doesPlayerHaveAnItem) {
+                if(cuttingBoard.getItem()==null||player.getStackInHand(hand)==null)return ActionResult.success(false);
                 ItemStack copiedItemInMeter = cuttingBoard.getItem().copy();
                 cuttingBoard.setItem(player.getStackInHand(hand));
                 player.setStackInHand(hand, copiedItemInMeter);

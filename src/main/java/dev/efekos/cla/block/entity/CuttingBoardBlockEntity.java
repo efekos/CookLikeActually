@@ -29,6 +29,7 @@ public class CuttingBoardBlockEntity extends BlockEntity {
 
     public void setItem(ItemStack item) {
         this.item = item;
+        setCuts(0);
     }
 
     public int getCuts() {
@@ -42,8 +43,8 @@ public class CuttingBoardBlockEntity extends BlockEntity {
     @Override
     protected void addComponents(ComponentMap.Builder componentMapBuilder) {
         super.addComponents(componentMapBuilder);
-        componentMapBuilder.add(ClaComponentTypes.CUTS,cuts);
         componentMapBuilder.add(ClaComponentTypes.ITEM,item);
+        componentMapBuilder.add(ClaComponentTypes.CUTS,cuts);
     }
 
     @Override
