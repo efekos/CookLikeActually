@@ -1,8 +1,8 @@
 {
   "type": "cla:cutting",
-  "hits": 4,
+  "cuts": 4,
   "item": {
-    "id": "cla:lettuce"
+    "item": "cla:lettuce"
   },
   "result": {
     "id": "cla:cut_lettuce"

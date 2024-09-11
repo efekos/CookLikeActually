@@ -1,8 +1,8 @@
 {
   "type": "cla:cutting",
-  "hits": 5,
+  "cuts": 5,
   "item": {
-    "id": "cla:tomato"
+    "item": "cla:tomato"
   },
   "result": {
     "id": "cla:cut_tomato"

@@ -1,8 +1,8 @@
 {
   "type": "cla:cutting",
-  "hits": 8,
+  "cuts": 8,
   "item": {
-    "id": "potato"
+    "item": "potato"
   },
   "result": {
     "id": "cla:cut_potato"
