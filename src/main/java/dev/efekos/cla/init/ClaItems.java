@@ -3,6 +3,8 @@ package dev.efekos.cla.init;
 import dev.efekos.cla.Main;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.item.Item;
+import net.minecraft.item.SwordItem;
+import net.minecraft.item.ToolMaterials;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -20,6 +22,7 @@ public class ClaItems {
     public static final Item PLATE = register("plate",new Item(new Item.Settings().rarity(Rarity.COMMON)));
     public static final Item PATTY = register("patty",new Item(new Item.Settings().rarity(Rarity.COMMON)));
     public static final Item COOKED_PATTY = register("cooked_patty",new Item(new Item.Settings().rarity(Rarity.COMMON)));
+    public static final SwordItem KNIFE = register("knife",new SwordItem(ToolMaterials.IRON,new Item.Settings().rarity(Rarity.COMMON).maxCount(1).attributeModifiers(SwordItem.createAttributeModifiers(ToolMaterials.IRON, 3, -2.4F))));
 
     public static void run(){
 
