@@ -1,0 +1,10 @@
+{
+  "type": "cla:panning",
+  "time": 200,
+  "item": {
+    "id": "cla:patty"
+  },
+  "result": {
+    "id": "cla:cooked_patty"
+  }
+}

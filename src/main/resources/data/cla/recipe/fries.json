@@ -1,0 +1,10 @@
+{
+  "type": "cla:frying",
+  "time": 200,
+  "item": {
+    "id": "cla:cut_potato"
+  },
+  "result": {
+    "id": "cla:fries"
+  }
+}

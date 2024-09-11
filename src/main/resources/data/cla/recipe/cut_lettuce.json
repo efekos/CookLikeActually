@@ -1,0 +1,10 @@
+{
+  "type": "cla:cutting",
+  "hits": 4,
+  "item": {
+    "id": "cla:lettuce"
+  },
+  "result": {
+    "id": "cla:cut_lettuce"
+  }
+}
