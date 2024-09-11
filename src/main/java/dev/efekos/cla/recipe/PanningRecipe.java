@@ -16,32 +16,20 @@ import net.minecraft.world.World;
 
 public class PanningRecipe implements Recipe<SingleStackRecipeInput> {
 
-    private Ingredient item;
-    private ItemStack result;
-    private int time;
+    private final Ingredient item;
+    private final ItemStack result;
+    private final int time;
 
     public Ingredient getItem() {
         return item;
-    }
-
-    public void setItem(Ingredient item) {
-        this.item = item;
     }
 
     public ItemStack getRes() {
         return result;
     }
 
-    public void setResult(ItemStack result) {
-        this.result = result;
-    }
-
     public int getTime() {
         return time;
-    }
-
-    public void setTime(int time) {
-        this.time = time;
     }
 
     @Override
@@ -66,12 +54,12 @@ public class PanningRecipe implements Recipe<SingleStackRecipeInput> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return null;
+        return Serializer.INSTANCE;
     }
 
     @Override
     public RecipeType<?> getType() {
-        return null;
+        return Type.INSTANCE;
     }
 
     public PanningRecipe(Ingredient item, ItemStack result, int time) {
@@ -121,6 +109,10 @@ public class PanningRecipe implements Recipe<SingleStackRecipeInput> {
 
         public static final Type INSTANCE = new Type();
 
+        @Override
+        public String toString() {
+            return "cla:panning";
+        }
     }
 
 }

@@ -9,11 +9,11 @@ public class Main implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        ClaRecipeTypes.run();
         ClaComponentTypes.run();
         ClaBlocks.run();
         ClaItems.run();
         ClaGroups.run();
+        ClaRecipeTypes.run();
     }
 
 }

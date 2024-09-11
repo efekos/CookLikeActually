@@ -3,7 +3,6 @@ package dev.efekos.cla.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.Ingredient;
@@ -67,12 +66,12 @@ public class CuttingRecipe implements Recipe<SingleStackRecipeInput> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return null;
+        return Serializer.INSTANCE;
     }
 
     @Override
     public RecipeType<?> getType() {
-        return null;
+        return Type.INSTANCE;
     }
 
     public CuttingRecipe(Ingredient item, ItemStack result, int cuts) {
@@ -122,6 +121,10 @@ public class CuttingRecipe implements Recipe<SingleStackRecipeInput> {
 
         public static final Type INSTANCE = new Type();
 
+        @Override
+        public String toString() {
+            return "cla:cutting";
+        }
     }
 
 }

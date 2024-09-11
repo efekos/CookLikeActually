@@ -66,12 +66,12 @@ public class FryingRecipe implements Recipe<SingleStackRecipeInput> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return null;
+        return Serializer.INSTANCE;
     }
 
     @Override
     public RecipeType<?> getType() {
-        return null;
+        return Type.INSTANCE;
     }
 
     public FryingRecipe(Ingredient item, ItemStack result, int time) {
@@ -121,6 +121,10 @@ public class FryingRecipe implements Recipe<SingleStackRecipeInput> {
 
         public static final Type INSTANCE = new Type();
 
+        @Override
+        public String toString() {
+            return "cla:frying";
+        }
     }
 
 }
