@@ -10,7 +10,7 @@ public class MainClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
 
-        BlockEntityRendererFactories.register(ClaBlocks.CUTTING_BOARD_BLOCK_ENTITY_TYPE, ctx -> CuttingBoardBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(ClaBlocks.CUTTING_BOARD_BLOCK_ENTITY_TYPE, CuttingBoardBlockEntityRenderer::new);
 
     }
 
