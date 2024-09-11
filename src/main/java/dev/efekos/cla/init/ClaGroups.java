@@ -16,7 +16,10 @@ public class ClaGroups {
         Registry.register(Registries.ITEM_GROUP, Identifier.of(Main.MOD_ID,"cla"),new ItemGroup.Builder(ItemGroup.Row.TOP,3)
                 .displayName(Text.translatable("itemGroup.cla")).icon(ClaItems.TOMATO::getDefaultStack)
                 .entries((displayContext, entries) -> {
-                    for (Item item : List.of(ClaItems.TOMATO, ClaItems.CUT_TOMATO, ClaItems.LETTUCE, ClaItems.CUT_LETTUCE, ClaItems.PATTY, ClaItems.COOKED_PATTY, ClaItems.PLATE, ClaItems.KNIFE))
+                    for (Item item : List.of(
+                            ClaItems.TOMATO, ClaItems.CUT_TOMATO, ClaItems.LETTUCE, ClaItems.CUT_LETTUCE, ClaItems.PATTY, ClaItems.COOKED_PATTY, ClaItems.CUT_POTATO, ClaItems.FRIES,
+                            ClaItems.PLATE, ClaItems.KNIFE
+                    ))
                         entries.add(item);
                 }).build());
     }
