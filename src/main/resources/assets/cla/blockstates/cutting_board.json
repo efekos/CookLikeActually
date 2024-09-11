@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "cla:block/cutting_board"
+    },
+    "facing=east": {
+      "y": 90,
+      "model": "cla:block/cutting_board"
+    },
+    "facing=south": {
+      "y": 180,
+      "model": "cla:block/cutting_board"
+    },
+    "facing=west":{
+      "y": 270,
+      "model": "cla:block/cutting_board"
+    }
+  }
+}

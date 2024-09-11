@@ -24,7 +24,7 @@ public class ClaItems {
     public static final Item COOKED_PATTY = register("cooked_patty",new Item(new Item.Settings().rarity(Rarity.COMMON)));
     public static final Item CUT_POTATO = register("cut_potato",new Item(new Item.Settings().rarity(Rarity.COMMON)));
     public static final Item FRIES = register("fries",new Item(new Item.Settings().rarity(Rarity.COMMON)));
-    public static final SwordItem KNIFE = register("knife",new SwordItem(ToolMaterials.IRON,new Item.Settings().rarity(Rarity.COMMON).maxCount(1).attributeModifiers(SwordItem.createAttributeModifiers(ToolMaterials.IRON, 3, -2.4F))));
+    public static final SwordItem KNIFE = register("knife",new SwordItem(ToolMaterials.IRON,new Item.Settings().rarity(Rarity.COMMON).maxCount(1).attributeModifiers(SwordItem.createAttributeModifiers(ToolMaterials.IRON, 1, -0.8F))));
 
     public static void run(){
 

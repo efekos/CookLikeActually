@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "cla:cutting_board",
+  "pattern": [
+    "AA"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:oak_planks"
+    }
+  },
+  "result": {
+    "id": "cla:cutting_board"
+  }
+}

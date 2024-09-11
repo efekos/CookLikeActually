@@ -11,8 +11,8 @@ public class Main implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        ClaItems.run();
         ClaBlocks.run();
+        ClaItems.run();
         ClaGroups.run();
     }
 

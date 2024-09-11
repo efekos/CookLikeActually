@@ -1,7 +1,7 @@
 package dev.efekos.cla.init;
 
 import dev.efekos.cla.Main;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -16,9 +16,9 @@ public class ClaGroups {
         Registry.register(Registries.ITEM_GROUP, Identifier.of(Main.MOD_ID,"cla"),new ItemGroup.Builder(ItemGroup.Row.TOP,3)
                 .displayName(Text.translatable("itemGroup.cla")).icon(ClaItems.TOMATO::getDefaultStack)
                 .entries((displayContext, entries) -> {
-                    for (Item item : List.of(
+                    for (ItemConvertible item : List.of(
                             ClaItems.TOMATO, ClaItems.CUT_TOMATO, ClaItems.LETTUCE, ClaItems.CUT_LETTUCE, ClaItems.PATTY, ClaItems.COOKED_PATTY, ClaItems.CUT_POTATO, ClaItems.FRIES,
-                            ClaItems.PLATE, ClaItems.KNIFE
+                            ClaItems.PLATE, ClaItems.KNIFE, ClaBlocks.CUTTING_BOARD
                     ))
                         entries.add(item);
                 }).build());
