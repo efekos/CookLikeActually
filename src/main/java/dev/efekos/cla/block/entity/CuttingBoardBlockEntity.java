@@ -44,6 +44,10 @@ public class CuttingBoardBlockEntity extends BlockEntity {
         return cuts;
     }
 
+    public int getMaxCutsNeeded(){
+        return maxCutsNeeded;
+    }
+
     public void setCuts(int cuts) {
         this.cuts = cuts;
         if(hasRecipe(world)&&cuts==maxCutsNeeded) {
