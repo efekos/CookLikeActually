@@ -2,11 +2,15 @@ package dev.efekos.cla.block;
 
 import com.mojang.serialization.MapCodec;
 import dev.efekos.cla.block.entity.CuttingBoardBlockEntity;
+import dev.efekos.cla.init.ClaBlocks;
+import dev.efekos.cla.init.ClaItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -69,7 +73,8 @@ public class CuttingBoardBlock extends BlockWithEntity {
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         Hand hand = player.getActiveHand();
-        if (hand != Hand.MAIN_HAND) return ActionResult.success(false);
+        if (hand != Hand.MAIN_HAND) return ActionResult.PASS;
+        if (player.getStackInHand(hand).isOf(ClaItems.KNIFE)) return ActionResult.PASS;
         BlockEntity entity = world.getBlockEntity(pos);
 
         if (entity instanceof CuttingBoardBlockEntity cuttingBoard) {
@@ -103,6 +108,11 @@ public class CuttingBoardBlock extends BlockWithEntity {
             } else return ActionResult.success(false);
 
         } else return ActionResult.success(false);
+    }
+
+    @Override
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return validateTicker(type, ClaBlocks.CUTTING_BOARD_BLOCK_ENTITY_TYPE,(world1, pos, state1, blockEntity) -> blockEntity.tick(world1,pos,state1));
     }
 
 }
