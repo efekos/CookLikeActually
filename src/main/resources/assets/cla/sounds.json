@@ -1,0 +1,20 @@
+{
+  "item.knife.slice": {
+    "category": "player",
+    "subtitle": "subtitle.cla.item.knife.slice",
+    "sounds": [
+      {
+        "name": "cla:knife_slice",
+        "pitch": 1.0
+      },
+      {
+        "name": "cla:knife_slice",
+        "pitch": 0.9
+      },
+      {
+        "name": "cla:knife_slice",
+        "pitch": 0.8
+      }
+    ]
+  }
+}

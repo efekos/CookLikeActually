@@ -2,12 +2,11 @@ package dev.efekos.cla.item;
 
 import dev.efekos.cla.block.entity.CuttingBoardBlockEntity;
 import dev.efekos.cla.init.ClaBlocks;
-import net.minecraft.item.Item;
+import dev.efekos.cla.init.ClaSoundEvents;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -23,14 +22,15 @@ public class KnifeItem extends SwordItem {
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
-        if(context.getHand()!= Hand.MAIN_HAND)return ActionResult.success(false);
+        if(context.getHand()!= Hand.MAIN_HAND)return ActionResult.PASS;
         BlockPos pos = context.getBlockPos();
         World world = context.getWorld();
         Optional<CuttingBoardBlockEntity> blockEntityOptional = world.getBlockEntity(pos, ClaBlocks.CUTTING_BOARD_BLOCK_ENTITY_TYPE);
-        if(blockEntityOptional.isEmpty())return ActionResult.success(false);
+        if(blockEntityOptional.isEmpty())return ActionResult.PASS;
         CuttingBoardBlockEntity blockEntity = blockEntityOptional.get();
-        if(blockEntity.hasRecipe(world)) blockEntity.setCuts(blockEntity.getCuts()+1);
-        world.playSound(context.getPlayer(),pos, SoundEvents.BLOCK_METAL_PLACE, SoundCategory.BLOCKS,1f,1f);
+        if(!blockEntity.hasRecipe(world))return ActionResult.PASS;
+        blockEntity.setCuts(blockEntity.getCuts()+1);
+        world.playSound(context.getPlayer(),pos, ClaSoundEvents.KNIFE_SLICE, SoundCategory.BLOCKS,1f,1f);
         return ActionResult.success(true);
     }
 

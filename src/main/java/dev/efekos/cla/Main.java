@@ -14,6 +14,7 @@ public class Main implements ModInitializer {
         ClaItems.run();
         ClaGroups.run();
         ClaRecipeTypes.run();
+        ClaSoundEvents.run();
     }
 
 }
