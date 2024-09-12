@@ -33,6 +33,13 @@ import org.jetbrains.annotations.Nullable;
 public class CuttingBoardBlock extends BlockWithEntity {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     public static final MapCodec<CuttingBoardBlock> CODEC = createCodec(CuttingBoardBlock::new);
+    private static final VoxelShape shape = VoxelShapes.cuboid(0.25, 0, 0.125, 0.75, 0.0625, 0.875);
+    private static final VoxelShape shape2 = VoxelShapes.cuboid(0.125, 0, 0.25, 0.875, 0.0625, 0.75);
+
+    public CuttingBoardBlock(Settings settings) {
+        super(settings);
+        setDefaultState(getDefaultState().with(FACING, Direction.NORTH));
+    }
 
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
@@ -43,14 +50,6 @@ public class CuttingBoardBlock extends BlockWithEntity {
     public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new CuttingBoardBlockEntity(pos, state);
     }
-
-    public CuttingBoardBlock(Settings settings) {
-        super(settings);
-        setDefaultState(getDefaultState().with(FACING, Direction.NORTH));
-    }
-
-    private static final VoxelShape shape = VoxelShapes.cuboid(0.25, 0, 0.125, 0.75, 0.0625, 0.875);
-    private static final VoxelShape shape2 = VoxelShapes.cuboid(0.125, 0, 0.25, 0.875, 0.0625, 0.75);
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
@@ -69,7 +68,6 @@ public class CuttingBoardBlock extends BlockWithEntity {
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         return super.getPlacementState(ctx).with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
     }
-
 
 
     @Override
@@ -98,13 +96,14 @@ public class CuttingBoardBlock extends BlockWithEntity {
                 world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 1F, 1F, true);
                 return ActionResult.success(true);
             } else if (doesMeterHaveAnItem && doesPlayerHaveAnItem) {
-                if(cuttingBoard.getItem()==null||player.getStackInHand(hand)==null)return ActionResult.success(false);
+                if (cuttingBoard.getItem() == null || player.getStackInHand(hand) == null)
+                    return ActionResult.success(false);
                 ItemStack copiedItemInMeter = cuttingBoard.getItem().copy();
                 cuttingBoard.setItem(player.getStackInHand(hand));
                 player.setStackInHand(hand, copiedItemInMeter);
                 cuttingBoard.markDirty();
 
-                world.playSound(pos.getX(),pos.getY(),pos.getZ(), SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.BLOCKS, 1F, 1F, true);
+                world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.BLOCKS, 1F, 1F, true);
                 return ActionResult.success(true);
 
             } else return ActionResult.success(false);
@@ -114,7 +113,7 @@ public class CuttingBoardBlock extends BlockWithEntity {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ClaBlocks.CUTTING_BOARD_BLOCK_ENTITY_TYPE,(world1, pos, state1, blockEntity) -> blockEntity.tick(world1,pos,state1));
+        return validateTicker(type, ClaBlocks.CUTTING_BOARD_BLOCK_ENTITY_TYPE, (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
     }
 
 }

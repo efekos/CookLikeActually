@@ -20,7 +20,7 @@ public class ClaComponentTypes {
         return (ComponentType) Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(Main.MOD_ID, id), ((ComponentType.Builder) builderOperator.apply(ComponentType.builder())).build());
     }
 
-    public static void run(){
+    public static void run() {
 
     }
 

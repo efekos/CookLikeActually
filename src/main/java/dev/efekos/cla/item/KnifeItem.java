@@ -22,15 +22,15 @@ public class KnifeItem extends SwordItem {
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
-        if(context.getHand()!= Hand.MAIN_HAND)return ActionResult.PASS;
+        if (context.getHand() != Hand.MAIN_HAND) return ActionResult.PASS;
         BlockPos pos = context.getBlockPos();
         World world = context.getWorld();
         Optional<CuttingBoardBlockEntity> blockEntityOptional = world.getBlockEntity(pos, ClaBlocks.CUTTING_BOARD_BLOCK_ENTITY_TYPE);
-        if(blockEntityOptional.isEmpty())return ActionResult.PASS;
+        if (blockEntityOptional.isEmpty()) return ActionResult.PASS;
         CuttingBoardBlockEntity blockEntity = blockEntityOptional.get();
-        if(!blockEntity.hasRecipe(world))return ActionResult.PASS;
-        blockEntity.setCuts(blockEntity.getCuts()+1);
-        world.playSound(context.getPlayer(),pos, ClaSoundEvents.KNIFE_SLICE, SoundCategory.BLOCKS,1f,1f);
+        if (!blockEntity.hasRecipe(world)) return ActionResult.PASS;
+        blockEntity.setCuts(blockEntity.getCuts() + 1);
+        world.playSound(context.getPlayer(), pos, ClaSoundEvents.KNIFE_SLICE, SoundCategory.BLOCKS, 1f, 1f);
         return ActionResult.success(true);
     }
 

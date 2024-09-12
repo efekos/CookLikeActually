@@ -20,6 +20,12 @@ public class FryingRecipe implements Recipe<SingleStackRecipeInput> {
     private ItemStack result;
     private int time;
 
+    public FryingRecipe(Ingredient item, ItemStack result, int time) {
+        this.item = item;
+        this.result = result;
+        this.time = time;
+    }
+
     public Ingredient getItem() {
         return item;
     }
@@ -74,12 +80,6 @@ public class FryingRecipe implements Recipe<SingleStackRecipeInput> {
         return Type.INSTANCE;
     }
 
-    public FryingRecipe(Ingredient item, ItemStack result, int time) {
-        this.item = item;
-        this.result = result;
-        this.time = time;
-    }
-
     public static final class Serializer implements RecipeSerializer<FryingRecipe> {
 
         public static final Serializer INSTANCE = new Serializer();
@@ -89,13 +89,12 @@ public class FryingRecipe implements Recipe<SingleStackRecipeInput> {
                 ItemStack.CODEC.fieldOf("result").forGetter(FryingRecipe::getRes),
                 Codecs.POSITIVE_INT.fieldOf("time").forGetter(FryingRecipe::getTime)
         ).apply(instance, FryingRecipe::new));
+        public final PacketCodec<RegistryByteBuf, FryingRecipe> PACKET_CODEC = PacketCodec.ofStatic(this::write, this::read);
 
         @Override
         public MapCodec<FryingRecipe> codec() {
             return CODEC;
         }
-
-        public final PacketCodec<RegistryByteBuf, FryingRecipe> PACKET_CODEC = PacketCodec.ofStatic(this::write,this::read);
 
         @Override
         public PacketCodec<RegistryByteBuf, FryingRecipe> packetCodec() {
@@ -103,8 +102,8 @@ public class FryingRecipe implements Recipe<SingleStackRecipeInput> {
         }
 
         public void write(RegistryByteBuf buf, FryingRecipe recipe) {
-            Ingredient.PACKET_CODEC.encode(buf,recipe.getItem());
-            ItemStack.PACKET_CODEC.encode(buf,recipe.getRes());
+            Ingredient.PACKET_CODEC.encode(buf, recipe.getItem());
+            ItemStack.PACKET_CODEC.encode(buf, recipe.getRes());
             buf.writeInt(recipe.getTime());
         }
 
@@ -112,7 +111,7 @@ public class FryingRecipe implements Recipe<SingleStackRecipeInput> {
             Ingredient item = Ingredient.PACKET_CODEC.decode(buf);
             ItemStack result = ItemStack.PACKET_CODEC.decode(buf);
             int cuts = buf.readInt();
-            return new FryingRecipe(item,result,cuts);
+            return new FryingRecipe(item, result, cuts);
         }
 
     }

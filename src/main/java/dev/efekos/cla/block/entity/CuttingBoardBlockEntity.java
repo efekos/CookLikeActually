@@ -17,6 +17,10 @@ import java.util.Optional;
 
 public class CuttingBoardBlockEntity extends BlockEntity {
 
+    private ItemStack item = ItemStack.EMPTY;
+    private int cuts;
+    private CuttingRecipe currentRecipe;
+    private int maxCutsNeeded;
     public CuttingBoardBlockEntity(BlockPos pos, BlockState state) {
         super(ClaBlocks.CUTTING_BOARD_BLOCK_ENTITY_TYPE, pos, state);
     }
@@ -25,11 +29,6 @@ public class CuttingBoardBlockEntity extends BlockEntity {
     public @Nullable Object getRenderData() {
         return super.getRenderData();
     }
-
-    private ItemStack item = ItemStack.EMPTY;
-    private int cuts;
-    private CuttingRecipe currentRecipe;
-    private int maxCutsNeeded;
 
     public ItemStack getItem() {
         return item;
@@ -44,13 +43,9 @@ public class CuttingBoardBlockEntity extends BlockEntity {
         return cuts;
     }
 
-    public int getMaxCutsNeeded(){
-        return maxCutsNeeded;
-    }
-
     public void setCuts(int cuts) {
         this.cuts = cuts;
-        if(hasRecipe(world)&&cuts==maxCutsNeeded) {
+        if (hasRecipe(world) && cuts == maxCutsNeeded) {
             this.item = this.currentRecipe.getRes();
             this.cuts = 0;
             this.maxCutsNeeded = 0;
@@ -58,26 +53,30 @@ public class CuttingBoardBlockEntity extends BlockEntity {
         }
     }
 
+    public int getMaxCutsNeeded() {
+        return maxCutsNeeded;
+    }
+
     @Override
     protected void addComponents(ComponentMap.Builder componentMapBuilder) {
         super.addComponents(componentMapBuilder);
-        componentMapBuilder.add(ClaComponentTypes.ITEM,item);
-        componentMapBuilder.add(ClaComponentTypes.CUTS,cuts);
+        componentMapBuilder.add(ClaComponentTypes.ITEM, item);
+        componentMapBuilder.add(ClaComponentTypes.CUTS, cuts);
     }
 
     @Override
     protected void readComponents(ComponentsAccess components) {
         super.readComponents(components);
-        item = components.getOrDefault(ClaComponentTypes.ITEM,ItemStack.EMPTY);
-        cuts = components.getOrDefault(ClaComponentTypes.CUTS,0);
+        item = components.getOrDefault(ClaComponentTypes.ITEM, ItemStack.EMPTY);
+        cuts = components.getOrDefault(ClaComponentTypes.CUTS, 0);
     }
 
     public void tick(World world, BlockPos blockPos, BlockState blockState) {
     }
 
-    public boolean hasRecipe(World world){
+    public boolean hasRecipe(World world) {
         Optional<RecipeEntry<CuttingRecipe>> match = world.getRecipeManager().getFirstMatch(CuttingRecipe.Type.INSTANCE, new SingleStackRecipeInput(item), world);
-        if(match.isPresent()) {
+        if (match.isPresent()) {
             CuttingRecipe valued = match.get().value();
             this.currentRecipe = valued;
             this.maxCutsNeeded = valued.getCuts();

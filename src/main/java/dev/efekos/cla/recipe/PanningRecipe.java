@@ -20,6 +20,12 @@ public class PanningRecipe implements Recipe<SingleStackRecipeInput> {
     private final ItemStack result;
     private final int time;
 
+    public PanningRecipe(Ingredient item, ItemStack result, int time) {
+        this.item = item;
+        this.result = result;
+        this.time = time;
+    }
+
     public Ingredient getItem() {
         return item;
     }
@@ -62,12 +68,6 @@ public class PanningRecipe implements Recipe<SingleStackRecipeInput> {
         return Type.INSTANCE;
     }
 
-    public PanningRecipe(Ingredient item, ItemStack result, int time) {
-        this.item = item;
-        this.result = result;
-        this.time = time;
-    }
-
     public static final class Serializer implements RecipeSerializer<PanningRecipe> {
 
         public static final Serializer INSTANCE = new Serializer();
@@ -77,13 +77,12 @@ public class PanningRecipe implements Recipe<SingleStackRecipeInput> {
                 ItemStack.CODEC.fieldOf("result").forGetter(PanningRecipe::getRes),
                 Codecs.POSITIVE_INT.fieldOf("time").forGetter(PanningRecipe::getTime)
         ).apply(instance, PanningRecipe::new));
+        public final PacketCodec<RegistryByteBuf, PanningRecipe> PACKET_CODEC = PacketCodec.ofStatic(this::write, this::read);
 
         @Override
         public MapCodec<PanningRecipe> codec() {
             return CODEC;
         }
-
-        public final PacketCodec<RegistryByteBuf, PanningRecipe> PACKET_CODEC = PacketCodec.ofStatic(this::write,this::read);
 
         @Override
         public PacketCodec<RegistryByteBuf, PanningRecipe> packetCodec() {
@@ -91,8 +90,8 @@ public class PanningRecipe implements Recipe<SingleStackRecipeInput> {
         }
 
         public void write(RegistryByteBuf buf, PanningRecipe recipe) {
-            Ingredient.PACKET_CODEC.encode(buf,recipe.getItem());
-            ItemStack.PACKET_CODEC.encode(buf,recipe.getRes());
+            Ingredient.PACKET_CODEC.encode(buf, recipe.getItem());
+            ItemStack.PACKET_CODEC.encode(buf, recipe.getRes());
             buf.writeInt(recipe.getTime());
         }
 
@@ -100,7 +99,7 @@ public class PanningRecipe implements Recipe<SingleStackRecipeInput> {
             Ingredient item = Ingredient.PACKET_CODEC.decode(buf);
             ItemStack result = ItemStack.PACKET_CODEC.decode(buf);
             int cuts = buf.readInt();
-            return new PanningRecipe(item,result,cuts);
+            return new PanningRecipe(item, result, cuts);
         }
 
     }

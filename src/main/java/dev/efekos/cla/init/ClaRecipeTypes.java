@@ -13,15 +13,15 @@ import net.minecraft.util.Identifier;
 
 public class ClaRecipeTypes {
 
-    public static void run(){
-        register("cutting",CuttingRecipe.Serializer.INSTANCE,CuttingRecipe.Type.INSTANCE);
-        register("frying",FryingRecipe.Serializer.INSTANCE,FryingRecipe.Type.INSTANCE);
-        register("panning",PanningRecipe.Serializer.INSTANCE,PanningRecipe.Type.INSTANCE);
+    public static void run() {
+        register("cutting", CuttingRecipe.Serializer.INSTANCE, CuttingRecipe.Type.INSTANCE);
+        register("frying", FryingRecipe.Serializer.INSTANCE, FryingRecipe.Type.INSTANCE);
+        register("panning", PanningRecipe.Serializer.INSTANCE, PanningRecipe.Type.INSTANCE);
     }
 
     private static <T extends Recipe<?>> void register(String id, RecipeSerializer<T> serializer, RecipeType<T> type) {
-        Registry.register(Registries.RECIPE_TYPE,Identifier.of(Main.MOD_ID,id), type);
-        Registry.register(Registries.RECIPE_SERIALIZER,Identifier.of(Main.MOD_ID,id), serializer);
+        Registry.register(Registries.RECIPE_TYPE, Identifier.of(Main.MOD_ID, id), type);
+        Registry.register(Registries.RECIPE_SERIALIZER, Identifier.of(Main.MOD_ID, id), serializer);
     }
 
 }

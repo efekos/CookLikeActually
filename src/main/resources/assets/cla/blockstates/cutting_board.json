@@ -11,7 +11,7 @@
       "y": 180,
       "model": "cla:block/cutting_board"
     },
-    "facing=west":{
+    "facing=west": {
       "y": 270,
       "model": "cla:block/cutting_board"
     }

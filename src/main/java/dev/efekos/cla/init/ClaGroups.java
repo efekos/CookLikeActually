@@ -12,8 +12,8 @@ import java.util.List;
 
 public class ClaGroups {
 
-    public static void run(){
-        Registry.register(Registries.ITEM_GROUP, Identifier.of(Main.MOD_ID,"cla"),new ItemGroup.Builder(ItemGroup.Row.TOP,3)
+    public static void run() {
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(Main.MOD_ID, "cla"), new ItemGroup.Builder(ItemGroup.Row.TOP, 3)
                 .displayName(Text.translatable("itemGroup.cla")).icon(ClaItems.TOMATO::getDefaultStack)
                 .entries((displayContext, entries) -> {
                     for (ItemConvertible item : List.of(

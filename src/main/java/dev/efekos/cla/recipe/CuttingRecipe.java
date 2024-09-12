@@ -20,6 +20,12 @@ public class CuttingRecipe implements Recipe<SingleStackRecipeInput> {
     private ItemStack result;
     private int cuts;
 
+    public CuttingRecipe(Ingredient item, ItemStack result, int cuts) {
+        this.item = item;
+        this.result = result;
+        this.cuts = cuts;
+    }
+
     public Ingredient getItem() {
         return item;
     }
@@ -74,12 +80,6 @@ public class CuttingRecipe implements Recipe<SingleStackRecipeInput> {
         return Type.INSTANCE;
     }
 
-    public CuttingRecipe(Ingredient item, ItemStack result, int cuts) {
-        this.item = item;
-        this.result = result;
-        this.cuts = cuts;
-    }
-
     public static final class Serializer implements RecipeSerializer<CuttingRecipe> {
 
         public static final Serializer INSTANCE = new Serializer();
@@ -88,14 +88,13 @@ public class CuttingRecipe implements Recipe<SingleStackRecipeInput> {
                 Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("item").forGetter(CuttingRecipe::getItem),
                 ItemStack.CODEC.fieldOf("result").forGetter(CuttingRecipe::getRes),
                 Codecs.POSITIVE_INT.fieldOf("cuts").forGetter(CuttingRecipe::getCuts)
-        ).apply(instance,CuttingRecipe::new));
+        ).apply(instance, CuttingRecipe::new));
+        public final PacketCodec<RegistryByteBuf, CuttingRecipe> PACKET_CODEC = PacketCodec.ofStatic(this::write, this::read);
 
         @Override
         public MapCodec<CuttingRecipe> codec() {
             return CODEC;
         }
-
-        public final PacketCodec<RegistryByteBuf,CuttingRecipe> PACKET_CODEC = PacketCodec.ofStatic(this::write,this::read);
 
         @Override
         public PacketCodec<RegistryByteBuf, CuttingRecipe> packetCodec() {
@@ -103,8 +102,8 @@ public class CuttingRecipe implements Recipe<SingleStackRecipeInput> {
         }
 
         public void write(RegistryByteBuf buf, CuttingRecipe recipe) {
-            Ingredient.PACKET_CODEC.encode(buf,recipe.getItem());
-            ItemStack.PACKET_CODEC.encode(buf,recipe.getRes());
+            Ingredient.PACKET_CODEC.encode(buf, recipe.getItem());
+            ItemStack.PACKET_CODEC.encode(buf, recipe.getRes());
             buf.writeInt(recipe.getCuts());
         }
 
@@ -112,7 +111,7 @@ public class CuttingRecipe implements Recipe<SingleStackRecipeInput> {
             Ingredient item = Ingredient.PACKET_CODEC.decode(buf);
             ItemStack result = ItemStack.PACKET_CODEC.decode(buf);
             int cuts = buf.readInt();
-            return new CuttingRecipe(item,result,cuts);
+            return new CuttingRecipe(item, result, cuts);
         }
 
     }
