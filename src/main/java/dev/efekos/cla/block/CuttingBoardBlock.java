@@ -50,10 +50,12 @@ public class CuttingBoardBlock extends BlockWithEntity {
     }
 
     private static final VoxelShape shape = VoxelShapes.cuboid(0.25, 0, 0.125, 0.75, 0.0625, 0.875);
+    private static final VoxelShape shape2 = VoxelShapes.cuboid(0.125, 0, 0.25, 0.875, 0.0625, 0.75);
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return shape;
+        Direction direction = state.get(FACING);
+        return direction == Direction.NORTH || direction == Direction.SOUTH ? shape : shape2;
     }
 
     @Override
