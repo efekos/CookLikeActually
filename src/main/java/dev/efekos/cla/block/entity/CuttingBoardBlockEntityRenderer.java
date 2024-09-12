@@ -24,7 +24,8 @@ import org.joml.Quaternionf;
 
 public class CuttingBoardBlockEntityRenderer implements BlockEntityRenderer<CuttingBoardBlockEntity> {
 
-    private static final Identifier identifier = Identifier.of("cla", "textures/gui/progress.png");
+    private static final Identifier PROGRESS_TEXTURE = Identifier.of("cla", "textures/gui/progress.png");
+    private static final Identifier PROGRESS_FULL_TEXTURE = Identifier.of("cla", "textures/gui/progress_full.png");
     private final ItemRenderer itemRenderer;
     private final BlockEntityRenderDispatcher renderDispatcher;
 
@@ -59,7 +60,8 @@ public class CuttingBoardBlockEntityRenderer implements BlockEntityRenderer<Cutt
         matrices.translate(0, 0, 0);
         matrices.scale(1f, 1f, 1f);
         VertexConsumer solid = vertexConsumers.getBuffer(RenderLayer.getSolid());
-        manager.getModelRenderer().render(world, model, state, pos, matrices, solid, false, world.getRandom(), getLightLevel(world, pos), 1);
+        int lightLevel = getLightLevel(world, pos);
+        manager.getModelRenderer().render(world, model, state, pos, matrices, solid, false, world.getRandom(), lightLevel, 1);
         matrices.pop();
 
         // the item
@@ -69,56 +71,34 @@ public class CuttingBoardBlockEntityRenderer implements BlockEntityRenderer<Cutt
         matrices.scale(0.4f, 0.4f, 0.4f);
         if (!(item.getItem() instanceof BlockItem)) matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(270));
 
-        itemRenderer.renderItem(item, item.getItem() instanceof BlockItem ? ModelTransformationMode.NONE : ModelTransformationMode.GUI, getLightLevel(world, pos), OverlayTexture.DEFAULT_UV, matrices,
+        itemRenderer.renderItem(item, item.getItem() instanceof BlockItem ? ModelTransformationMode.NONE : ModelTransformationMode.GUI, lightLevel, OverlayTexture.DEFAULT_UV, matrices,
                 vertexConsumers, world, 1);
         matrices.pop();
 
         if (!entity.hasRecipe(world)) return;
-        double v = entity.getCuts() / (double) entity.getMaxCutsNeeded();
+        float v = entity.getCuts() / (float) entity.getMaxCutsNeeded();
 
         // cut status
+        render(PROGRESS_TEXTURE,matrices,lightLevel,1);
+        render(PROGRESS_FULL_TEXTURE,matrices, lightLevel, v);
+    }
+
+    private void render(Identifier id,MatrixStack matrices, int lightLevel, float v) {
         matrices.push();
-
-        Camera camera = this.renderDispatcher.camera;
-
-        matrices.translate(0.5f, 0.5f, 0.5f);
+        matrices.translate(1f, 0.5f, 1f);
         matrices.scale(1f, 1f, 1f);
+        Camera camera = this.renderDispatcher.camera;
         matrices.multiply(new Quaternionf().rotationYXZ(-0.017453292F * getBackwardsYaw(camera), -0.017453292F * getNegatedPitch(camera), 0f));
-        drawTexture(matrices, identifier, 0, 0, 0, 0, (int) (v * 24), 6, 32, 32);
-        matrices.pop();
-
-    }
-
-    public void drawTexture(MatrixStack matrices, Identifier texture, int x, int y, int u, int v, int width, int height) {
-        this.drawTexture(matrices, texture, x, y, 0, (float) u, (float) v, width, height, 256, 256);
-    }
-
-    public void drawTexture(MatrixStack matrices, Identifier texture, int x, int y, int z, float u, float v, int width, int height, int textureWidth, int textureHeight) {
-        this.drawTexture(matrices, texture, x, x + width, y, y + height, z, width, height, u, v, textureWidth, textureHeight);
-    }
-
-    public void drawTexture(MatrixStack matrices, Identifier texture, int x, int y, int width, int height, float u, float v, int regionWidth, int regionHeight, int textureWidth, int textureHeight) {
-        this.drawTexture(matrices, texture, x, x + width, y, y + height, 0, regionWidth, regionHeight, u, v, textureWidth, textureHeight);
-    }
-
-    public void drawTexture(MatrixStack matrices, Identifier texture, int x, int y, float u, float v, int width, int height, int textureWidth, int textureHeight) {
-        this.drawTexture(matrices, texture, x, y, width, height, u, v, width, height, textureWidth, textureHeight);
-    }
-
-    void drawTexture(MatrixStack matrices, Identifier texture, int x1, int x2, int y1, int y2, int z, int regionWidth, int regionHeight, float u, float v, int textureWidth, int textureHeight) {
-        this.drawTexturedQuad(matrices, texture, x1, x2, y1, y2, z, (u + 0.0F) / (float) textureWidth, (u + (float) regionWidth) / (float) textureWidth, (v + 0.0F) / (float) textureHeight, (v + (float) regionHeight) / (float) textureHeight);
-    }
-
-    void drawTexturedQuad(MatrixStack matrices, Identifier texture, int x1, int x2, int y1, int y2, int z, float u1, float u2, float v1, float v2) {
-        RenderSystem.setShaderTexture(0, texture);
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-        Matrix4f matrix4f = matrices.peek().getPositionMatrix();
-        BufferBuilder bufferBuilder = Tessellator.getInstance().begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-        bufferBuilder.vertex(matrix4f, (float) x1, (float) y1, (float) z).texture(u1, v1);
-        bufferBuilder.vertex(matrix4f, (float) x1, (float) y2, (float) z).texture(u1, v2);
-        bufferBuilder.vertex(matrix4f, (float) x2, (float) y2, (float) z).texture(u2, v2);
-        bufferBuilder.vertex(matrix4f, (float) x2, (float) y1, (float) z).texture(u2, v1);
-        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
+        RenderSystem.setShaderTexture(0,id);
+        Matrix4f matrix = matrices.peek().getPositionMatrix();
+        BufferBuilder buffer = Tessellator.getInstance().begin(VertexFormat.DrawMode.QUADS,VertexFormats.POSITION_TEXTURE);
+        buffer.vertex(matrix,0,0,0).texture(0,0).normal(0,0,0).color(1f,1f,1f,1f).light(lightLevel);
+        buffer.vertex(matrix, v,0,0).texture(v,0).normal(v,0,0).color(1f,1f,1f,1f).light(lightLevel);
+        buffer.vertex(matrix, v,1,0).texture(v,1).normal(v,1,0).color(1f,1f,1f,1f).light(lightLevel);
+        buffer.vertex(matrix,0,1,0).texture(0,1).normal(0,1,0).color(1f,1f,1f,1f).light(lightLevel);
+        BufferRenderer.drawWithGlobalProgram(buffer.end());
+        matrices.pop();
     }
 
 
