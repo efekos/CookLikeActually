@@ -2,6 +2,7 @@ package dev.efekos.cla.init;
 
 import dev.efekos.cla.Main;
 import dev.efekos.cla.item.KnifeItem;
+import dev.efekos.cla.item.PlateItem;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.SwordItem;
@@ -20,7 +21,7 @@ public class ClaItems {
     public static final Item LETTUCE = register("lettuce", new Item(new Item.Settings().rarity(Rarity.COMMON).food(new FoodComponent(4, 2, false, 2.5f, Optional.empty(), List.of()))));
     public static final Item CUT_TOMATO = register("cut_tomato", new Item(new Item.Settings().rarity(Rarity.COMMON).food(new FoodComponent(2, 4, false, 1f, Optional.empty(), List.of()))));
     public static final Item CUT_LETTUCE = register("cut_lettuce", new Item(new Item.Settings().rarity(Rarity.COMMON).food(new FoodComponent(4, 2, false, 0.8f, Optional.empty(), List.of()))));
-    public static final Item PLATE = register("plate", new Item(new Item.Settings().rarity(Rarity.COMMON)));
+    public static final Item PLATE = register("plate", new PlateItem(new Item.Settings().rarity(Rarity.COMMON)));
     public static final Item PATTY = register("patty", new Item(new Item.Settings().rarity(Rarity.COMMON)));
     public static final Item COOKED_PATTY = register("cooked_patty", new Item(new Item.Settings().rarity(Rarity.COMMON)));
     public static final Item CUT_POTATO = register("cut_potato", new Item(new Item.Settings().rarity(Rarity.COMMON)));
