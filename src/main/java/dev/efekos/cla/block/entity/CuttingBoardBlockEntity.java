@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class CuttingBoardBlockEntity extends BlockEntity implements SyncAbleBlockEntity {
+public class CuttingBoardBlockEntity extends BlockEntity implements SyncAbleBlockEntity<CuttingBoardSyncS2C> {
 
     private ItemStack item = ItemStack.EMPTY;
     private int cuts;
@@ -114,4 +114,5 @@ public class CuttingBoardBlockEntity extends BlockEntity implements SyncAbleBloc
     public CuttingBoardSyncS2C createSyncPacket() {
         return new CuttingBoardSyncS2C(item,cuts,pos);
     }
+
 }

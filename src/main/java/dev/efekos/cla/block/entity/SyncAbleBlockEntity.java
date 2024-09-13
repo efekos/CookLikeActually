@@ -2,8 +2,8 @@ package dev.efekos.cla.block.entity;
 
 import net.minecraft.network.packet.CustomPayload;
 
-public interface SyncAbleBlockEntity {
+public interface SyncAbleBlockEntity<T extends CustomPayload> {
 
-    CustomPayload createSyncPacket();
+    T createSyncPacket();
 
 }
