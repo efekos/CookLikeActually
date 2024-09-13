@@ -11,5 +11,6 @@
   "item.cla.fries": "Fries",
   "block.cla.cutting_board": "Cutting Board",
   "itemGroup.cla": "Cook Like Actually",
-  "subtitle.cla.item.knife.slice": "Something got sliced by a Knife"
+  "subtitle.cla.item.knife.slice": "Something got sliced by a Knife",
+  "tag.item.cla.render_as_item": "Render as an Item"
 }
