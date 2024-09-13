@@ -7,13 +7,11 @@ import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -21,7 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlateBlockEntity extends BlockEntity implements SyncAbleBlockEntity {
+public class PlateBlockEntity extends BlockEntity implements SyncAbleBlockEntity<PlateSyncS2C> {
 
     private List<ItemStack> items = new ArrayList<>();
 
@@ -38,16 +36,15 @@ public class PlateBlockEntity extends BlockEntity implements SyncAbleBlockEntity
     @Override
     protected void readComponents(ComponentsAccess components) {
         super.readComponents(components);
-        this.items = components.get(ClaComponentTypes.ITEMS);
+        this.items = components.getOrDefault(ClaComponentTypes.ITEMS,new ArrayList<>());
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
+        if(items.isEmpty())return;
         NbtList list = new NbtList();
-        for (ItemStack item : items) {
-            list.add(item.encode(registryLookup));
-        }
+        for (ItemStack item : items) list.add(item.encode(registryLookup));
         nbt.put("Items", list);
     }
 
@@ -70,7 +67,7 @@ public class PlateBlockEntity extends BlockEntity implements SyncAbleBlockEntity
     }
 
     @Override
-    public CustomPayload createSyncPacket() {
+    public PlateSyncS2C createSyncPacket() {
         return new PlateSyncS2C(items,pos);
     }
 

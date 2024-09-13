@@ -22,7 +22,7 @@ public class PlateSyncS2C implements CustomPayload {
     public static final Id<PlateSyncS2C> PAYLOAD_ID = new Id<>(Identifier.of(Main.MOD_ID,"plate_sync_s2c"));
     public static final PacketCodec<RegistryByteBuf, PlateSyncS2C> CODEC = CustomPayload.codecOf(PlateSyncS2C::write, PlateSyncS2C::new);
 
-    private final List<ItemStack> items;
+    private List<ItemStack> items = new ArrayList<>();
     private final BlockPos pos;
 
     public PlateSyncS2C(List<ItemStack> items, BlockPos pos) {
@@ -31,12 +31,14 @@ public class PlateSyncS2C implements CustomPayload {
     }
 
     public PlateSyncS2C(RegistryByteBuf buf){
-        items = ItemStack.LIST_PACKET_CODEC.decode(buf);
+        items = buf.readBoolean()? ItemStack.LIST_PACKET_CODEC.decode(buf) : new ArrayList<>();
         pos = buf.readBlockPos();
     }
 
     public void write(RegistryByteBuf buf){
-        ItemStack.LIST_PACKET_CODEC.encode(buf, items);
+        boolean b = items == null || items.isEmpty();
+        buf.writeBoolean(!b);
+        if(!b) ItemStack.LIST_PACKET_CODEC.encode(buf, items);
         buf.writeBlockPos(pos);
     }
 
