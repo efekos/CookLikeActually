@@ -2,13 +2,21 @@ package dev.efekos.cla.block.entity;
 
 import dev.efekos.cla.init.ClaBlocks;
 import dev.efekos.cla.init.ClaComponentTypes;
+import dev.efekos.cla.packet.CuttingBoardSyncS2C;
 import dev.efekos.cla.recipe.CuttingRecipe;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
+import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -87,4 +95,32 @@ public class CuttingBoardBlockEntity extends BlockEntity {
         return match.isPresent();
     }
 
+    @Override
+    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        super.readNbt(nbt, registryLookup);
+        this.cuts = nbt.getInt("Cuts");
+        this.item = ItemStack.fromNbt(registryLookup,nbt.getCompound("Item")).orElse(ItemStack.EMPTY);
+    }
+
+    @Override
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        super.writeNbt(nbt, registryLookup);
+        nbt.putInt("Cuts", cuts);
+        if(!this.item.isEmpty()&&this.item!=ItemStack.EMPTY) nbt.put("Item",item.encode(registryLookup));
+    }
+
+    @Override
+    public void markDirty() {
+        if(!world.isClient) for (ServerPlayerEntity player : PlayerLookup.tracking(((ServerWorld) world),pos)) ServerPlayNetworking.send(player,new CuttingBoardSyncS2C(item,cuts,pos));
+        super.markDirty();
+    }
+
+    @Override
+    public boolean onSyncedBlockEvent(int type, int data) {
+        return true;
+    }
+
+    public CuttingBoardSyncS2C createSyncPacket() {
+        return new CuttingBoardSyncS2C(item,cuts,pos);
+    }
 }
