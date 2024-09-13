@@ -79,9 +79,6 @@ public class CuttingBoardBlockEntity extends BlockEntity {
         cuts = components.getOrDefault(ClaComponentTypes.CUTS, 0);
     }
 
-    public void tick(World world, BlockPos blockPos, BlockState blockState) {
-    }
-
     public boolean hasRecipe(World world) {
         Optional<RecipeEntry<CuttingRecipe>> match = world.getRecipeManager().getFirstMatch(CuttingRecipe.Type.INSTANCE, new SingleStackRecipeInput(item), world);
         if (match.isPresent()) {
@@ -111,7 +108,7 @@ public class CuttingBoardBlockEntity extends BlockEntity {
 
     @Override
     public void markDirty() {
-        if(!world.isClient) for (ServerPlayerEntity player : PlayerLookup.tracking(((ServerWorld) world),pos)) ServerPlayNetworking.send(player,new CuttingBoardSyncS2C(item,cuts,pos));
+        if(!world.isClient) for (ServerPlayerEntity player : PlayerLookup.tracking(((ServerWorld) world),pos)) ServerPlayNetworking.send(player,createSyncPacket());
         super.markDirty();
     }
 

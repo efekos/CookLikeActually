@@ -111,9 +111,4 @@ public class CuttingBoardBlock extends BlockWithEntity {
         } else return ActionResult.success(false);
     }
 
-    @Override
-    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ClaBlocks.CUTTING_BOARD_BLOCK_ENTITY_TYPE, (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
-    }
-
 }
