@@ -11,7 +11,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
@@ -23,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class CuttingBoardBlockEntity extends BlockEntity {
+public class CuttingBoardBlockEntity extends BlockEntity implements SyncAbleBlockEntity {
 
     private ItemStack item = ItemStack.EMPTY;
     private int cuts;
@@ -110,11 +109,6 @@ public class CuttingBoardBlockEntity extends BlockEntity {
     public void markDirty() {
         if(!world.isClient) for (ServerPlayerEntity player : PlayerLookup.tracking(((ServerWorld) world),pos)) ServerPlayNetworking.send(player,createSyncPacket());
         super.markDirty();
-    }
-
-    @Override
-    public boolean onSyncedBlockEvent(int type, int data) {
-        return true;
     }
 
     public CuttingBoardSyncS2C createSyncPacket() {

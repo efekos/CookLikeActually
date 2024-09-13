@@ -2,8 +2,7 @@ package dev.efekos.cla.packet;
 
 import dev.efekos.cla.Main;
 import dev.efekos.cla.block.entity.CuttingBoardBlockEntity;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import dev.efekos.cla.block.entity.SyncAbleBlockEntity;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.network.RegistryByteBuf;
@@ -43,7 +42,7 @@ public class RequestSyncC2S implements CustomPayload {
         World world = p.getWorld();
         BlockEntity entity = world.getBlockEntity(pos);
 
-        if(entity instanceof CuttingBoardBlockEntity cuttingBoard) ServerPlayNetworking.send(p,cuttingBoard.createSyncPacket());
+        if(entity instanceof SyncAbleBlockEntity cuttingBoard) ServerPlayNetworking.send(p,cuttingBoard.createSyncPacket());
     }
 
 }
