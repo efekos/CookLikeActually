@@ -16,5 +16,12 @@
         "pitch": 0.8
       }
     ]
+  },
+  "block.plate.place" : {
+    "category": "blocks",
+    "subtitle": "subtitle.cla.block.plate.place",
+    "sounds": [
+      "cla:plate_place"
+    ]
   }
 }
