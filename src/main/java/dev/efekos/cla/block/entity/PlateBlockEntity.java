@@ -3,6 +3,8 @@ package dev.efekos.cla.block.entity;
 import dev.efekos.cla.init.ClaBlocks;
 import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.packet.PlateSyncS2C;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -13,6 +15,7 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
@@ -69,6 +72,12 @@ public class PlateBlockEntity extends BlockEntity implements SyncAbleBlockEntity
     @Override
     public CustomPayload createSyncPacket() {
         return new PlateSyncS2C(items,pos);
+    }
+
+    @Override
+    public void markDirty() {
+        if(!world.isClient) for (ServerPlayerEntity player : PlayerLookup.tracking(this)) ServerPlayNetworking.send(player,createSyncPacket());
+        super.markDirty();
     }
 
 }
