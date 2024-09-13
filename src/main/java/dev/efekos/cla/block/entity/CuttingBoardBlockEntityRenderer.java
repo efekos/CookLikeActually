@@ -3,6 +3,7 @@ package dev.efekos.cla.block.entity;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
@@ -80,12 +81,12 @@ public class CuttingBoardBlockEntityRenderer implements BlockEntityRenderer<Cutt
 
         // cut status
         render(PROGRESS_TEXTURE,matrices,lightLevel,1);
-        render(PROGRESS_FULL_TEXTURE,matrices, lightLevel, v);
+        if(v>0)render(PROGRESS_FULL_TEXTURE,matrices, lightLevel, v);
     }
 
     private void render(Identifier id,MatrixStack matrices, int lightLevel, float v) {
         matrices.push();
-        matrices.translate(1f, 0.5f, 1f);
+        matrices.translate(0.5f, 1f, 0.5f);
         matrices.scale(1f, 1f, 1f);
         Camera camera = this.renderDispatcher.camera;
         matrices.multiply(new Quaternionf().rotationYXZ(-0.017453292F * getBackwardsYaw(camera), -0.017453292F * getNegatedPitch(camera), 0f));
@@ -93,10 +94,11 @@ public class CuttingBoardBlockEntityRenderer implements BlockEntityRenderer<Cutt
         RenderSystem.setShaderTexture(0,id);
         Matrix4f matrix = matrices.peek().getPositionMatrix();
         BufferBuilder buffer = Tessellator.getInstance().begin(VertexFormat.DrawMode.QUADS,VertexFormats.POSITION_TEXTURE);
-        buffer.vertex(matrix,0,0,0).texture(0,0).normal(0,0,0).color(1f,1f,1f,1f).light(lightLevel);
-        buffer.vertex(matrix, v,0,0).texture(v,0).normal(v,0,0).color(1f,1f,1f,1f).light(lightLevel);
-        buffer.vertex(matrix, v,1,0).texture(v,1).normal(v,1,0).color(1f,1f,1f,1f).light(lightLevel);
-        buffer.vertex(matrix,0,1,0).texture(0,1).normal(0,1,0).color(1f,1f,1f,1f).light(lightLevel);
+        float x = v - 0.5f;
+        buffer.vertex(matrix,-.5f,-.5f,0).texture(0,0).normal(0,0,0).color(1f,1f,1f,1f).light(lightLevel);
+        buffer.vertex(matrix, x,-.5f,0).texture(v,0).normal(v,0,0).color(1f,1f,1f,1f).light(lightLevel);
+        buffer.vertex(matrix, x,.5f,0).texture(v,1).normal(v,1,0).color(1f,1f,1f,1f).light(lightLevel);
+        buffer.vertex(matrix,-.5f,.5f,0).texture(0,1).normal(0,1,0).color(1f,1f,1f,1f).light(lightLevel);
         BufferRenderer.drawWithGlobalProgram(buffer.end());
         matrices.pop();
     }
