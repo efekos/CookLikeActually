@@ -1,9 +1,9 @@
 package dev.efekos.cla.block.entity;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import dev.efekos.cla.init.ClaTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
@@ -65,16 +65,22 @@ public class CuttingBoardBlockEntityRenderer implements BlockEntityRenderer<Cutt
         manager.getModelRenderer().render(world, model, state, pos, matrices, solid, false, world.getRandom(), lightLevel, 1);
         matrices.pop();
 
+
         // the item
-        matrices.push();
-        matrices.translate(0.5f, item.getItem() instanceof BlockItem ? 0.255f : 0.07f, 0.5f);
+        if(!item.isEmpty()){
 
-        matrices.scale(0.4f, 0.4f, 0.4f);
-        if (!(item.getItem() instanceof BlockItem)) matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(270));
+            boolean isItem = item.isIn(ClaTags.RENDER_AS_ITEM) || !(item.getItem() instanceof BlockItem);
 
-        itemRenderer.renderItem(item, item.getItem() instanceof BlockItem ? ModelTransformationMode.NONE : ModelTransformationMode.GUI, lightLevel, OverlayTexture.DEFAULT_UV, matrices,
-                vertexConsumers, world, 1);
-        matrices.pop();
+            matrices.push();
+            matrices.translate(0.5f, !isItem ? 0.255f : 0.07f, 0.5f);
+
+            matrices.scale(0.6f, 0.6f, 0.6f);
+            if (isItem) matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(270));
+
+            itemRenderer.renderItem(item, !isItem ? ModelTransformationMode.NONE : ModelTransformationMode.GUI, lightLevel, OverlayTexture.DEFAULT_UV, matrices,
+                    vertexConsumers, world, 1);
+            matrices.pop();
+        }
 
         if (!entity.hasRecipe(world)) return;
         float v = entity.getCuts() / (float) entity.getMaxCutsNeeded();
@@ -86,7 +92,7 @@ public class CuttingBoardBlockEntityRenderer implements BlockEntityRenderer<Cutt
 
     private void render(Identifier id,MatrixStack matrices, int lightLevel, float v) {
         matrices.push();
-        matrices.translate(0.5f, 1f, 0.5f);
+        matrices.translate(0.5f, 0.7f, 0.5f);
         matrices.scale(1f, 1f, 1f);
         Camera camera = this.renderDispatcher.camera;
         matrices.multiply(new Quaternionf().rotationYXZ(-0.017453292F * getBackwardsYaw(camera), -0.017453292F * getNegatedPitch(camera), 0f));
