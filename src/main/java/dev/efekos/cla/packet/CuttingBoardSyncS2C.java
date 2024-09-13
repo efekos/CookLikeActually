@@ -6,14 +6,12 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
 public class CuttingBoardSyncS2C implements CustomPayload {
 
@@ -39,7 +37,7 @@ public class CuttingBoardSyncS2C implements CustomPayload {
 
     public void write(RegistryByteBuf buf){
         buf.writeInt(this.cuts);
-        boolean b = !this.item.isEmpty() || this.item != ItemStack.EMPTY;
+        boolean b = !this.item.isEmpty();
         buf.writeBoolean(b);
         if(b) ItemStack.PACKET_CODEC.encode(buf, this.item);
         buf.writeBlockPos(this.pos);
@@ -52,7 +50,6 @@ public class CuttingBoardSyncS2C implements CustomPayload {
 
     @Environment(EnvType.CLIENT)
     public void handle(ClientPlayNetworking.Context context) {
-        System.out.println("handled");
         BlockEntity entity = context.client().world.getBlockEntity(pos);
         if(!(entity instanceof CuttingBoardBlockEntity cuttingBoard))return;
         cuttingBoard.setCuts(cuts);

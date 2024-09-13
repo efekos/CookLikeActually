@@ -2,15 +2,12 @@ package dev.efekos.cla.block;
 
 import com.mojang.serialization.MapCodec;
 import dev.efekos.cla.block.entity.CuttingBoardBlockEntity;
-import dev.efekos.cla.init.ClaBlocks;
 import dev.efekos.cla.init.ClaItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -74,41 +71,31 @@ public class CuttingBoardBlock extends BlockWithEntity {
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         Hand hand = player.getActiveHand();
         if (hand != Hand.MAIN_HAND) return ActionResult.PASS;
-        if (player.getStackInHand(hand).isOf(ClaItems.KNIFE)) return ActionResult.PASS;
+        ItemStack playerStack = player.getStackInHand(hand);
+        if (playerStack.isOf(ClaItems.KNIFE)) return ActionResult.PASS;
         BlockEntity entity = world.getBlockEntity(pos);
 
-        if (entity instanceof CuttingBoardBlockEntity cuttingBoard) {
-            boolean doesMeterHaveAnItem = !ItemStack.EMPTY.equals(cuttingBoard.getItem());
-            boolean doesPlayerHaveAnItem = !ItemStack.EMPTY.equals(player.getStackInHand(hand));
+        if (!(entity instanceof CuttingBoardBlockEntity cuttingBoard)) return ActionResult.PASS;
 
-            if (doesMeterHaveAnItem && !doesPlayerHaveAnItem) {
-                player.setStackInHand(hand, cuttingBoard.getItem());
-                cuttingBoard.setItem(ItemStack.EMPTY);
-                cuttingBoard.markDirty();
+        boolean doesMeterHaveAnItem = !cuttingBoard.getItem().isEmpty();
+        boolean doesPlayerHaveAnItem = !playerStack.isEmpty();
 
-                world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1F, 1F, true);
+        if (doesMeterHaveAnItem && !doesPlayerHaveAnItem) {
+            player.setStackInHand(hand, cuttingBoard.getItem().copy());
+            cuttingBoard.setItem(ItemStack.EMPTY);
+            cuttingBoard.markDirty();
 
-                return ActionResult.success(true);
-            } else if (!doesMeterHaveAnItem && doesPlayerHaveAnItem) {
-                cuttingBoard.setItem(player.getStackInHand(hand));
-                player.setStackInHand(hand, ItemStack.EMPTY);
-                cuttingBoard.markDirty();
-                world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 1F, 1F, true);
-                return ActionResult.success(true);
-            } else if (doesMeterHaveAnItem && doesPlayerHaveAnItem) {
-                if (cuttingBoard.getItem() == null || player.getStackInHand(hand) == null)
-                    return ActionResult.success(false);
-                ItemStack copiedItemInMeter = cuttingBoard.getItem().copy();
-                cuttingBoard.setItem(player.getStackInHand(hand));
-                player.setStackInHand(hand, copiedItemInMeter);
-                cuttingBoard.markDirty();
+            world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1F, 1F, true);
 
-                world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.BLOCKS, 1F, 1F, true);
-                return ActionResult.success(true);
+            return ActionResult.success(true);
+        } else if (!doesMeterHaveAnItem && doesPlayerHaveAnItem) {
+            cuttingBoard.setItem(playerStack.copyWithCount(1));
+            cuttingBoard.markDirty();
+            playerStack.decrement(1);
+            world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_STONE_PLACE, SoundCategory.BLOCKS, 1F, 1F, true);
+            return ActionResult.success(true);
+        } else return ActionResult.PASS;
 
-            } else return ActionResult.success(false);
-
-        } else return ActionResult.success(false);
     }
 
 }
