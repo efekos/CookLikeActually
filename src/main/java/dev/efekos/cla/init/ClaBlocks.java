@@ -20,26 +20,27 @@ import net.minecraft.util.Identifier;
 public class ClaBlocks {
 
 
-    public static final BlockSoundGroup PLATE_SOUNDS = new BlockSoundGroup(1f,1f, SoundEvents.BLOCK_STONE_BREAK,SoundEvents.BLOCK_GLASS_STEP,ClaSoundEvents.PLATE_PLACE,SoundEvents.BLOCK_GLASS_HIT,SoundEvents.BLOCK_GLASS_FALL);
+    public static final BlockSoundGroup PLATE_SOUNDS = new BlockSoundGroup(1f, 1f, SoundEvents.BLOCK_STONE_BREAK, SoundEvents.BLOCK_GLASS_STEP, ClaSoundEvents.PLATE_PLACE, SoundEvents.BLOCK_GLASS_HIT, SoundEvents.BLOCK_GLASS_FALL);
 
     public static final CuttingBoardBlock CUTTING_BOARD = register("cutting_board", new CuttingBoardBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
-    public static final PlateBlock PLATE = registerWithoutItem("plate",new PlateBlock(AbstractBlock.Settings.copy(Blocks.GLASS).sounds(PLATE_SOUNDS)));
+    public static final PlateBlock PLATE = registerWithoutItem("plate", new PlateBlock(AbstractBlock.Settings.copy(Blocks.GLASS).sounds(PLATE_SOUNDS)));
 
     public static void run() {
 
     }
 
-    public static final BlockEntityType<CuttingBoardBlockEntity> CUTTING_BOARD_BLOCK_ENTITY_TYPE = Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of("cla", "cutting_board"), BlockEntityType.Builder.create(CuttingBoardBlockEntity::new, CUTTING_BOARD).build());
-    public static final BlockEntityType<PlateBlockEntity> PLATE_BLOCK_ENTITY_TYPE = Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of("cla", "plate"), BlockEntityType.Builder.create(PlateBlockEntity::new, PLATE).build());
-
     private static <T extends Block> T register(String id, T block) {
         T registered = Registry.register(Registries.BLOCK, Identifier.of(Main.MOD_ID, id), block);
         Registry.register(Registries.ITEM, Identifier.of(Main.MOD_ID, id), new BlockItem(registered, new Item.Settings()));
         return registered;
-    }
+    }    public static final BlockEntityType<CuttingBoardBlockEntity> CUTTING_BOARD_BLOCK_ENTITY_TYPE = Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of("cla", "cutting_board"), BlockEntityType.Builder.create(CuttingBoardBlockEntity::new, CUTTING_BOARD).build());
 
     private static <T extends Block> T registerWithoutItem(String id, T block) {
         return Registry.register(Registries.BLOCK, Identifier.of(Main.MOD_ID, id), block);
-    }
+    }    public static final BlockEntityType<PlateBlockEntity> PLATE_BLOCK_ENTITY_TYPE = Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of("cla", "plate"), BlockEntityType.Builder.create(PlateBlockEntity::new, PLATE).build());
+
+
+
+
 
 }

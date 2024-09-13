@@ -33,6 +33,7 @@ import java.util.Optional;
 public class PlateBlock extends BlockWithEntity {
 
     public static final MapCodec<PlateBlock> CODEC = createCodec(PlateBlock::new);
+    private static final VoxelShape shape = VoxelShapes.cuboid(0.125, 0, 0.125, 0.875, 0.125, 0.875);
 
     public PlateBlock(Settings settings) {
         super(settings);
@@ -43,8 +44,6 @@ public class PlateBlock extends BlockWithEntity {
         return CODEC;
     }
 
-    private static final VoxelShape shape = VoxelShapes.cuboid(0.125, 0, 0.125, 0.875, 0.125, 0.875);
-
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return shape;
@@ -52,13 +51,13 @@ public class PlateBlock extends BlockWithEntity {
 
     @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new PlateBlockEntity(pos,state);
+        return new PlateBlockEntity(pos, state);
     }
 
     @Override
     protected List<ItemStack> getDroppedStacks(BlockState state, LootContextParameterSet.Builder builder) {
         BlockEntity entity = builder.get(LootContextParameters.BLOCK_ENTITY);
-        if(entity instanceof PlateBlockEntity plate){
+        if (entity instanceof PlateBlockEntity plate) {
             List<ItemStack> value = Optional.ofNullable(plate.getItems()).orElse(new ArrayList<>());
             ItemStack stack = ClaItems.PLATE.getDefaultStack();
 
@@ -78,19 +77,20 @@ public class PlateBlock extends BlockWithEntity {
         if (!(entity instanceof PlateBlockEntity plate)) return ActionResult.PASS;
 
         List<ItemStack> stacks = Optional.ofNullable(plate.getItems()).orElse(new ArrayList<>());
-        if(player.isSneaking()){
-            ItemScatterer.spawn(world,pos, DefaultedList.copyOf(ItemStack.EMPTY,stacks.toArray(new ItemStack[0])));
+        if (player.isSneaking()) {
+            ItemScatterer.spawn(world, pos, DefaultedList.copyOf(ItemStack.EMPTY, stacks.toArray(new ItemStack[0])));
             plate.setItems(new ArrayList<>());
             plate.markDirty();
-            world.playSound(pos.getX(),pos.getY(),pos.getZ(),SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(),SoundCategory.BLOCKS,1f,1f,true);
+            world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.BLOCKS, 1f, 1f, true);
             return ActionResult.SUCCESS;
         } else {
-            if(playerStack.isEmpty()||stacks.stream().anyMatch(itemStack -> itemStack.isOf(playerStack.getItem())))return ActionResult.PASS;
+            if (playerStack.isEmpty() || stacks.stream().anyMatch(itemStack -> itemStack.isOf(playerStack.getItem())))
+                return ActionResult.PASS;
             stacks.add(playerStack.copyWithCount(1));
             plate.setItems(stacks);
             plate.markDirty();
             playerStack.decrement(1);
-            world.playSound(pos.getX(),pos.getY(),pos.getZ(),SoundEvents.ENTITY_ITEM_PICKUP,SoundCategory.BLOCKS,1.0f,1.0f,true);
+            world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1.0f, 1.0f, true);
             return ActionResult.success(true);
         }
 

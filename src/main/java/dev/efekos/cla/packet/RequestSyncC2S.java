@@ -14,36 +14,35 @@ import net.minecraft.world.World;
 
 public class RequestSyncC2S implements CustomPayload {
 
-    public static final Id<RequestSyncC2S> PAYLOAD_ID = new Id<>(Identifier.of(Main.MOD_ID,"request_sync_c2s"));
-    public static final PacketCodec<RegistryByteBuf,RequestSyncC2S> CODEC = CustomPayload.codecOf(RequestSyncC2S::write,RequestSyncC2S::new);
-
-    private void write(RegistryByteBuf buf) {
-        buf.writeBlockPos(pos);
-    }
+    public static final Id<RequestSyncC2S> PAYLOAD_ID = new Id<>(Identifier.of(Main.MOD_ID, "request_sync_c2s"));
+    public static final PacketCodec<RegistryByteBuf, RequestSyncC2S> CODEC = CustomPayload.codecOf(RequestSyncC2S::write, RequestSyncC2S::new);
+    private final BlockPos pos;
 
     public RequestSyncC2S(BlockPos pos) {
         this.pos = pos;
     }
 
-    public RequestSyncC2S(RegistryByteBuf buf){
+    public RequestSyncC2S(RegistryByteBuf buf) {
         this.pos = buf.readBlockPos();
     }
 
-    private final BlockPos pos;
+    private void write(RegistryByteBuf buf) {
+        buf.writeBlockPos(pos);
+    }
 
     @Override
     public Id<? extends CustomPayload> getId() {
         return PAYLOAD_ID;
     }
 
-    public void handle(ServerPlayNetworking.Context context){
+    public void handle(ServerPlayNetworking.Context context) {
         ServerPlayerEntity p = context.player();
         World world = p.getWorld();
         BlockEntity entity = world.getBlockEntity(pos);
 
-        if(entity instanceof SyncAbleBlockEntity<?> cuttingBoard){
+        if (entity instanceof SyncAbleBlockEntity<?> cuttingBoard) {
             System.out.println("sending sync");
-            ServerPlayNetworking.send(p,cuttingBoard.createSyncPacket());
+            ServerPlayNetworking.send(p, cuttingBoard.createSyncPacket());
         }
     }
 

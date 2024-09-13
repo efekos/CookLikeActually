@@ -21,7 +21,7 @@ public class PlateItem extends BlockItem {
     @Override
     public ItemStack getDefaultStack() {
         ItemStack stack = super.getDefaultStack();
-        stack.set(ClaComponentTypes.ITEMS,new ArrayList<>());
+        stack.set(ClaComponentTypes.ITEMS, new ArrayList<>());
         return stack;
     }
 
@@ -29,8 +29,9 @@ public class PlateItem extends BlockItem {
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         super.appendTooltip(stack, context, tooltip, type);
         ComponentMap components = stack.getComponents();
-        if(!components.contains(ClaComponentTypes.ITEMS))return;
-        for (ItemStack itemStack : components.getOrDefault(ClaComponentTypes.ITEMS,new ArrayList<ItemStack>())) tooltip.add(itemStack.getName().copy().formatted(Formatting.GRAY));
+        if (!components.contains(ClaComponentTypes.ITEMS)) return;
+        for (ItemStack itemStack : components.getOrDefault(ClaComponentTypes.ITEMS, new ArrayList<ItemStack>()))
+            tooltip.add(itemStack.getName().copy().formatted(Formatting.GRAY));
     }
 
 }

@@ -28,6 +28,7 @@ public class CuttingBoardBlockEntity extends BlockEntity implements SyncAbleBloc
     private int cuts;
     private CuttingRecipe currentRecipe;
     private int maxCutsNeeded;
+
     public CuttingBoardBlockEntity(BlockPos pos, BlockState state) {
         super(ClaBlocks.CUTTING_BOARD_BLOCK_ENTITY_TYPE, pos, state);
     }
@@ -95,24 +96,25 @@ public class CuttingBoardBlockEntity extends BlockEntity implements SyncAbleBloc
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
         this.cuts = nbt.getInt("Cuts");
-        this.item = ItemStack.fromNbt(registryLookup,nbt.getCompound("Item")).orElse(ItemStack.EMPTY);
+        this.item = ItemStack.fromNbt(registryLookup, nbt.getCompound("Item")).orElse(ItemStack.EMPTY);
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
         nbt.putInt("Cuts", cuts);
-        if(!this.item.isEmpty()&&this.item!=ItemStack.EMPTY) nbt.put("Item",item.encode(registryLookup));
+        if (!this.item.isEmpty() && this.item != ItemStack.EMPTY) nbt.put("Item", item.encode(registryLookup));
     }
 
     @Override
     public void markDirty() {
-        if(!world.isClient) for (ServerPlayerEntity player : PlayerLookup.tracking(((ServerWorld) world),pos)) ServerPlayNetworking.send(player,createSyncPacket());
+        if (!world.isClient) for (ServerPlayerEntity player : PlayerLookup.tracking(((ServerWorld) world), pos))
+            ServerPlayNetworking.send(player, createSyncPacket());
         super.markDirty();
     }
 
     public CuttingBoardSyncS2C createSyncPacket() {
-        return new CuttingBoardSyncS2C(item,cuts,pos);
+        return new CuttingBoardSyncS2C(item, cuts, pos);
     }
 
 }

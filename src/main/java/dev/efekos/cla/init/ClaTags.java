@@ -11,7 +11,7 @@ public class ClaTags {
     public static final TagKey<Item> RENDER_AS_ITEM = item("render_as_item");
 
     private static TagKey<Item> item(String id) {
-        return TagKey.of(RegistryKeys.ITEM, Identifier.of(Main.MOD_ID,id));
+        return TagKey.of(RegistryKeys.ITEM, Identifier.of(Main.MOD_ID, id));
     }
 
 }

@@ -23,12 +23,12 @@ public class Main implements ModInitializer {
         ClaSoundEvents.run();
 
         // Payloads
-        PayloadTypeRegistry.playS2C().register(CuttingBoardSyncS2C.PAYLOAD_ID,CuttingBoardSyncS2C.CODEC);
-        PayloadTypeRegistry.playS2C().register(PlateSyncS2C.PAYLOAD_ID,PlateSyncS2C.CODEC);
-        PayloadTypeRegistry.playC2S().register(RequestSyncC2S.PAYLOAD_ID,RequestSyncC2S.CODEC);
+        PayloadTypeRegistry.playS2C().register(CuttingBoardSyncS2C.PAYLOAD_ID, CuttingBoardSyncS2C.CODEC);
+        PayloadTypeRegistry.playS2C().register(PlateSyncS2C.PAYLOAD_ID, PlateSyncS2C.CODEC);
+        PayloadTypeRegistry.playC2S().register(RequestSyncC2S.PAYLOAD_ID, RequestSyncC2S.CODEC);
 
         // Server Payload Listeners
-        ServerPlayNetworking.registerGlobalReceiver(RequestSyncC2S.PAYLOAD_ID,RequestSyncC2S::handle);
+        ServerPlayNetworking.registerGlobalReceiver(RequestSyncC2S.PAYLOAD_ID, RequestSyncC2S::handle);
     }
 
 }

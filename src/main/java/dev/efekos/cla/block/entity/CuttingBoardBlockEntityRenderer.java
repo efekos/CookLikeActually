@@ -67,7 +67,7 @@ public class CuttingBoardBlockEntityRenderer implements BlockEntityRenderer<Cutt
 
 
         // the item
-        if(!item.isEmpty()){
+        if (!item.isEmpty()) {
 
             boolean isItem = item.isIn(ClaTags.RENDER_AS_ITEM) || !(item.getItem() instanceof BlockItem);
 
@@ -86,25 +86,25 @@ public class CuttingBoardBlockEntityRenderer implements BlockEntityRenderer<Cutt
         float v = entity.getCuts() / (float) entity.getMaxCutsNeeded();
 
         // cut status
-        render(PROGRESS_TEXTURE,matrices,lightLevel,1);
-        if(v>0)render(PROGRESS_FULL_TEXTURE,matrices, lightLevel, v);
+        render(PROGRESS_TEXTURE, matrices, lightLevel, 1);
+        if (v > 0) render(PROGRESS_FULL_TEXTURE, matrices, lightLevel, v);
     }
 
-    private void render(Identifier id,MatrixStack matrices, int lightLevel, float v) {
+    private void render(Identifier id, MatrixStack matrices, int lightLevel, float v) {
         matrices.push();
         matrices.translate(0.5f, 0.7f, 0.5f);
         matrices.scale(1f, 1f, 1f);
         Camera camera = this.renderDispatcher.camera;
         matrices.multiply(new Quaternionf().rotationYXZ(-0.017453292F * getBackwardsYaw(camera), -0.017453292F * getNegatedPitch(camera), 0f));
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-        RenderSystem.setShaderTexture(0,id);
+        RenderSystem.setShaderTexture(0, id);
         Matrix4f matrix = matrices.peek().getPositionMatrix();
-        BufferBuilder buffer = Tessellator.getInstance().begin(VertexFormat.DrawMode.QUADS,VertexFormats.POSITION_TEXTURE);
+        BufferBuilder buffer = Tessellator.getInstance().begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
         float x = v - 0.5f;
-        buffer.vertex(matrix,-.5f,-.5f,0).texture(0,0).normal(0,0,0).color(1f,1f,1f,1f).light(lightLevel);
-        buffer.vertex(matrix, x,-.5f,0).texture(v,0).normal(v,0,0).color(1f,1f,1f,1f).light(lightLevel);
-        buffer.vertex(matrix, x,.5f,0).texture(v,1).normal(v,1,0).color(1f,1f,1f,1f).light(lightLevel);
-        buffer.vertex(matrix,-.5f,.5f,0).texture(0,1).normal(0,1,0).color(1f,1f,1f,1f).light(lightLevel);
+        buffer.vertex(matrix, -.5f, -.5f, 0).texture(0, 0).normal(0, 0, 0).color(1f, 1f, 1f, 1f).light(lightLevel);
+        buffer.vertex(matrix, x, -.5f, 0).texture(v, 0).normal(v, 0, 0).color(1f, 1f, 1f, 1f).light(lightLevel);
+        buffer.vertex(matrix, x, .5f, 0).texture(v, 1).normal(v, 1, 0).color(1f, 1f, 1f, 1f).light(lightLevel);
+        buffer.vertex(matrix, -.5f, .5f, 0).texture(0, 1).normal(0, 1, 0).color(1f, 1f, 1f, 1f).light(lightLevel);
         BufferRenderer.drawWithGlobalProgram(buffer.end());
         matrices.pop();
     }

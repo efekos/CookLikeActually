@@ -15,8 +15,8 @@ import net.minecraft.util.math.BlockPos;
 
 public class CuttingBoardSyncS2C implements CustomPayload {
 
-    public static final CustomPayload.Id<CuttingBoardSyncS2C> PAYLOAD_ID = new CustomPayload.Id<>(Identifier.of(Main.MOD_ID,"block_entity_sync_s2c"));
-    public static final PacketCodec<RegistryByteBuf,CuttingBoardSyncS2C> CODEC = CustomPayload.codecOf(CuttingBoardSyncS2C::write,CuttingBoardSyncS2C::new);
+    public static final CustomPayload.Id<CuttingBoardSyncS2C> PAYLOAD_ID = new CustomPayload.Id<>(Identifier.of(Main.MOD_ID, "block_entity_sync_s2c"));
+    public static final PacketCodec<RegistryByteBuf, CuttingBoardSyncS2C> CODEC = CustomPayload.codecOf(CuttingBoardSyncS2C::write, CuttingBoardSyncS2C::new);
 
     private final ItemStack item;
     private final int cuts;
@@ -28,18 +28,18 @@ public class CuttingBoardSyncS2C implements CustomPayload {
         this.pos = pos;
     }
 
-    public CuttingBoardSyncS2C(RegistryByteBuf buf){
+    public CuttingBoardSyncS2C(RegistryByteBuf buf) {
         this.cuts = buf.readInt();
         boolean b = buf.readBoolean();
         this.item = b ? ItemStack.PACKET_CODEC.decode(buf) : ItemStack.EMPTY;
         this.pos = buf.readBlockPos();
     }
 
-    public void write(RegistryByteBuf buf){
+    public void write(RegistryByteBuf buf) {
         buf.writeInt(this.cuts);
         boolean b = !this.item.isEmpty();
         buf.writeBoolean(b);
-        if(b) ItemStack.PACKET_CODEC.encode(buf, this.item);
+        if (b) ItemStack.PACKET_CODEC.encode(buf, this.item);
         buf.writeBlockPos(this.pos);
     }
 
@@ -51,7 +51,7 @@ public class CuttingBoardSyncS2C implements CustomPayload {
     @Environment(EnvType.CLIENT)
     public void handle(ClientPlayNetworking.Context context) {
         BlockEntity entity = context.client().world.getBlockEntity(pos);
-        if(!(entity instanceof CuttingBoardBlockEntity cuttingBoard))return;
+        if (!(entity instanceof CuttingBoardBlockEntity cuttingBoard)) return;
         cuttingBoard.setCuts(cuts);
         cuttingBoard.setItem(item);
     }

@@ -36,13 +36,13 @@ public class PlateBlockEntity extends BlockEntity implements SyncAbleBlockEntity
     @Override
     protected void readComponents(ComponentsAccess components) {
         super.readComponents(components);
-        this.items = components.getOrDefault(ClaComponentTypes.ITEMS,new ArrayList<>());
+        this.items = components.getOrDefault(ClaComponentTypes.ITEMS, new ArrayList<>());
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
-        if(items.isEmpty())return;
+        if (items.isEmpty()) return;
         NbtList list = new NbtList();
         for (ItemStack item : items) list.add(item.encode(registryLookup));
         nbt.put("Items", list);
@@ -51,29 +51,30 @@ public class PlateBlockEntity extends BlockEntity implements SyncAbleBlockEntity
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
-        if(!nbt.contains("Items", NbtElement.COMPOUND_TYPE)) return;
+        if (!nbt.contains("Items", NbtElement.COMPOUND_TYPE)) return;
         this.items = new ArrayList<>();
-        nbt.getList("Items",NbtElement.COMPOUND_TYPE).forEach(nbtElement ->
-            ItemStack.fromNbt(registryLookup,nbtElement).ifPresent(itemStack -> items.add(itemStack))
+        nbt.getList("Items", NbtElement.COMPOUND_TYPE).forEach(nbtElement ->
+                ItemStack.fromNbt(registryLookup, nbtElement).ifPresent(itemStack -> items.add(itemStack))
         );
-    }
-
-    public void setItems(List<ItemStack> items) {
-        this.items = items;
     }
 
     public List<ItemStack> getItems() {
         return items;
     }
 
+    public void setItems(List<ItemStack> items) {
+        this.items = items;
+    }
+
     @Override
     public PlateSyncS2C createSyncPacket() {
-        return new PlateSyncS2C(items,pos);
+        return new PlateSyncS2C(items, pos);
     }
 
     @Override
     public void markDirty() {
-        if(!world.isClient) for (ServerPlayerEntity player : PlayerLookup.tracking(this)) ServerPlayNetworking.send(player,createSyncPacket());
+        if (!world.isClient) for (ServerPlayerEntity player : PlayerLookup.tracking(this))
+            ServerPlayNetworking.send(player, createSyncPacket());
         super.markDirty();
     }
 

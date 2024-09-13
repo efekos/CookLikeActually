@@ -23,6 +23,10 @@ public class PlateBlockEntityRenderer implements BlockEntityRenderer<PlateBlockE
 
     private final ItemRenderer itemRenderer;
 
+    public PlateBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
+        this.itemRenderer = context.getItemRenderer();
+    }
+
     @Override
     public void render(PlateBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
 
@@ -45,9 +49,9 @@ public class PlateBlockEntityRenderer implements BlockEntityRenderer<PlateBlockE
         for (ItemStack item : entity.getItems()) {
             matrices.push();
             matrices.translate(0.45f, 0.3f, 0.45f);
-            matrices.scale(0.4f,0.4f, 0.4f);
+            matrices.scale(0.4f, 0.4f, 0.4f);
             matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(270));
-            itemRenderer.renderItem(item, ModelTransformationMode.NONE,getLightLevel(world,pos),0,matrices,vertexConsumers,world,1);
+            itemRenderer.renderItem(item, ModelTransformationMode.NONE, getLightLevel(world, pos), 0, matrices, vertexConsumers, world, 1);
             matrices.pop();
         }
 
@@ -55,9 +59,5 @@ public class PlateBlockEntityRenderer implements BlockEntityRenderer<PlateBlockE
 
     private int getLightLevel(World world, BlockPos pos) {
         return LightmapTextureManager.pack(world.getLightLevel(LightType.BLOCK, pos), world.getLightLevel(LightType.SKY, pos));
-    }
-
-    public PlateBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
-        this.itemRenderer = context.getItemRenderer();
     }
 }
