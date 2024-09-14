@@ -4,10 +4,13 @@ import com.mojang.serialization.MapCodec;
 import dev.efekos.cla.block.entity.PlateBlockEntity;
 import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.init.ClaItems;
+import dev.efekos.cla.resource.Course;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.context.LootContextParameterSet;
@@ -62,7 +65,11 @@ public class PlateBlock extends BlockWithEntity {
             ItemStack stack = ClaItems.PLATE.getDefaultStack();
 
             if(!value.isEmpty())stack.set(ClaComponentTypes.ITEMS, value);
-            if(plate.hasCourse()) stack.set(ClaComponentTypes.COURSE_ID,plate.getCurrentCourse().id());
+            if(plate.hasCourse()) {
+                Course course = plate.getCurrentCourse();
+                stack.set(ClaComponentTypes.COURSE_ID, course.id());
+                stack.set(DataComponentTypes.FOOD,new FoodComponent(course.nutrition(),course.saturation(),false,course.eatSeconds(),Optional.of(ClaItems.PLATE.getDefaultStack()),List.of()));
+            }
             return List.of(stack);
         } else return List.of(ClaItems.PLATE.getDefaultStack());
     }
