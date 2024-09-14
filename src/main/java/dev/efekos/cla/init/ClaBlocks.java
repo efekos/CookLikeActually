@@ -2,6 +2,7 @@ package dev.efekos.cla.init;
 
 import dev.efekos.cla.Main;
 import dev.efekos.cla.block.CuttingBoardBlock;
+import dev.efekos.cla.block.PanBlock;
 import dev.efekos.cla.block.PlateBlock;
 import dev.efekos.cla.block.entity.CuttingBoardBlockEntity;
 import dev.efekos.cla.block.entity.PlateBlockEntity;
@@ -26,6 +27,7 @@ public class ClaBlocks {
     public static final CuttingBoardBlock CUTTING_BOARD = register("cutting_board", new CuttingBoardBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
     public static final PlateBlock PLATE = registerWithoutItem("plate", new PlateBlock(AbstractBlock.Settings.copy(Blocks.GLASS).sounds(PLATE_SOUNDS)));
     public static final Block COOKING_STAND = register("cooking_stand",new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).mapColor(MapColor.PURPLE)));
+    public static final PanBlock PAN = register("pan",new PanBlock(AbstractBlock.Settings.copy(Blocks.STONE).sounds(PLATE_SOUNDS)));
 
     public static final BlockEntityType<PlateBlockEntity> PLATE_BLOCK_ENTITY_TYPE = Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of("cla", "plate"), BlockEntityType.Builder.create(PlateBlockEntity::new, PLATE).build());
     public static final BlockEntityType<CuttingBoardBlockEntity> CUTTING_BOARD_BLOCK_ENTITY_TYPE = Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of("cla", "cutting_board"), BlockEntityType.Builder.create(CuttingBoardBlockEntity::new, CUTTING_BOARD).build());
