@@ -103,7 +103,7 @@ public class CuttingBoardBlockEntity extends BlockEntity implements SyncAbleBloc
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
         nbt.putInt("Cuts", cuts);
-        if (!this.item.isEmpty() && this.item != ItemStack.EMPTY) nbt.put("Item", item.encode(registryLookup));
+        if (!this.item.isEmpty()) nbt.put("Item", item.encode(registryLookup));
     }
 
     @Override

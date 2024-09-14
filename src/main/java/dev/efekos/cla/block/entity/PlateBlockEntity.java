@@ -18,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class PlateBlockEntity extends BlockEntity implements SyncAbleBlockEntity<PlateSyncS2C> {
 
@@ -42,7 +43,6 @@ public class PlateBlockEntity extends BlockEntity implements SyncAbleBlockEntity
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
-        if (items.isEmpty()) return;
         NbtList list = new NbtList();
         for (ItemStack item : items) list.add(item.encode(registryLookup));
         nbt.put("Items", list);
@@ -51,11 +51,14 @@ public class PlateBlockEntity extends BlockEntity implements SyncAbleBlockEntity
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
-        if (!nbt.contains("Items", NbtElement.COMPOUND_TYPE)) return;
         this.items = new ArrayList<>();
-        nbt.getList("Items", NbtElement.COMPOUND_TYPE).forEach(nbtElement ->
-                ItemStack.fromNbt(registryLookup, nbtElement).ifPresent(itemStack -> items.add(itemStack))
-        );
+        NbtList list = nbt.getList("Items", NbtElement.COMPOUND_TYPE);
+        if(list.isEmpty())return;
+        for (NbtElement element : list) {
+            System.out.println(element);
+            Optional<ItemStack> stack = ItemStack.fromNbt(registryLookup, element);
+            stack.ifPresent(items::add);
+        }
     }
 
     public List<ItemStack> getItems() {
