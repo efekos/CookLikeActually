@@ -4,9 +4,12 @@ import dev.efekos.cla.init.*;
 import dev.efekos.cla.packet.CuttingBoardSyncS2C;
 import dev.efekos.cla.packet.PlateSyncS2C;
 import dev.efekos.cla.packet.RequestSyncC2S;
+import dev.efekos.cla.resource.CourseManager;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.minecraft.resource.ResourceType;
 
 public class Main implements ModInitializer {
 
@@ -29,6 +32,10 @@ public class Main implements ModInitializer {
 
         // Server Payload Listeners
         ServerPlayNetworking.registerGlobalReceiver(RequestSyncC2S.PAYLOAD_ID, RequestSyncC2S::handle);
+
+        // Resources
+        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(CourseManager.ID,CourseManager::new);
+
     }
 
 }
