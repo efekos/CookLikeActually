@@ -1,5 +1,6 @@
 package dev.efekos.cla.block.entity;
 
+import dev.efekos.cla.resource.Course;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.LightmapTextureManager;
@@ -14,6 +15,7 @@ import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.LightType;
@@ -46,12 +48,26 @@ public class PlateBlockEntityRenderer implements BlockEntityRenderer<PlateBlockE
         manager.getModelRenderer().render(world, model, state, pos, matrices, solid, false, world.getRandom(), lightLevel, 1);
         matrices.pop();
 
-        for (ItemStack item : entity.getItems()) {
+        // Items
+        if(entity.acceptsItems()) for (ItemStack item : entity.getItems()) {
             matrices.push();
             matrices.translate(0.45f, 0.3f, 0.45f);
             matrices.scale(0.4f, 0.4f, 0.4f);
             matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(270));
             itemRenderer.renderItem(item, ModelTransformationMode.NONE, getLightLevel(world, pos), 0, matrices, vertexConsumers, world, 1);
+            matrices.pop();
+        }
+
+        // Course Model
+        if(entity.hasCourse()){
+            Course course = entity.getCurrentCourse();
+            Identifier modelId = course.modelId();
+            BakedModel bakedModel = manager.getModels().getModelManager().getModel(modelId);
+            if(bakedModel==null)return;
+            matrices.push();
+            matrices.translate(0, 0, 0);
+            matrices.scale(1f, 1f, 1f);
+            manager.getModelRenderer().render(world,bakedModel,state,pos, matrices, solid, false, world.getRandom(), lightLevel, 1);
             matrices.pop();
         }
 

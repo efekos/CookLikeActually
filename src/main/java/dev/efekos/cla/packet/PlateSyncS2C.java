@@ -2,6 +2,8 @@ package dev.efekos.cla.packet;
 
 import dev.efekos.cla.Main;
 import dev.efekos.cla.block.entity.PlateBlockEntity;
+import dev.efekos.cla.resource.Course;
+import dev.efekos.cla.resource.CourseManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -22,15 +24,18 @@ public class PlateSyncS2C implements CustomPayload {
     public static final PacketCodec<RegistryByteBuf, PlateSyncS2C> CODEC = CustomPayload.codecOf(PlateSyncS2C::write, PlateSyncS2C::new);
     private final BlockPos pos;
     private List<ItemStack> items = new ArrayList<>();
+    private Course course;
 
-    public PlateSyncS2C(List<ItemStack> items, BlockPos pos) {
-        this.items = items;
+    public PlateSyncS2C(BlockPos pos, List<ItemStack> items, Course course) {
         this.pos = pos;
+        this.items = items;
+        this.course = course;
     }
 
     public PlateSyncS2C(RegistryByteBuf buf) {
         items = buf.readBoolean() ? ItemStack.LIST_PACKET_CODEC.decode(buf) : new ArrayList<>();
         pos = buf.readBlockPos();
+        if(buf.readBoolean()) course = CourseManager.getInstance().getCourse(buf.readIdentifier()).orElseThrow();
     }
 
     public void write(RegistryByteBuf buf) {
@@ -38,6 +43,8 @@ public class PlateSyncS2C implements CustomPayload {
         buf.writeBoolean(!b);
         if (!b) ItemStack.LIST_PACKET_CODEC.encode(buf, items);
         buf.writeBlockPos(pos);
+        buf.writeBoolean(course!=null);
+        if(course!=null)buf.writeIdentifier(course.id());
     }
 
     @Override
@@ -50,6 +57,7 @@ public class PlateSyncS2C implements CustomPayload {
         BlockEntity entity = context.client().world.getBlockEntity(pos);
         if (!(entity instanceof PlateBlockEntity plate)) return;
         plate.setItems(items);
+        plate.setCurrentCourse(course);
     }
 
 }

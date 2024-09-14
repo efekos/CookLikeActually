@@ -61,7 +61,8 @@ public class PlateBlock extends BlockWithEntity {
             List<ItemStack> value = Optional.ofNullable(plate.getItems()).orElse(new ArrayList<>());
             ItemStack stack = ClaItems.PLATE.getDefaultStack();
 
-            stack.set(ClaComponentTypes.ITEMS, value);
+            if(!value.isEmpty())stack.set(ClaComponentTypes.ITEMS, value);
+            if(plate.hasCourse()) stack.set(ClaComponentTypes.COURSE_ID,plate.getCurrentCourse().id());
             return List.of(stack);
         } else return List.of(ClaItems.PLATE.getDefaultStack());
     }
@@ -84,7 +85,7 @@ public class PlateBlock extends BlockWithEntity {
             world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.BLOCKS, 1f, 1f, true);
             return ActionResult.SUCCESS;
         } else {
-            if (playerStack.isEmpty() || stacks.stream().anyMatch(itemStack -> itemStack.isOf(playerStack.getItem())))
+            if (!plate.acceptsItems() || playerStack.isEmpty() || stacks.stream().anyMatch(itemStack -> itemStack.isOf(playerStack.getItem())))
                 return ActionResult.PASS;
             stacks.add(playerStack.copyWithCount(1));
             plate.setItems(stacks);
