@@ -1,0 +1,14 @@
+{
+  "model": "cla:block/plate_salad",
+  "nutrition": 3,
+  "saturation": 3,
+  "eat_seconds": 1.5,
+  "ingredients": [
+    {
+      "item": "cla:cut_tomato"
+    },
+    {
+      "item": "cla:cut_lettuce"
+    }
+  ]
+}
