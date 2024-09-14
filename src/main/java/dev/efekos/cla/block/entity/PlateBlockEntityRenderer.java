@@ -12,7 +12,9 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
+import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -58,11 +60,14 @@ public class PlateBlockEntityRenderer implements BlockEntityRenderer<PlateBlockE
             matrices.pop();
         }
 
+
         // Course Model
         if(entity.hasCourse()){
             Course course = entity.getCurrentCourse();
             Identifier modelId = course.modelId();
-            BakedModel bakedModel = manager.getModels().getModelManager().getModel(modelId);
+            BakedModelManager modelManager = manager.getModels().getModelManager();
+            BakedModel bakedModel = modelManager.getModel(modelId);
+            //TODO: modelId is always null, find a different way to get models
             if(bakedModel==null)return;
             matrices.push();
             matrices.translate(0, 0, 0);
