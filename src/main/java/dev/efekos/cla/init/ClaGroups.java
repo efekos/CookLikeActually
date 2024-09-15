@@ -17,7 +17,7 @@ public class ClaGroups {
                 .displayName(Text.translatable("itemGroup.cla")).icon(ClaItems.TOMATO::getDefaultStack)
                 .entries((displayContext, entries) -> {
                     for (ItemConvertible item : List.of(
-                            ClaItems.TOMATO, ClaItems.CUT_TOMATO, ClaItems.LETTUCE, ClaItems.CUT_LETTUCE, ClaItems.PATTY, ClaItems.COOKED_PATTY, ClaItems.CUT_POTATO, ClaItems.FRIES,
+                            ClaItems.TOMATO, ClaItems.CUT_TOMATO, ClaItems.LETTUCE, ClaItems.CUT_LETTUCE, ClaItems.PATTY, ClaItems.COOKED_PATTY, ClaItems.CUT_POTATO, ClaItems.FRIES, ClaItems.BUNS,
                             ClaItems.PLATE, ClaItems.KNIFE, ClaBlocks.CUTTING_BOARD, ClaBlocks.PAN,
                             ClaBlocks.COOKING_STAND
                     ))

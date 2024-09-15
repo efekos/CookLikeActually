@@ -17,5 +17,7 @@
   "tag.item.cla.render_as_item": "Render as an Item",
   "course.cla.salad": "Salad",
   "block.cla.cooking_stand": "Cooking Stand",
-  "block.cla.pan": "Pan"
+  "block.cla.pan": "Pan",
+  "item.cla.buns": "Buns",
+  "course.cla.burger": "Burger"
 }
