@@ -7,7 +7,6 @@ import dev.efekos.cla.recipe.CuttingRecipe;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -18,13 +17,11 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class CuttingBoardBlockEntity extends BlockEntity implements SyncAbleBlockEntity<CuttingBoardSyncS2C> {
+public class CuttingBoardBlockEntity extends BlockEntityWithOneItem implements SyncAbleBlockEntity<CuttingBoardSyncS2C> {
 
-    private ItemStack item = ItemStack.EMPTY;
     private int cuts;
     private CuttingRecipe currentRecipe;
     private int maxCutsNeeded;
@@ -34,17 +31,13 @@ public class CuttingBoardBlockEntity extends BlockEntity implements SyncAbleBloc
     }
 
     @Override
-    public @Nullable Object getRenderData() {
-        return super.getRenderData();
-    }
-
-    public ItemStack getItem() {
-        return item;
-    }
-
     public void setItem(ItemStack item) {
-        this.item = item;
+        super.setItem(item);
         setCuts(0);
+    }
+
+    public void setItemWithoutReset(ItemStack item){
+        setItem(item);
     }
 
     public int getCuts() {
@@ -68,19 +61,18 @@ public class CuttingBoardBlockEntity extends BlockEntity implements SyncAbleBloc
     @Override
     protected void addComponents(ComponentMap.Builder componentMapBuilder) {
         super.addComponents(componentMapBuilder);
-        componentMapBuilder.add(ClaComponentTypes.ITEM, item);
         componentMapBuilder.add(ClaComponentTypes.CUTS, cuts);
     }
 
     @Override
     protected void readComponents(ComponentsAccess components) {
         super.readComponents(components);
-        item = components.getOrDefault(ClaComponentTypes.ITEM, ItemStack.EMPTY);
         cuts = components.getOrDefault(ClaComponentTypes.CUTS, 0);
     }
 
     public boolean hasRecipe(World world) {
-        Optional<RecipeEntry<CuttingRecipe>> match = world.getRecipeManager().getFirstMatch(CuttingRecipe.Type.INSTANCE, new SingleStackRecipeInput(item), world);
+        if(!hasItem())return false;
+        Optional<RecipeEntry<CuttingRecipe>> match = world.getRecipeManager().getFirstMatch(CuttingRecipe.Type.INSTANCE, new SingleStackRecipeInput(getItem()), world);
         if (match.isPresent()) {
             CuttingRecipe valued = match.get().value();
             this.currentRecipe = valued;
@@ -96,14 +88,12 @@ public class CuttingBoardBlockEntity extends BlockEntity implements SyncAbleBloc
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
         this.cuts = nbt.getInt("Cuts");
-        this.item = ItemStack.fromNbt(registryLookup, nbt.getCompound("Item")).orElse(ItemStack.EMPTY);
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
         nbt.putInt("Cuts", cuts);
-        if (!this.item.isEmpty()) nbt.put("Item", item.encode(registryLookup));
     }
 
     @Override
@@ -114,7 +104,7 @@ public class CuttingBoardBlockEntity extends BlockEntity implements SyncAbleBloc
     }
 
     public CuttingBoardSyncS2C createSyncPacket() {
-        return new CuttingBoardSyncS2C(item, cuts, pos);
+        return new CuttingBoardSyncS2C(hasItem()?item:ItemStack.EMPTY, cuts, pos);
     }
 
 }
