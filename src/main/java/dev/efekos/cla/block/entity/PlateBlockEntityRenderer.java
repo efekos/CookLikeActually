@@ -50,9 +50,11 @@ public class PlateBlockEntityRenderer implements BlockEntityRenderer<PlateBlockE
         matrices.pop();
 
         // Items
-        if (entity.acceptsItems()) for (ItemStack item : entity.getItems()) {
+        if (entity.acceptsItems()) for (int i = 0; i < entity.getItems().size(); i++) {
+            ItemStack item = entity.getItems().get(i);
+
             matrices.push();
-            matrices.translate(0.45f, 0.3f, 0.45f);
+            matrices.translate(0.5f, 0.08f+i*0.03f, 0.5f);
             matrices.scale(0.4f, 0.4f, 0.4f);
             matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(270));
             itemRenderer.renderItem(item, ModelTransformationMode.NONE, getLightLevel(world, pos), 0, matrices, vertexConsumers, world, 1);
