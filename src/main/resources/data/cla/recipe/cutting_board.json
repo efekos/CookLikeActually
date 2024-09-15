@@ -3,7 +3,8 @@
   "category": "misc",
   "group": "cla:cutting_board",
   "pattern": [
-    "AA"
+    "A ",
+    " A"
   ],
   "key": {
     "A": {
