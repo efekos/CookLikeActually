@@ -23,5 +23,26 @@
     "sounds": [
       "cla:plate_place"
     ]
+  },
+  "block.pan.cook": {
+    "category": "blocks",
+    "subtitle": "subtitle.cla.block.pan.cook",
+    "sounds": [
+      "cla:pan_cooking/0",
+      "cla:pan_cooking/1",
+      "cla:pan_cooking/2",
+      "cla:pan_cooking/3",
+      "cla:pan_cooking/4",
+      "cla:pan_cooking/5",
+      "cla:pan_cooking/6",
+      "cla:pan_cooking/7"
+    ]
+  },
+  "block.plate.pickup": {
+    "category": "blocks",
+    "subtitle": "subtitle.cla.block.plate.pickup",
+    "sounds": [
+      "cla:plate_pickup"
+    ]
   }
 }
