@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import dev.efekos.cla.block.entity.PlateBlockEntity;
 import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.init.ClaItems;
+import dev.efekos.cla.init.ClaSoundEvents;
 import dev.efekos.cla.resource.Course;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -92,7 +93,18 @@ public class PlateBlock extends BlockWithEntity {
             world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.BLOCKS, 1f, 1f, true);
             return ActionResult.SUCCESS;
         } else {
-            if (!plate.acceptsItems() || playerStack.isEmpty() || stacks.stream().anyMatch(itemStack -> itemStack.isOf(playerStack.getItem())))
+            if(plate.hasCourse()&&playerStack.isEmpty()){
+                ItemStack stack = new ItemStack(ClaItems.PLATE, 1);
+                Course course = plate.getCurrentCourse();
+                stack.set(ClaComponentTypes.COURSE_ID, course.id());
+                stack.set(ClaComponentTypes.ITEMS,stacks);
+                stack.set(DataComponentTypes.FOOD,new FoodComponent(course.nutrition(),course.saturation(),false,course.eatSeconds(),Optional.of(ClaItems.PLATE.getDefaultStack()),List.of()));
+                player.setStackInHand(hand, stack);
+                world.playSound(pos.getX(), pos.getY(), pos.getZ(), ClaSoundEvents.PLATE_PICKUP, SoundCategory.BLOCKS, 1f, 1f, true);
+                world.removeBlock(pos, false);
+            }
+
+            if (!plate.acceptsItems()|| playerStack.isEmpty() || stacks.stream().anyMatch(itemStack -> itemStack.isOf(playerStack.getItem())))
                 return ActionResult.PASS;
             stacks.add(playerStack.copyWithCount(1));
             plate.setItems(stacks);
