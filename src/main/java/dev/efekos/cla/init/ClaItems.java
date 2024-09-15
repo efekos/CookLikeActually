@@ -4,6 +4,7 @@ import dev.efekos.cla.Main;
 import dev.efekos.cla.item.KnifeItem;
 import dev.efekos.cla.item.PlateItem;
 import net.minecraft.component.type.FoodComponent;
+import net.minecraft.component.type.FoodComponents;
 import net.minecraft.item.Item;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterials;
@@ -22,10 +23,11 @@ public class ClaItems {
     public static final Item CUT_TOMATO = register("cut_tomato", new Item(new Item.Settings().rarity(Rarity.COMMON).food(new FoodComponent(2, 4, false, 1f, Optional.empty(), List.of()))));
     public static final Item CUT_LETTUCE = register("cut_lettuce", new Item(new Item.Settings().rarity(Rarity.COMMON).food(new FoodComponent(4, 2, false, 0.8f, Optional.empty(), List.of()))));
     public static final Item PLATE = register("plate", new PlateItem(new Item.Settings().rarity(Rarity.COMMON)));
-    public static final Item PATTY = register("patty", new Item(new Item.Settings().rarity(Rarity.COMMON)));
-    public static final Item COOKED_PATTY = register("cooked_patty", new Item(new Item.Settings().rarity(Rarity.COMMON)));
-    public static final Item CUT_POTATO = register("cut_potato", new Item(new Item.Settings().rarity(Rarity.COMMON)));
-    public static final Item FRIES = register("fries", new Item(new Item.Settings().rarity(Rarity.COMMON)));
+    public static final Item PATTY = register("patty", new Item(new Item.Settings().rarity(Rarity.COMMON).food(FoodComponents.BEEF)));
+    public static final Item COOKED_PATTY = register("cooked_patty", new Item(new Item.Settings().rarity(Rarity.COMMON).food(FoodComponents.COOKED_BEEF)));
+    public static final Item BURNED_PATTY = register("burned_patty", new Item(new Item.Settings().rarity(Rarity.COMMON)));
+    public static final Item CUT_POTATO = register("cut_potato", new Item(new Item.Settings().rarity(Rarity.COMMON).food(FoodComponents.POTATO)));
+    public static final Item FRIES = register("fries", new Item(new Item.Settings().rarity(Rarity.COMMON).food(FoodComponents.BAKED_POTATO)));
     public static final Item BUNS = register("buns", new Item(new Item.Settings().rarity(Rarity.COMMON)));
     public static final KnifeItem KNIFE = register("knife", new KnifeItem(ToolMaterials.IRON, new Item.Settings().rarity(Rarity.COMMON).maxCount(1).attributeModifiers(SwordItem.createAttributeModifiers(ToolMaterials.IRON, 1, -0.8F))));
 

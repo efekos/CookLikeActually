@@ -12,12 +12,15 @@
   "block.cla.plate": "Plate",
   "block.cla.cutting_board": "Cutting Board",
   "itemGroup.cla": "Cook Like Actually",
-  "subtitle.cla.item.knife.slice": "Something got sliced by a Knife",
-  "subtitle.cla.block.plate.place": "Plate Placed",
+  "subtitle.cla.item.knife.slice": "Something got sliced by a knife",
+  "subtitle.cla.block.plate.place": "Plate placed",
   "tag.item.cla.render_as_item": "Render as an Item",
   "course.cla.salad": "Salad",
   "block.cla.cooking_stand": "Cooking Stand",
   "block.cla.pan": "Pan",
   "item.cla.buns": "Buns",
-  "course.cla.burger": "Burger"
+  "course.cla.burger": "Burger",
+  "item.cla.burned_patty": "Burned Patty",
+  "subtitle.cla.block.plate.pickup": "Plate picked up",
+  "subtitle.cla.block.pan.cook": "Pan cooking something"
 }
