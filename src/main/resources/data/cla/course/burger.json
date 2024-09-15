@@ -1,0 +1,14 @@
+{
+  "model": "cla:block/burger",
+  "nutrition": 5,
+  "saturation": 6,
+  "eat_seconds": 3,
+  "ingredients": [
+    {
+      "item": "cla:cooked_patty"
+    },
+    {
+      "item": "cla:buns"
+    }
+  ]
+}
