@@ -5,7 +5,9 @@ import dev.efekos.cla.block.CuttingBoardBlock;
 import dev.efekos.cla.block.PanBlock;
 import dev.efekos.cla.block.PlateBlock;
 import dev.efekos.cla.block.entity.CuttingBoardBlockEntity;
+import dev.efekos.cla.block.entity.PanBlockEntity;
 import dev.efekos.cla.block.entity.PlateBlockEntity;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityType;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -31,6 +33,7 @@ public class ClaBlocks {
 
     public static final BlockEntityType<PlateBlockEntity> PLATE_BLOCK_ENTITY_TYPE = Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of("cla", "plate"), BlockEntityType.Builder.create(PlateBlockEntity::new, PLATE).build());
     public static final BlockEntityType<CuttingBoardBlockEntity> CUTTING_BOARD_BLOCK_ENTITY_TYPE = Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of("cla", "cutting_board"), BlockEntityType.Builder.create(CuttingBoardBlockEntity::new, CUTTING_BOARD).build());
+    public static final BlockEntityType<PanBlockEntity> PAN_BLOCK_ENTITY_TYPE = Registry.register(Registries.BLOCK_ENTITY_TYPE,Identifier.of("cla","pan"), BlockEntityType.Builder.create(PanBlockEntity::new,PAN).build());
 
     public static void run() {
 

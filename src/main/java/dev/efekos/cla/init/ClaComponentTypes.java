@@ -18,6 +18,7 @@ public class ClaComponentTypes {
     public static final ComponentType<Integer> CUTS = register("cuts", builder -> builder.codec(Codecs.NONNEGATIVE_INT).packetCodec(PacketCodecs.VAR_INT));
     public static final ComponentType<List<ItemStack>> ITEMS = register("items", builder -> builder.codec(ItemStack.CODEC.listOf()).packetCodec(ItemStack.LIST_PACKET_CODEC));
     public static final ComponentType<Identifier> COURSE_ID = register("course", builder -> builder.codec(Identifier.CODEC).packetCodec(Identifier.PACKET_CODEC));
+    public static final ComponentType<Integer> TICKS = register("ticks",builder -> builder.codec(Codecs.NONNEGATIVE_INT).packetCodec(PacketCodecs.VAR_INT));
 
     private static <T> ComponentType<T> register(String id, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
         return (ComponentType) Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(Main.MOD_ID, id), ((ComponentType.Builder) builderOperator.apply(ComponentType.builder())).build());

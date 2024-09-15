@@ -15,7 +15,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class CuttingBoardSyncS2C implements CustomPayload {
 
-    public static final CustomPayload.Id<CuttingBoardSyncS2C> PAYLOAD_ID = new CustomPayload.Id<>(Identifier.of(Main.MOD_ID, "block_entity_sync_s2c"));
+    public static final CustomPayload.Id<CuttingBoardSyncS2C> PAYLOAD_ID = new CustomPayload.Id<>(Identifier.of(Main.MOD_ID, "cutting_board_sync_s2c"));
     public static final PacketCodec<RegistryByteBuf, CuttingBoardSyncS2C> CODEC = CustomPayload.codecOf(CuttingBoardSyncS2C::write, CuttingBoardSyncS2C::new);
 
     private final ItemStack item;
@@ -37,7 +37,7 @@ public class CuttingBoardSyncS2C implements CustomPayload {
 
     public void write(RegistryByteBuf buf) {
         buf.writeInt(this.cuts);
-        boolean b = !this.item.isEmpty();
+        boolean b = this.item!=null&&!this.item.isEmpty();
         buf.writeBoolean(b);
         if (b) ItemStack.PACKET_CODEC.encode(buf, this.item);
         buf.writeBlockPos(this.pos);
@@ -53,7 +53,7 @@ public class CuttingBoardSyncS2C implements CustomPayload {
         BlockEntity entity = context.client().world.getBlockEntity(pos);
         if (!(entity instanceof CuttingBoardBlockEntity cuttingBoard)) return;
         cuttingBoard.setCuts(cuts);
-        cuttingBoard.setItem(item);
+        cuttingBoard.setItemWithoutReset(item);
     }
 
 }
