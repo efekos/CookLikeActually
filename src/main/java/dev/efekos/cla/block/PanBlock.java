@@ -2,6 +2,7 @@ package dev.efekos.cla.block;
 
 import com.mojang.serialization.MapCodec;
 import dev.efekos.cla.block.entity.PanBlockEntity;
+import dev.efekos.cla.init.ClaBlockEntityTypes;
 import dev.efekos.cla.init.ClaBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -69,6 +70,6 @@ public class PanBlock extends BlockWithOneItem {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type,ClaBlocks.PAN_BLOCK_ENTITY_TYPE,PanBlockEntity::tick);
+        return validateTicker(type, ClaBlockEntityTypes.PAN_BLOCK_ENTITY_TYPE,PanBlockEntity::tick);
     }
 }

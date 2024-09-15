@@ -45,7 +45,7 @@ public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBl
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
-        if(hasRecipe(world)){
+        if(hasRecipe(world)&&world.getBlockState(pos.down()).isOf(ClaBlocks.COOKING_STAND)){
             ticks++;
             PanningRecipe recipe = getRecipe(world);
             if(getTicks()>=recipe.getTime()){
@@ -53,7 +53,7 @@ public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBl
                 setItem(recipe.getRes());
             }
             markDirty();
-        }
+        } else if (getTicks()!=0)setTicks(0);
     }
 
     public boolean hasRecipe(World world){
