@@ -3,23 +3,29 @@ package dev.efekos.cla.block;
 import com.mojang.serialization.MapCodec;
 import dev.efekos.cla.block.entity.PanBlockEntity;
 import dev.efekos.cla.init.ClaBlockEntityTypes;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.ShapeContext;
+import dev.efekos.cla.init.ClaComponentTypes;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class PanBlock extends BlockWithOneItem {
 
@@ -70,5 +76,21 @@ public class PanBlock extends BlockWithOneItem {
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return validateTicker(type, ClaBlockEntityTypes.PAN_BLOCK_ENTITY_TYPE, PanBlockEntity::tick);
+    }
+
+    @Override
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        if(player.isSneaking()){
+            Hand hand = player.getActiveHand();
+            if(!player.getStackInHand(hand).isEmpty())return ActionResult.PASS;
+
+            PanBlockEntity pan  =(PanBlockEntity) world.getBlockEntity(pos);
+            ItemStack stack = this.asItem().getDefaultStack();
+            stack.set(ClaComponentTypes.TICKS,pan.getTicks());
+            if(pan.hasItem())stack.set(ClaComponentTypes.ITEM,pan.getItem());
+            player.setStackInHand(hand, stack);
+            world.setBlockState(pos, Blocks.AIR.getDefaultState());
+            return ActionResult.SUCCESS;
+        } else return super.onUse(state, world, pos, player, hit);
     }
 }
