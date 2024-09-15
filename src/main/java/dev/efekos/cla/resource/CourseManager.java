@@ -80,7 +80,7 @@ public class CourseManager extends JsonDataLoader implements IdentifiableResourc
     }
 
     public Optional<Course> findCourse(List<ItemStack> stacks) {
-        return courses.values().stream().filter(course -> course.matches(stacks)).findFirst();
+        return courses.values().stream().filter(course -> stacks.stream().noneMatch(itemStack -> course.ingredients().stream().noneMatch(ingredient -> ingredient.test(itemStack))) && course.matches(stacks)).findFirst();
     }
 
     @Override

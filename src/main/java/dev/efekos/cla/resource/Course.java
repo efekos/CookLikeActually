@@ -10,6 +10,7 @@ public record Course(Identifier id,Identifier modelId, List<Ingredient> ingredie
 
     public boolean matches(List<ItemStack> stacks){
         for (Ingredient ingredient : ingredients) if(stacks.stream().noneMatch(ingredient))return false;
+        for (ItemStack stack : stacks) if(ingredients.stream().noneMatch(ingredient -> ingredient.test(stack))) return false;
         return true;
     }
 
