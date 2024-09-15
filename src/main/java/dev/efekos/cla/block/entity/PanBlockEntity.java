@@ -3,6 +3,7 @@ package dev.efekos.cla.block.entity;
 import dev.efekos.cla.init.ClaBlockEntityTypes;
 import dev.efekos.cla.init.ClaBlocks;
 import dev.efekos.cla.init.ClaComponentTypes;
+import dev.efekos.cla.init.ClaSoundEvents;
 import dev.efekos.cla.packet.PanSyncS2C;
 import dev.efekos.cla.recipe.PanningRecipe;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
@@ -15,6 +16,7 @@ import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -47,6 +49,7 @@ public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBl
     public void tick(World world, BlockPos pos, BlockState state) {
         if (hasRecipe(world) && world.getBlockState(pos.down()).isOf(ClaBlocks.COOKING_STAND)) {
             ticks++;
+            world.playSound(pos.getX(),pos.getY(),pos.getZ(), ClaSoundEvents.PAN_COOKING, SoundCategory.BLOCKS,1f,1f,true);
             PanningRecipe recipe = getRecipe(world);
             if (getTicks() >= recipe.getTime()) {
                 setTicks(0);
