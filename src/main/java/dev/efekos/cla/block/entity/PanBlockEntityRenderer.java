@@ -82,10 +82,10 @@ public class PanBlockEntityRenderer implements BlockEntityRenderer<PanBlockEntit
             matrices.pop();
         }
 
-        if (!entity.hasRecipe(world)) return;
+        // progress bar
+        if (!entity.hasRecipe(world)||!entity.getRecipe(world).hasProgressBar()) return;
         float v = entity.getTicks() / (float) entity.getMaxTicks();
 
-        // cut status
         render(PROGRESS_TEXTURE, matrices, lightLevel, 1);
         if (v > 0) render(PROGRESS_FULL_TEXTURE, matrices, lightLevel, v);
     }

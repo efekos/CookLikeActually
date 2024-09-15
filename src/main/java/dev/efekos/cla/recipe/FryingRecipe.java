@@ -1,5 +1,6 @@
 package dev.efekos.cla.recipe;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.item.ItemStack;
@@ -16,38 +17,32 @@ import net.minecraft.world.World;
 
 public class FryingRecipe implements Recipe<SingleStackRecipeInput> {
 
-    private Ingredient item;
-    private ItemStack result;
-    private int time;
+    private final Ingredient item;
+    private final ItemStack result;
+    private final int time;
+    private final boolean progressBar;
 
-    public FryingRecipe(Ingredient item, ItemStack result, int time) {
+    public FryingRecipe(Ingredient item, ItemStack result, int time, boolean progressBar) {
         this.item = item;
         this.result = result;
         this.time = time;
+        this.progressBar = progressBar;
     }
 
     public Ingredient getItem() {
         return item;
     }
 
-    public void setItem(Ingredient item) {
-        this.item = item;
-    }
-
     public ItemStack getRes() {
         return result;
-    }
-
-    public void setResult(ItemStack result) {
-        this.result = result;
     }
 
     public int getTime() {
         return time;
     }
 
-    public void setTime(int time) {
-        this.time = time;
+    public boolean hasProgressBar(){
+        return progressBar;
     }
 
     @Override
@@ -87,7 +82,8 @@ public class FryingRecipe implements Recipe<SingleStackRecipeInput> {
         public static final MapCodec<FryingRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("item").forGetter(FryingRecipe::getItem),
                 ItemStack.CODEC.fieldOf("result").forGetter(FryingRecipe::getRes),
-                Codecs.POSITIVE_INT.fieldOf("time").forGetter(FryingRecipe::getTime)
+                Codecs.POSITIVE_INT.fieldOf("time").forGetter(FryingRecipe::getTime),
+                Codec.BOOL.optionalFieldOf("progress_bar",true).forGetter(FryingRecipe::hasProgressBar)
         ).apply(instance, FryingRecipe::new));
         public final PacketCodec<RegistryByteBuf, FryingRecipe> PACKET_CODEC = PacketCodec.ofStatic(this::write, this::read);
 
@@ -105,13 +101,15 @@ public class FryingRecipe implements Recipe<SingleStackRecipeInput> {
             Ingredient.PACKET_CODEC.encode(buf, recipe.getItem());
             ItemStack.PACKET_CODEC.encode(buf, recipe.getRes());
             buf.writeInt(recipe.getTime());
+            buf.writeBoolean(recipe.progressBar);
         }
 
         public FryingRecipe read(RegistryByteBuf buf) {
             Ingredient item = Ingredient.PACKET_CODEC.decode(buf);
             ItemStack result = ItemStack.PACKET_CODEC.decode(buf);
             int cuts = buf.readInt();
-            return new FryingRecipe(item, result, cuts);
+            boolean progressBar = buf.readBoolean();
+            return new FryingRecipe(item, result, cuts, progressBar);
         }
 
     }

@@ -1,5 +1,6 @@
 package dev.efekos.cla.recipe;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.item.ItemStack;
@@ -19,11 +20,24 @@ public class PanningRecipe implements Recipe<SingleStackRecipeInput> {
     private final Ingredient item;
     private final ItemStack result;
     private final int time;
+    private final boolean progressBar;
 
     public PanningRecipe(Ingredient item, ItemStack result, int time) {
         this.item = item;
         this.result = result;
         this.time = time;
+        this.progressBar = true;
+    }
+
+    public PanningRecipe(Ingredient item, ItemStack result, int time, boolean progressBar) {
+        this.item = item;
+        this.result = result;
+        this.time = time;
+        this.progressBar = progressBar;
+    }
+
+    public boolean hasProgressBar() {
+        return progressBar;
     }
 
     public Ingredient getItem() {
@@ -75,7 +89,8 @@ public class PanningRecipe implements Recipe<SingleStackRecipeInput> {
         public static final MapCodec<PanningRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("item").forGetter(PanningRecipe::getItem),
                 ItemStack.CODEC.fieldOf("result").forGetter(PanningRecipe::getRes),
-                Codecs.POSITIVE_INT.fieldOf("time").forGetter(PanningRecipe::getTime)
+                Codecs.POSITIVE_INT.fieldOf("time").forGetter(PanningRecipe::getTime),
+                Codec.BOOL.optionalFieldOf("progress_bar",true).forGetter(PanningRecipe::hasProgressBar)
         ).apply(instance, PanningRecipe::new));
         public final PacketCodec<RegistryByteBuf, PanningRecipe> PACKET_CODEC = PacketCodec.ofStatic(this::write, this::read);
 
@@ -93,13 +108,15 @@ public class PanningRecipe implements Recipe<SingleStackRecipeInput> {
             Ingredient.PACKET_CODEC.encode(buf, recipe.getItem());
             ItemStack.PACKET_CODEC.encode(buf, recipe.getRes());
             buf.writeInt(recipe.getTime());
+            buf.writeBoolean(recipe.hasProgressBar());
         }
 
         public PanningRecipe read(RegistryByteBuf buf) {
             Ingredient item = Ingredient.PACKET_CODEC.decode(buf);
             ItemStack result = ItemStack.PACKET_CODEC.decode(buf);
             int cuts = buf.readInt();
-            return new PanningRecipe(item, result, cuts);
+            boolean hasProgressBar = buf.readBoolean();
+            return new PanningRecipe(item, result, cuts, hasProgressBar);
         }
 
     }
