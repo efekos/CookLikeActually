@@ -64,11 +64,11 @@ public class PlateBlock extends BlockWithEntity {
             List<ItemStack> value = Optional.ofNullable(plate.getItems()).orElse(new ArrayList<>());
             ItemStack stack = ClaItems.PLATE.getDefaultStack();
 
-            if(!value.isEmpty())stack.set(ClaComponentTypes.ITEMS, value);
-            if(plate.hasCourse()) {
+            if (!value.isEmpty()) stack.set(ClaComponentTypes.ITEMS, value);
+            if (plate.hasCourse()) {
                 Course course = plate.getCurrentCourse();
                 stack.set(ClaComponentTypes.COURSE_ID, course.id());
-                stack.set(DataComponentTypes.FOOD,new FoodComponent(course.nutrition(),course.saturation(),false,course.eatSeconds(),Optional.of(ClaItems.PLATE.getDefaultStack()),List.of()));
+                stack.set(DataComponentTypes.FOOD, new FoodComponent(course.nutrition(), course.saturation(), false, course.eatSeconds(), Optional.of(ClaItems.PLATE.getDefaultStack()), List.of()));
             }
             return List.of(stack);
         } else return List.of(ClaItems.PLATE.getDefaultStack());

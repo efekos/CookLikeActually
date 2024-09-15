@@ -5,7 +5,6 @@ import dev.efekos.cla.block.entity.PanBlockEntityRenderer;
 import dev.efekos.cla.block.entity.PlateBlockEntityRenderer;
 import dev.efekos.cla.block.entity.SyncAbleBlockEntity;
 import dev.efekos.cla.init.ClaBlockEntityTypes;
-import dev.efekos.cla.init.ClaBlocks;
 import dev.efekos.cla.packet.CuttingBoardSyncS2C;
 import dev.efekos.cla.packet.PanSyncS2C;
 import dev.efekos.cla.packet.PlateSyncS2C;

@@ -15,6 +15,10 @@ public abstract class BlockEntityWithOneItem extends BlockEntity {
 
     protected ItemStack item;
 
+    public BlockEntityWithOneItem(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
+    }
+
     public ItemStack getItem() {
         return item;
     }
@@ -23,14 +27,10 @@ public abstract class BlockEntityWithOneItem extends BlockEntity {
         this.item = item;
     }
 
-    public BlockEntityWithOneItem(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, pos, state);
-    }
-
     @Override
     protected void addComponents(ComponentMap.Builder componentMapBuilder) {
         super.addComponents(componentMapBuilder);
-        if(hasItem()) componentMapBuilder.add(ClaComponentTypes.ITEM,item);
+        if (hasItem()) componentMapBuilder.add(ClaComponentTypes.ITEM, item);
     }
 
     @Override
@@ -42,13 +42,14 @@ public abstract class BlockEntityWithOneItem extends BlockEntity {
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
-        if(hasItem()) nbt.put("Item",item.encode(registryLookup));
+        if (hasItem()) nbt.put("Item", item.encode(registryLookup));
     }
 
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
-        if(nbt.contains("Item", NbtElement.COMPOUND_TYPE)) this.item = ItemStack.fromNbt(registryLookup, nbt.getCompound("Item")).orElse(ItemStack.EMPTY);
+        if (nbt.contains("Item", NbtElement.COMPOUND_TYPE))
+            this.item = ItemStack.fromNbt(registryLookup, nbt.getCompound("Item")).orElse(ItemStack.EMPTY);
     }
 
     public boolean hasItem() {

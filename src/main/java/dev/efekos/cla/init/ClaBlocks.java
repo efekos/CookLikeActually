@@ -4,15 +4,10 @@ import dev.efekos.cla.Main;
 import dev.efekos.cla.block.CuttingBoardBlock;
 import dev.efekos.cla.block.PanBlock;
 import dev.efekos.cla.block.PlateBlock;
-import dev.efekos.cla.block.entity.CuttingBoardBlockEntity;
-import dev.efekos.cla.block.entity.PanBlockEntity;
-import dev.efekos.cla.block.entity.PlateBlockEntity;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.MapColor;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -20,7 +15,6 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
 
 public class ClaBlocks {
 
@@ -29,8 +23,8 @@ public class ClaBlocks {
 
     public static final CuttingBoardBlock CUTTING_BOARD = register("cutting_board", new CuttingBoardBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
     public static final PlateBlock PLATE = registerWithoutItem("plate", new PlateBlock(AbstractBlock.Settings.copy(Blocks.GLASS).sounds(PLATE_SOUNDS)));
-    public static final Block COOKING_STAND = register("cooking_stand",new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).mapColor(MapColor.PURPLE)));
-    public static final PanBlock PAN = register("pan",new PanBlock(AbstractBlock.Settings.copy(Blocks.STONE).sounds(PLATE_SOUNDS)));
+    public static final Block COOKING_STAND = register("cooking_stand", new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).mapColor(MapColor.PURPLE)));
+    public static final PanBlock PAN = register("pan", new PanBlock(AbstractBlock.Settings.copy(Blocks.STONE).sounds(PLATE_SOUNDS)));
 
     public static void run() {
 

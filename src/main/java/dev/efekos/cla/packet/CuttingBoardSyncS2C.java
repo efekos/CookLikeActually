@@ -37,7 +37,7 @@ public class CuttingBoardSyncS2C implements CustomPayload {
 
     public void write(RegistryByteBuf buf) {
         buf.writeInt(this.cuts);
-        boolean b = this.item!=null&&!this.item.isEmpty();
+        boolean b = this.item != null && !this.item.isEmpty();
         buf.writeBoolean(b);
         if (b) ItemStack.PACKET_CODEC.encode(buf, this.item);
         buf.writeBlockPos(this.pos);

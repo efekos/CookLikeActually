@@ -33,7 +33,7 @@ public class PlateItem extends BlockItem {
     @Override
     public String getTranslationKey(ItemStack stack) {
         Identifier identifier = stack.get(ClaComponentTypes.COURSE_ID);
-        if(identifier==null)return super.getTranslationKey(stack);
+        if (identifier == null) return super.getTranslationKey(stack);
         Course course = CourseManager.getInstance().getCourse(identifier).orElseThrow();
         return course.translationKey();
     }

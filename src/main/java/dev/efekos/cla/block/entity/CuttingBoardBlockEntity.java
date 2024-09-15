@@ -1,7 +1,6 @@
 package dev.efekos.cla.block.entity;
 
 import dev.efekos.cla.init.ClaBlockEntityTypes;
-import dev.efekos.cla.init.ClaBlocks;
 import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.packet.CuttingBoardSyncS2C;
 import dev.efekos.cla.recipe.CuttingRecipe;
@@ -37,7 +36,7 @@ public class CuttingBoardBlockEntity extends BlockEntityWithOneItem implements S
         setCuts(0);
     }
 
-    public void setItemWithoutReset(ItemStack item){
+    public void setItemWithoutReset(ItemStack item) {
         setItem(item);
     }
 
@@ -72,7 +71,7 @@ public class CuttingBoardBlockEntity extends BlockEntityWithOneItem implements S
     }
 
     public boolean hasRecipe(World world) {
-        if(!hasItem())return false;
+        if (!hasItem()) return false;
         Optional<RecipeEntry<CuttingRecipe>> match = world.getRecipeManager().getFirstMatch(CuttingRecipe.Type.INSTANCE, new SingleStackRecipeInput(getItem()), world);
         if (match.isPresent()) {
             CuttingRecipe valued = match.get().value();
@@ -105,7 +104,7 @@ public class CuttingBoardBlockEntity extends BlockEntityWithOneItem implements S
     }
 
     public CuttingBoardSyncS2C createSyncPacket() {
-        return new CuttingBoardSyncS2C(hasItem()?item:ItemStack.EMPTY, cuts, pos);
+        return new CuttingBoardSyncS2C(hasItem() ? item : ItemStack.EMPTY, cuts, pos);
     }
 
 }

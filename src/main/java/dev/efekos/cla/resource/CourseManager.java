@@ -24,13 +24,9 @@ public class CourseManager extends JsonDataLoader implements IdentifiableResourc
 
     private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
     private static final Logger log = LogUtils.getLogger();
-    private final RegistryWrapper.WrapperLookup wrapperLookup;
-
     private static CourseManager instance;
-
-    public static CourseManager getInstance() {
-        return instance;
-    }
+    private final RegistryWrapper.WrapperLookup wrapperLookup;
+    private final Map<Identifier, Course> courses = new HashMap<>();
 
     public CourseManager(RegistryWrapper.WrapperLookup wrapperLookup) {
         super(GSON, "course");
@@ -38,20 +34,22 @@ public class CourseManager extends JsonDataLoader implements IdentifiableResourc
         instance = this;
     }
 
+    public static CourseManager getInstance() {
+        return instance;
+    }
+
     @Override
     public Identifier getFabricId() {
         return ID;
     }
-
-    private final Map<Identifier, Course> courses = new HashMap<>();
 
     @Override
     protected void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
         this.courses.clear();
         prepared.forEach((identifier, jsonElement) -> {
             try {
-                readCourse(identifier,jsonElement);
-            } catch (IllegalArgumentException | JsonParseException e){
+                readCourse(identifier, jsonElement);
+            } catch (IllegalArgumentException | JsonParseException e) {
                 log.error("Could not read course '{}'.", identifier, e);
             }
         });

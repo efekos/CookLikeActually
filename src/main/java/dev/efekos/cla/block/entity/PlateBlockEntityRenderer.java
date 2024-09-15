@@ -14,7 +14,6 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
-import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -51,7 +50,7 @@ public class PlateBlockEntityRenderer implements BlockEntityRenderer<PlateBlockE
         matrices.pop();
 
         // Items
-        if(entity.acceptsItems()) for (ItemStack item : entity.getItems()) {
+        if (entity.acceptsItems()) for (ItemStack item : entity.getItems()) {
             matrices.push();
             matrices.translate(0.45f, 0.3f, 0.45f);
             matrices.scale(0.4f, 0.4f, 0.4f);
@@ -62,17 +61,17 @@ public class PlateBlockEntityRenderer implements BlockEntityRenderer<PlateBlockE
 
 
         // Course Model
-        if(entity.hasCourse()){
+        if (entity.hasCourse()) {
             Course course = entity.getCurrentCourse();
             Identifier modelId = course.modelId();
             BakedModelManager modelManager = manager.getModels().getModelManager();
             BakedModel bakedModel = modelManager.getModel(modelId);
             //TODO: modelId is always null, find a different way to get models
-            if(bakedModel==null)return;
+            if (bakedModel == null) return;
             matrices.push();
             matrices.translate(0, 0, 0);
             matrices.scale(1f, 1f, 1f);
-            manager.getModelRenderer().render(world,bakedModel,state,pos, matrices, solid, false, world.getRandom(), lightLevel, 1);
+            manager.getModelRenderer().render(world, bakedModel, state, pos, matrices, solid, false, world.getRandom(), lightLevel, 1);
             matrices.pop();
         }
 

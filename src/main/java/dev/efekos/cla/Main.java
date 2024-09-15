@@ -37,7 +37,7 @@ public class Main implements ModInitializer {
         ServerPlayNetworking.registerGlobalReceiver(RequestSyncC2S.PAYLOAD_ID, RequestSyncC2S::handle);
 
         // Resources
-        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(CourseManager.ID,CourseManager::new);
+        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(CourseManager.ID, CourseManager::new);
 
     }
 

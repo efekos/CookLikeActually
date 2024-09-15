@@ -22,20 +22,6 @@ public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBl
 
     private int ticks = 0;
 
-    public void setTicks(int ticks) {
-        this.ticks = ticks;
-    }
-
-    public int getTicks() {
-        return ticks;
-    }
-
-    @Override
-    public void setItem(ItemStack item) {
-        super.setItem(item);
-        setTicks(0);
-    }
-
     public PanBlockEntity(BlockPos pos, BlockState state) {
         super(ClaBlockEntityTypes.PAN_BLOCK_ENTITY_TYPE, pos, state);
     }
@@ -44,47 +30,61 @@ public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBl
         panBlockEntity.tick(world, blockPos, blockState);
     }
 
+    public int getTicks() {
+        return ticks;
+    }
+
+    public void setTicks(int ticks) {
+        this.ticks = ticks;
+    }
+
+    @Override
+    public void setItem(ItemStack item) {
+        super.setItem(item);
+        setTicks(0);
+    }
+
     public void tick(World world, BlockPos pos, BlockState state) {
-        if(hasRecipe(world)&&world.getBlockState(pos.down()).isOf(ClaBlocks.COOKING_STAND)){
+        if (hasRecipe(world) && world.getBlockState(pos.down()).isOf(ClaBlocks.COOKING_STAND)) {
             ticks++;
             PanningRecipe recipe = getRecipe(world);
-            if(getTicks()>=recipe.getTime()){
+            if (getTicks() >= recipe.getTime()) {
                 setTicks(0);
                 setItem(recipe.getRes());
             }
             markDirty();
-        } else if (getTicks()!=0)setTicks(0);
+        } else if (getTicks() != 0) setTicks(0);
     }
 
-    public boolean hasRecipe(World world){
-        if(!hasItem())return false;
-        return world.getRecipeManager().getFirstMatch(PanningRecipe.Type.INSTANCE,new SingleStackRecipeInput(getItem()),world).isPresent();
+    public boolean hasRecipe(World world) {
+        if (!hasItem()) return false;
+        return world.getRecipeManager().getFirstMatch(PanningRecipe.Type.INSTANCE, new SingleStackRecipeInput(getItem()), world).isPresent();
     }
 
-    public PanningRecipe getRecipe(World world){
-        if(!hasItem())return null;
+    public PanningRecipe getRecipe(World world) {
+        if (!hasItem()) return null;
         return world.getRecipeManager().getFirstMatch(PanningRecipe.Type.INSTANCE, new SingleStackRecipeInput(getItem()), world).map(RecipeEntry::value).orElse(null);
     }
 
-    public boolean hasRecipe(){
+    public boolean hasRecipe() {
         return hasRecipe(world);
     }
 
     @Override
     public PanSyncS2C createSyncPacket() {
-        return new PanSyncS2C(hasItem()?item:ItemStack.EMPTY,ticks,pos);
+        return new PanSyncS2C(hasItem() ? item : ItemStack.EMPTY, ticks, pos);
     }
 
     @Override
     protected void readComponents(ComponentsAccess components) {
         super.readComponents(components);
-        ticks = components.getOrDefault(ClaComponentTypes.TICKS,0);
+        ticks = components.getOrDefault(ClaComponentTypes.TICKS, 0);
     }
 
     @Override
     protected void addComponents(ComponentMap.Builder componentMapBuilder) {
         super.addComponents(componentMapBuilder);
-        componentMapBuilder.add(ClaComponentTypes.TICKS,ticks);
+        componentMapBuilder.add(ClaComponentTypes.TICKS, ticks);
     }
 
     @Override
@@ -101,12 +101,13 @@ public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBl
 
     @Override
     public void markDirty() {
-        if(!world.isClient) for (ServerPlayerEntity player : PlayerLookup.tracking(this)) ServerPlayNetworking.send(player,createSyncPacket());
+        if (!world.isClient) for (ServerPlayerEntity player : PlayerLookup.tracking(this))
+            ServerPlayNetworking.send(player, createSyncPacket());
         super.markDirty();
     }
 
     public int getMaxTicks() {
-        return hasRecipe()?getRecipe(world).getTime():0;
+        return hasRecipe() ? getRecipe(world).getTime() : 0;
     }
 
     public void setItemWithoutReset(ItemStack item) {

@@ -1,7 +1,6 @@
 package dev.efekos.cla.block.entity;
 
 import dev.efekos.cla.init.ClaBlockEntityTypes;
-import dev.efekos.cla.init.ClaBlocks;
 import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.packet.PlateSyncS2C;
 import dev.efekos.cla.resource.Course;
@@ -44,35 +43,36 @@ public class PlateBlockEntity extends BlockEntity implements SyncAbleBlockEntity
         super.readComponents(components);
         this.items = components.getOrDefault(ClaComponentTypes.ITEMS, new ArrayList<>());
         Optional<Identifier> identifierOptional = Optional.ofNullable(components.get(ClaComponentTypes.COURSE_ID));
-        if(identifierOptional.isEmpty())return;
+        if (identifierOptional.isEmpty()) return;
         this.currentCourse = CourseManager.getInstance().getCourse(identifierOptional.get()).orElseThrow();
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
-        if(!items.isEmpty()) {
+        if (!items.isEmpty()) {
             NbtList list = new NbtList();
             for (ItemStack item : items) list.add(item.encode(registryLookup));
             nbt.put("Items", list);
         }
-        if(this.currentCourse!=null) nbt.putString("Course",this.currentCourse.id().toString());
+        if (this.currentCourse != null) nbt.putString("Course", this.currentCourse.id().toString());
     }
 
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
         this.items = new ArrayList<>();
-        if(nbt.contains("Items",NbtElement.LIST_TYPE)){
+        if (nbt.contains("Items", NbtElement.LIST_TYPE)) {
             NbtList list = nbt.getList("Items", NbtElement.COMPOUND_TYPE);
-            if(list.isEmpty())return;
+            if (list.isEmpty()) return;
             for (NbtElement element : list) {
                 System.out.println(element);
                 Optional<ItemStack> stack = ItemStack.fromNbt(registryLookup, element);
                 stack.ifPresent(items::add);
             }
         }
-        if(nbt.contains("Course")) this.currentCourse = CourseManager.getInstance().getCourse(Identifier.tryParse(nbt.getString("Course"))).orElseThrow();
+        if (nbt.contains("Course"))
+            this.currentCourse = CourseManager.getInstance().getCourse(Identifier.tryParse(nbt.getString("Course"))).orElseThrow();
     }
 
     public List<ItemStack> getItems() {
@@ -86,7 +86,7 @@ public class PlateBlockEntity extends BlockEntity implements SyncAbleBlockEntity
 
     @Override
     public PlateSyncS2C createSyncPacket() {
-        return new PlateSyncS2C(pos,items,currentCourse);
+        return new PlateSyncS2C(pos, items, currentCourse);
     }
 
     @Override
@@ -96,12 +96,12 @@ public class PlateBlockEntity extends BlockEntity implements SyncAbleBlockEntity
         super.markDirty();
     }
 
-    public void checkForCourses(){
+    public void checkForCourses() {
         Optional<Course> courseO = CourseManager.getInstance().findCourse(items);
         this.currentCourse = courseO.orElse(null);
     }
 
-    public boolean acceptsItems(){
+    public boolean acceptsItems() {
         return this.currentCourse == null;
     }
 
@@ -109,12 +109,12 @@ public class PlateBlockEntity extends BlockEntity implements SyncAbleBlockEntity
         return currentCourse;
     }
 
-    public boolean hasCourse(){
-        return this.currentCourse != null;
-    }
-
     public void setCurrentCourse(Course currentCourse) {
         this.currentCourse = currentCourse;
+    }
+
+    public boolean hasCourse() {
+        return this.currentCourse != null;
     }
 
 }
