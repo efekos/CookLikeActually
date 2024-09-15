@@ -87,4 +87,7 @@ public class CourseManager extends JsonDataLoader implements IdentifiableResourc
     }
 
 
+    public Collection<Course> all() {
+        return courses.values();
+    }
 }
