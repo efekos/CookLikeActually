@@ -1,5 +1,6 @@
 package dev.efekos.cla.block.entity;
 
+import dev.efekos.cla.init.ClaBlockEntityTypes;
 import dev.efekos.cla.init.ClaBlocks;
 import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.packet.PanSyncS2C;
@@ -36,7 +37,7 @@ public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBl
     }
 
     public PanBlockEntity(BlockPos pos, BlockState state) {
-        super(ClaBlocks.PAN_BLOCK_ENTITY_TYPE, pos, state);
+        super(ClaBlockEntityTypes.PAN_BLOCK_ENTITY_TYPE, pos, state);
     }
 
     public static void tick(World world, BlockPos blockPos, BlockState blockState, PanBlockEntity panBlockEntity) {

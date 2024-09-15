@@ -7,11 +7,11 @@ import dev.efekos.cla.block.PlateBlock;
 import dev.efekos.cla.block.entity.CuttingBoardBlockEntity;
 import dev.efekos.cla.block.entity.PanBlockEntity;
 import dev.efekos.cla.block.entity.PlateBlockEntity;
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityType;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.MapColor;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -20,6 +20,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.Nullable;
 
 public class ClaBlocks {
 
@@ -30,10 +31,6 @@ public class ClaBlocks {
     public static final PlateBlock PLATE = registerWithoutItem("plate", new PlateBlock(AbstractBlock.Settings.copy(Blocks.GLASS).sounds(PLATE_SOUNDS)));
     public static final Block COOKING_STAND = register("cooking_stand",new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).mapColor(MapColor.PURPLE)));
     public static final PanBlock PAN = register("pan",new PanBlock(AbstractBlock.Settings.copy(Blocks.STONE).sounds(PLATE_SOUNDS)));
-
-    public static final BlockEntityType<PlateBlockEntity> PLATE_BLOCK_ENTITY_TYPE = Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of("cla", "plate"), BlockEntityType.Builder.create(PlateBlockEntity::new, PLATE).build());
-    public static final BlockEntityType<CuttingBoardBlockEntity> CUTTING_BOARD_BLOCK_ENTITY_TYPE = Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of("cla", "cutting_board"), BlockEntityType.Builder.create(CuttingBoardBlockEntity::new, CUTTING_BOARD).build());
-    public static final BlockEntityType<PanBlockEntity> PAN_BLOCK_ENTITY_TYPE = Registry.register(Registries.BLOCK_ENTITY_TYPE,Identifier.of("cla","pan"), BlockEntityType.Builder.create(PanBlockEntity::new,PAN).build());
 
     public static void run() {
 

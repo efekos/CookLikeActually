@@ -1,5 +1,6 @@
 package dev.efekos.cla.block.entity;
 
+import dev.efekos.cla.init.ClaBlockEntityTypes;
 import dev.efekos.cla.init.ClaBlocks;
 import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.packet.CuttingBoardSyncS2C;
@@ -27,7 +28,7 @@ public class CuttingBoardBlockEntity extends BlockEntityWithOneItem implements S
     private int maxCutsNeeded;
 
     public CuttingBoardBlockEntity(BlockPos pos, BlockState state) {
-        super(ClaBlocks.CUTTING_BOARD_BLOCK_ENTITY_TYPE, pos, state);
+        super(ClaBlockEntityTypes.CUTTING_BOARD_BLOCK_ENTITY_TYPE, pos, state);
     }
 
     @Override

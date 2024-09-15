@@ -21,6 +21,7 @@ public class Main implements ModInitializer {
         // Initialization
         ClaComponentTypes.run();
         ClaBlocks.run();
+        ClaBlockEntityTypes.run();
         ClaItems.run();
         ClaGroups.run();
         ClaRecipeTypes.run();

@@ -23,7 +23,7 @@ public class MainClient implements ClientModInitializer {
 
         // Block Entity Renderers
         BlockEntityRendererFactories.register(ClaBlocks.CUTTING_BOARD_BLOCK_ENTITY_TYPE, CuttingBoardBlockEntityRenderer::new);
-        BlockEntityRendererFactories.register(ClaBlocks.PLATE_BLOCK_ENTITY_TYPE, PlateBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(ClaBlocks.PLATE_TYPE, PlateBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(ClaBlocks.PAN_BLOCK_ENTITY_TYPE, PanBlockEntityRenderer::new);
 
         // Packet Receivers

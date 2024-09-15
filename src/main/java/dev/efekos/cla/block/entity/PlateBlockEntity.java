@@ -1,5 +1,6 @@
 package dev.efekos.cla.block.entity;
 
+import dev.efekos.cla.init.ClaBlockEntityTypes;
 import dev.efekos.cla.init.ClaBlocks;
 import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.packet.PlateSyncS2C;
@@ -29,7 +30,7 @@ public class PlateBlockEntity extends BlockEntity implements SyncAbleBlockEntity
     private Course currentCourse;
 
     public PlateBlockEntity(BlockPos pos, BlockState state) {
-        super(ClaBlocks.PLATE_BLOCK_ENTITY_TYPE, pos, state);
+        super(ClaBlockEntityTypes.PLATE_TYPE, pos, state);
     }
 
     @Override
