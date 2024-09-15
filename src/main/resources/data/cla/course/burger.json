@@ -1,5 +1,5 @@
 {
-  "model": "cla:block/burger",
+  "model": "cla:block/plate_burger",
   "nutrition": 5,
   "saturation": 6,
   "eat_seconds": 3,
