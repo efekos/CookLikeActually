@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "north": "cla:block/item_box",
+    "south": "cla:block/item_box",
+    "east": "cla:block/item_box",
+    "west": "cla:block/item_box",
+    "down": "cla:block/item_box",
+    "up": "cla:block/item_box_top",
+    "particle": "cla:block/item_box"
+  }
+}
