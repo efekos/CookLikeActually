@@ -1,0 +1,10 @@
+{
+  "type": "cla:panning",
+  "time": 200,
+  "item": {
+    "item": "mutton"
+  },
+  "result": {
+    "id": "cooked_mutton"
+  }
+}
