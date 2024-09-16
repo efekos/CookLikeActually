@@ -28,6 +28,7 @@ public class ClaBlocks {
     public static final PanBlock PAN = register("pan", new PanBlock(AbstractBlock.Settings.copy(Blocks.STONE).sounds(PLATE_SOUNDS)));
     public static final PlateRackBlock PLATE_RACK = register("plate_rack", new PlateRackBlock(AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque()));
     public static final ItemBoxBlock ITEM_BOX = register("item_box",new ItemBoxBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+    public static final TrashCanBlock TRASH_CAN = register("trash_can",new TrashCanBlock(AbstractBlock.Settings.copy(Blocks.STONE)));
 
     public static void run() {
 
