@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "BCB",
+    "BBB"
+  ],
+  "key": {
+    "A": {
+      "tag": "minecraft:wool"
+    },
+    "B": {
+      "item": "minecraft:cobblestone"
+    },
+    "C": {
+      "item": "minecraft:furnace"
+    }
+  },
+  "result": {
+    "id": "cla:frying_stand",
+    "count": 1
+  }
+}

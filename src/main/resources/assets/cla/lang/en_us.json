@@ -22,5 +22,7 @@
   "course.cla.burger": "Burger",
   "item.cla.burned_patty": "Burned Patty",
   "subtitle.cla.block.plate.pickup": "Plate picked up",
-  "subtitle.cla.block.pan.cook": "Pan cooking something"
+  "subtitle.cla.block.pan.cook": "Pan cooking something",
+  "block.cla.frying_stand": "Frying Stand",
+  "block.cla.stand": "Stand"
 }

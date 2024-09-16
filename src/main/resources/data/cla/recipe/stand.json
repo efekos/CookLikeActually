@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AA",
+    "BB"
+  ],
+  "key": {
+    "A": {
+      "tag": "minecraft:wool"
+    },
+    "B": {
+      "item": "minecraft:cobblestone"
+    }
+  },
+  "result": {
+    "id": "cla:stand",
+    "count": 1
+  }
+}

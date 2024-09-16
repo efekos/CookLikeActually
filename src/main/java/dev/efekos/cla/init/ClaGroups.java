@@ -19,7 +19,7 @@ public class ClaGroups {
                     for (ItemConvertible item : List.of(
                             ClaItems.TOMATO, ClaItems.CUT_TOMATO, ClaItems.LETTUCE, ClaItems.CUT_LETTUCE, ClaItems.PATTY, ClaItems.COOKED_PATTY, ClaItems.BURNED_PATTY, ClaItems.CUT_POTATO, ClaItems.FRIES, ClaItems.BUNS,
                             ClaItems.PLATE, ClaItems.KNIFE, ClaBlocks.CUTTING_BOARD, ClaBlocks.PAN,
-                            ClaBlocks.COOKING_STAND
+                            ClaBlocks.COOKING_STAND, ClaBlocks.FRYING_STAND, ClaBlocks.STAND
                     ))
                         entries.add(item);
                 }).build());
