@@ -11,7 +11,6 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
@@ -24,8 +23,6 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public class PanBlock extends BlockWithOneItem {
 
@@ -75,7 +72,7 @@ public class PanBlock extends BlockWithOneItem {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ClaBlockEntityTypes.PAN_BLOCK_ENTITY_TYPE, PanBlockEntity::tick);
+        return validateTicker(type, ClaBlockEntityTypes.PAN, PanBlockEntity::tick);
     }
 
     @Override

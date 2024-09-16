@@ -28,6 +28,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -61,18 +62,7 @@ public class PlateBlock extends BlockWithEntity {
     @Override
     protected List<ItemStack> getDroppedStacks(BlockState state, LootContextParameterSet.Builder builder) {
         BlockEntity entity = builder.get(LootContextParameters.BLOCK_ENTITY);
-        if (entity instanceof PlateBlockEntity plate) {
-            List<ItemStack> value = Optional.ofNullable(plate.getItems()).orElse(new ArrayList<>());
-            ItemStack stack = ClaItems.PLATE.getDefaultStack();
-
-            if (!value.isEmpty()) stack.set(ClaComponentTypes.ITEMS, value);
-            if (plate.hasCourse()) {
-                Course course = plate.getCurrentCourse();
-                stack.set(ClaComponentTypes.COURSE_ID, course.id());
-                stack.set(DataComponentTypes.FOOD, new FoodComponent(course.nutrition(), course.saturation(), false, course.eatSeconds(), Optional.of(ClaItems.PLATE.getDefaultStack()), List.of()));
-            }
-            return List.of(stack);
-        } else return List.of(ClaItems.PLATE.getDefaultStack());
+        return entity instanceof PlateBlockEntity plate ? List.of(createStack(plate)) : List.of(ClaItems.PLATE.getDefaultStack());
     }
 
     @Override
@@ -87,24 +77,15 @@ public class PlateBlock extends BlockWithEntity {
 
         List<ItemStack> stacks = Optional.ofNullable(plate.getItems()).orElse(new ArrayList<>());
         if (player.isSneaking()) {
+            if (stacks.isEmpty()) return pickup(world,pos,player,plate,hand);
             ItemScatterer.spawn(world, pos, DefaultedList.copyOf(ItemStack.EMPTY, stacks.toArray(new ItemStack[0])));
             plate.setItems(new ArrayList<>());
             plate.markDirty();
             world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.BLOCKS, 1f, 1f, true);
             return ActionResult.SUCCESS;
         } else {
-            if(plate.hasCourse()&&playerStack.isEmpty()){
-                ItemStack stack = new ItemStack(ClaItems.PLATE, 1);
-                Course course = plate.getCurrentCourse();
-                stack.set(ClaComponentTypes.COURSE_ID, course.id());
-                stack.set(ClaComponentTypes.ITEMS,stacks);
-                stack.set(DataComponentTypes.FOOD,new FoodComponent(course.nutrition(),course.saturation(),false,course.eatSeconds(),Optional.of(ClaItems.PLATE.getDefaultStack()),List.of()));
-                player.setStackInHand(hand, stack);
-                world.playSound(pos.getX(), pos.getY(), pos.getZ(), ClaSoundEvents.PLATE_PICKUP, SoundCategory.BLOCKS, 1f, 1f, true);
-                world.removeBlock(pos, false);
-            }
-
-            if (!plate.acceptsItems()|| playerStack.isEmpty() || stacks.stream().anyMatch(itemStack -> itemStack.isOf(playerStack.getItem())))
+            if (plate.hasCourse() && playerStack.isEmpty()) return pickup(world, pos, player, plate, hand);
+            if (!plate.acceptsItems() || playerStack.isEmpty() || stacks.stream().anyMatch(itemStack -> itemStack.isOf(playerStack.getItem())))
                 return ActionResult.PASS;
             stacks.add(playerStack.copyWithCount(1));
             plate.setItems(stacks);
@@ -114,6 +95,26 @@ public class PlateBlock extends BlockWithEntity {
             return ActionResult.success(true);
         }
 
+    }
+
+    private ActionResult pickup(World world, BlockPos pos, PlayerEntity player, PlateBlockEntity plate, Hand hand) {
+        ItemStack stack = createStack(plate);
+        player.setStackInHand(hand, stack);
+        world.playSound(pos.getX(), pos.getY(), pos.getZ(), ClaSoundEvents.PLATE_PICKUP, SoundCategory.BLOCKS, 1f, 1f, true);
+        world.removeBlock(pos, false);
+        return ActionResult.SUCCESS;
+    }
+
+    private static @NotNull ItemStack createStack(PlateBlockEntity plate) {
+        List<ItemStack> stacks = Optional.ofNullable(plate.getItems()).orElse(new ArrayList<>());
+        ItemStack stack = new ItemStack(ClaItems.PLATE, 1);
+        if(plate.hasCourse()){
+            Course course = plate.getCurrentCourse();
+            stack.set(ClaComponentTypes.COURSE_ID, course.id());
+            stack.set(DataComponentTypes.FOOD, new FoodComponent(course.nutrition(), course.saturation(), false, course.eatSeconds(), Optional.of(ClaItems.PLATE.getDefaultStack()), List.of()));
+        }
+        if(!stacks.isEmpty()) stack.set(ClaComponentTypes.ITEMS, stacks);
+        return stack;
     }
 
 }

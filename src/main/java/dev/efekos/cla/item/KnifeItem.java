@@ -2,7 +2,6 @@ package dev.efekos.cla.item;
 
 import dev.efekos.cla.block.entity.CuttingBoardBlockEntity;
 import dev.efekos.cla.init.ClaBlockEntityTypes;
-import dev.efekos.cla.init.ClaBlocks;
 import dev.efekos.cla.init.ClaSoundEvents;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.SwordItem;
@@ -26,7 +25,7 @@ public class KnifeItem extends SwordItem {
         if (context.getHand() != Hand.MAIN_HAND) return ActionResult.PASS;
         BlockPos pos = context.getBlockPos();
         World world = context.getWorld();
-        Optional<CuttingBoardBlockEntity> blockEntityOptional = world.getBlockEntity(pos, ClaBlockEntityTypes.CUTTING_BOARD_BLOCK_ENTITY_TYPE);
+        Optional<CuttingBoardBlockEntity> blockEntityOptional = world.getBlockEntity(pos, ClaBlockEntityTypes.CUTTING_BOARD);
         if (blockEntityOptional.isEmpty()) return ActionResult.PASS;
         CuttingBoardBlockEntity blockEntity = blockEntityOptional.get();
         if (!blockEntity.hasRecipe(world)) return ActionResult.PASS;
