@@ -1,9 +1,11 @@
-package dev.efekos.cla.client.item;
+package dev.efekos.cla.client.renderer;
 
 import dev.efekos.cla.Main;
 import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.resource.Course;
 import dev.efekos.cla.resource.CourseManager;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -17,6 +19,7 @@ import net.minecraft.util.Arm;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 
+@Environment(EnvType.CLIENT)
 public class PlateItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
 
     public static final Identifier BASE_ITEM_ID = Identifier.of(Main.MOD_ID,"block/plate_base");

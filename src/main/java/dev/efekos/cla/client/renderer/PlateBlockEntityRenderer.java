@@ -1,12 +1,12 @@
-package dev.efekos.cla.block.entity;
+package dev.efekos.cla.client.renderer;
 
+import dev.efekos.cla.block.entity.PlateBlockEntity;
 import dev.efekos.cla.resource.Course;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.LightmapTextureManager;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
@@ -22,6 +22,7 @@ import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
+@Environment(EnvType.CLIENT)
 public class PlateBlockEntityRenderer implements BlockEntityRenderer<PlateBlockEntity> {
 
     private final ItemRenderer itemRenderer;
@@ -57,7 +58,7 @@ public class PlateBlockEntityRenderer implements BlockEntityRenderer<PlateBlockE
             matrices.translate(0.5f, 0.08f+i*0.03f, 0.5f);
             matrices.scale(0.4f, 0.4f, 0.4f);
             matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(270));
-            itemRenderer.renderItem(item, ModelTransformationMode.NONE, getLightLevel(world, pos), 0, matrices, vertexConsumers, world, 1);
+            itemRenderer.renderItem(item, ModelTransformationMode.NONE, getLightLevel(world, pos), OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, world, 1);
             matrices.pop();
         }
 

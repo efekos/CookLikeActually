@@ -1,7 +1,9 @@
-package dev.efekos.cla.block.entity;
+package dev.efekos.cla.client.renderer;
 
-import com.mojang.blaze3d.systems.RenderSystem;
+import dev.efekos.cla.block.entity.ItemBoxBlockEntity;
 import dev.efekos.cla.init.ClaTags;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
@@ -19,6 +21,7 @@ import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
+@Environment(EnvType.CLIENT)
 public class ItemBoxBlockEntityRenderer implements BlockEntityRenderer<ItemBoxBlockEntity> {
 
     private final ItemRenderer itemRenderer;
@@ -59,8 +62,7 @@ public class ItemBoxBlockEntityRenderer implements BlockEntityRenderer<ItemBoxBl
             matrices.scale(0.8f, 0.8f, 0.8f);
             if (isItem) matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(270));
 
-            RenderSystem.setShaderColor(1,1,1,1);
-            itemRenderer.renderItem(item, !isItem ? ModelTransformationMode.NONE : ModelTransformationMode.GUI, 200,1, matrices,
+            itemRenderer.renderItem(item, !isItem ? ModelTransformationMode.NONE : ModelTransformationMode.GUI, 200,OverlayTexture.DEFAULT_UV, matrices,
                     vertexConsumers, world, 1);
             matrices.pop();
         }

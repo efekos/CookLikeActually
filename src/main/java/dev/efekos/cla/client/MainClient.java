@@ -2,7 +2,7 @@ package dev.efekos.cla.client;
 
 import dev.efekos.cla.Main;
 import dev.efekos.cla.block.entity.*;
-import dev.efekos.cla.client.item.PlateItemRenderer;
+import dev.efekos.cla.client.renderer.*;
 import dev.efekos.cla.init.ClaBlockEntityTypes;
 import dev.efekos.cla.init.ClaItems;
 import dev.efekos.cla.packet.*;

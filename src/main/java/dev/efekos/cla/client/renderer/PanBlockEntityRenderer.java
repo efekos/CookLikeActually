@@ -1,7 +1,11 @@
-package dev.efekos.cla.block.entity;
+package dev.efekos.cla.client.renderer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import dev.efekos.cla.block.entity.PanBlockEntity;
 import dev.efekos.cla.init.ClaTags;
+import jdk.jfr.Enabled;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
@@ -23,6 +27,7 @@ import net.minecraft.world.World;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
+@Environment(EnvType.CLIENT)
 public class PanBlockEntityRenderer implements BlockEntityRenderer<PanBlockEntity> {
 
     private static final Identifier PROGRESS_TEXTURE = Identifier.of("cla", "textures/gui/progress.png");
