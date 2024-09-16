@@ -3,7 +3,7 @@
 	"textures": {
 		"0": "block/white_concrete",
 		"1": "block/oak_planks",
-		"particle": "cla:block/cooking_stand_bottom"
+		"particle": "block/oak_planks"
 	},
 	"elements": [
 		{
