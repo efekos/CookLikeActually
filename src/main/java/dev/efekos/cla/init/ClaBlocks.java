@@ -16,19 +16,17 @@ import net.minecraft.util.Identifier;
 
 public class ClaBlocks {
 
-    private static final AbstractBlock.Settings STAND_BLOCK_SETTINGS = AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).hardness(2.5f).resistance(3).mapColor(MapColor.PURPLE);
-
     public static final BlockSoundGroup PLATE_SOUNDS = new BlockSoundGroup(1f, 1f, SoundEvents.BLOCK_STONE_BREAK, SoundEvents.BLOCK_GLASS_STEP, ClaSoundEvents.PLATE_PLACE, SoundEvents.BLOCK_GLASS_HIT, SoundEvents.BLOCK_GLASS_FALL);
-
     public static final CuttingBoardBlock CUTTING_BOARD = register("cutting_board", new CuttingBoardBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
     public static final PlateBlock PLATE = registerWithoutItem("plate", new PlateBlock(AbstractBlock.Settings.copy(Blocks.GLASS).sounds(PLATE_SOUNDS)));
-    public static final Block COOKING_STAND = register("cooking_stand", new Block(STAND_BLOCK_SETTINGS));
-    public static final Block FRYING_STAND = register("frying_stand",new Block(STAND_BLOCK_SETTINGS));
-    public static final Block STAND = register("stand",new Block(STAND_BLOCK_SETTINGS));
     public static final PanBlock PAN = register("pan", new PanBlock(AbstractBlock.Settings.copy(Blocks.STONE).sounds(PLATE_SOUNDS)));
     public static final PlateRackBlock PLATE_RACK = register("plate_rack", new PlateRackBlock(AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque()));
-    public static final ItemBoxBlock ITEM_BOX = register("item_box",new ItemBoxBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
-    public static final TrashCanBlock TRASH_CAN = register("trash_can",new TrashCanBlock(AbstractBlock.Settings.copy(Blocks.STONE)));
+    public static final ItemBoxBlock ITEM_BOX = register("item_box", new ItemBoxBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
+    public static final TrashCanBlock TRASH_CAN = register("trash_can", new TrashCanBlock(AbstractBlock.Settings.copy(Blocks.STONE)));
+    private static final AbstractBlock.Settings STAND_BLOCK_SETTINGS = AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).hardness(2.5f).resistance(3).mapColor(MapColor.PURPLE);
+    public static final Block COOKING_STAND = register("cooking_stand", new Block(STAND_BLOCK_SETTINGS));
+    public static final Block FRYING_STAND = register("frying_stand", new Block(STAND_BLOCK_SETTINGS));
+    public static final Block STAND = register("stand", new Block(STAND_BLOCK_SETTINGS));
 
     public static void run() {
 

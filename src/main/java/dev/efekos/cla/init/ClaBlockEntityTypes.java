@@ -26,7 +26,7 @@ public class ClaBlockEntityTypes {
     public static final BlockEntityType<PlateBlockEntity> PLATE = register("plate", PlateBlockEntity::new, ClaBlocks.PLATE);
     public static final BlockEntityType<CuttingBoardBlockEntity> CUTTING_BOARD = register("cutting_board", CuttingBoardBlockEntity::new, ClaBlocks.CUTTING_BOARD);
     public static final BlockEntityType<PanBlockEntity> PAN = register("pan", PanBlockEntity::new, ClaBlocks.PAN);
-    public static final BlockEntityType<ItemBoxBlockEntity> ITEM_BOX = register("item_box",ItemBoxBlockEntity::new, ClaBlocks.ITEM_BOX);
+    public static final BlockEntityType<ItemBoxBlockEntity> ITEM_BOX = register("item_box", ItemBoxBlockEntity::new, ClaBlocks.ITEM_BOX);
 
 
 }

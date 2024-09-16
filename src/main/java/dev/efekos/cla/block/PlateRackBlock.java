@@ -35,13 +35,6 @@ public class PlateRackBlock extends Block {
         super(settings);
     }
 
-    @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        super.appendProperties(builder);
-        builder.add(FACING);
-        builder.add(PLATES);
-    }
-
     public static VoxelShape makeShape() {
         return VoxelShapes.union(
                 VoxelShapes.cuboid(0.9375, 0.125, 0.4375, 1, 0.875, 0.5625),
@@ -49,6 +42,13 @@ public class PlateRackBlock extends Block {
                 VoxelShapes.cuboid(0, 0.125, 0.4375, 0.0625, 0.875, 0.5625),
                 VoxelShapes.cuboid(0.0625, 0.125, 0.125, 0.9375, 0.875, 0.875)
         );
+    }
+
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        super.appendProperties(builder);
+        builder.add(FACING);
+        builder.add(PLATES);
     }
 
     @Override
@@ -78,13 +78,13 @@ public class PlateRackBlock extends Block {
             if (i == 0) return ActionResult.PASS;
             player.setStackInHand(hand, new ItemStack(ClaItems.PLATE, 1));
             world.setBlockState(pos, state.with(PLATES, i - 1));
-            world.playSound(player,pos, ClaSoundEvents.PLATE_PICKUP, SoundCategory.PLAYERS,1f,1f);
+            world.playSound(player, pos, ClaSoundEvents.PLATE_PICKUP, SoundCategory.PLAYERS, 1f, 1f);
             return ActionResult.SUCCESS;
         } else if (playerStack.isOf(ClaItems.PLATE)) {
             if (i == 7) return ActionResult.PASS;
             player.setStackInHand(hand, playerStack.copyWithCount(playerStack.getCount() - 1));
-            world.setBlockState(pos, state.with(PLATES, i+1));
-            world.playSound(player,pos, ClaSoundEvents.PLATE_PLACE_TO_RACK, SoundCategory.PLAYERS,1f,1f);
+            world.setBlockState(pos, state.with(PLATES, i + 1));
+            world.playSound(player, pos, ClaSoundEvents.PLATE_PLACE_TO_RACK, SoundCategory.PLAYERS, 1f, 1f);
             return ActionResult.SUCCESS;
         } else return ActionResult.PASS;
 

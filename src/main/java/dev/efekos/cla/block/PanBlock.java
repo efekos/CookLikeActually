@@ -77,14 +77,14 @@ public class PanBlock extends BlockWithOneItem {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if(player.isSneaking()){
+        if (player.isSneaking()) {
             Hand hand = player.getActiveHand();
-            if(!player.getStackInHand(hand).isEmpty())return ActionResult.PASS;
+            if (!player.getStackInHand(hand).isEmpty()) return ActionResult.PASS;
 
-            PanBlockEntity pan  =(PanBlockEntity) world.getBlockEntity(pos);
+            PanBlockEntity pan = (PanBlockEntity) world.getBlockEntity(pos);
             ItemStack stack = this.asItem().getDefaultStack();
-            stack.set(ClaComponentTypes.TICKS,pan.getTicks());
-            if(pan.hasItem())stack.set(ClaComponentTypes.ITEM,pan.getItem());
+            stack.set(ClaComponentTypes.TICKS, pan.getTicks());
+            if (pan.hasItem()) stack.set(ClaComponentTypes.ITEM, pan.getItem());
             player.setStackInHand(hand, stack);
             world.setBlockState(pos, Blocks.AIR.getDefaultState());
             return ActionResult.SUCCESS;

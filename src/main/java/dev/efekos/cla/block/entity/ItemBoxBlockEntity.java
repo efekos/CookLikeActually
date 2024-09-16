@@ -17,57 +17,59 @@ import net.minecraft.util.math.BlockPos;
 
 public class ItemBoxBlockEntity extends BlockEntity implements SyncAbleBlockEntity<ItemBoxSyncS2C> {
 
-    @Override
-    public ItemBoxSyncS2C createSyncPacket() {
-        return new ItemBoxSyncS2C(item,pos);
-    }
+    private ItemStack item;
 
     public ItemBoxBlockEntity(BlockPos pos, BlockState state) {
         super(ClaBlockEntityTypes.ITEM_BOX, pos, state);
     }
 
-    private ItemStack item;
+    @Override
+    public ItemBoxSyncS2C createSyncPacket() {
+        return new ItemBoxSyncS2C(item, pos);
+    }
 
     @Override
     protected void readComponents(ComponentsAccess components) {
         super.readComponents(components);
-        this.item = components.getOrDefault(ClaComponentTypes.ITEM,ItemStack.EMPTY);
+        this.item = components.getOrDefault(ClaComponentTypes.ITEM, ItemStack.EMPTY);
     }
 
     @Override
     protected void addComponents(ComponentMap.Builder componentMapBuilder) {
         super.addComponents(componentMapBuilder);
-        if(!this.item.isEmpty()) componentMapBuilder.add(ClaComponentTypes.ITEM, this.item);
+        if (!this.item.isEmpty()) componentMapBuilder.add(ClaComponentTypes.ITEM, this.item);
     }
 
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
-        if(nbt.contains("Item", NbtElement.COMPOUND_TYPE)) this.item = ItemStack.fromNbt(registryLookup,nbt.getCompound("Item")).orElse(ItemStack.EMPTY);
+        if (nbt.contains("Item", NbtElement.COMPOUND_TYPE))
+            this.item = ItemStack.fromNbt(registryLookup, nbt.getCompound("Item")).orElse(ItemStack.EMPTY);
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
-        if(!this.item.isEmpty()) nbt.put("Item",item.encode(registryLookup));
-    }
-
-    public void setItem(ItemStack item) {
-        this.item = item.copyWithCount(1);
+        if (!this.item.isEmpty()) nbt.put("Item", item.encode(registryLookup));
     }
 
     public ItemStack getItem() {
         return item;
     }
 
+    public void setItem(ItemStack item) {
+        this.item = item.copyWithCount(1);
+    }
+
     @Override
     public void markDirty() {
-        if(!world.isClient) for(ServerPlayerEntity p: PlayerLookup.tracking(this)) ServerPlayNetworking.send(p,createSyncPacket());
+        if (!world.isClient)
+            for (ServerPlayerEntity p : PlayerLookup.tracking(this)) ServerPlayNetworking.send(p, createSyncPacket());
         super.markDirty();
     }
 
     public boolean hasItem() {
-        return item!=null&&!item.isEmpty();
+        return item != null && !item.isEmpty();
     }
 
 }

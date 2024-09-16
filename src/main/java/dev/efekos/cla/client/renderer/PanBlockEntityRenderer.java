@@ -3,7 +3,6 @@ package dev.efekos.cla.client.renderer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.efekos.cla.block.entity.PanBlockEntity;
 import dev.efekos.cla.init.ClaTags;
-import jdk.jfr.Enabled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -88,7 +87,7 @@ public class PanBlockEntityRenderer implements BlockEntityRenderer<PanBlockEntit
         }
 
         // progress bar
-        if (!entity.hasRecipe(world)||!entity.getRecipe(world).hasProgressBar()) return;
+        if (!entity.hasRecipe(world) || !entity.getRecipe(world).hasProgressBar()) return;
         float v = entity.getTicks() / (float) entity.getMaxTicks();
 
         render(PROGRESS_TEXTURE, matrices, lightLevel, 1);

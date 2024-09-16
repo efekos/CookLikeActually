@@ -1,7 +1,7 @@
 package dev.efekos.cla.client;
 
 import dev.efekos.cla.Main;
-import dev.efekos.cla.block.entity.*;
+import dev.efekos.cla.block.entity.SyncAbleBlockEntity;
 import dev.efekos.cla.client.renderer.*;
 import dev.efekos.cla.init.ClaBlockEntityTypes;
 import dev.efekos.cla.init.ClaItems;
@@ -42,7 +42,7 @@ public class MainClient implements ClientModInitializer {
         ModelLoadingPlugin.register(this::loadAndRegisterModels);
 
         // Builtin Item Renderers
-        BuiltinItemRendererRegistry.INSTANCE.register(ClaItems.PLATE,new PlateItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(ClaItems.PLATE, new PlateItemRenderer());
     }
 
     private void loadAndRegisterModels(ModelLoadingPlugin.Context pluginContext) {
@@ -51,8 +51,8 @@ public class MainClient implements ClientModInitializer {
         List<Identifier> modelFiles = resourceManager.findResources("models/block", path -> path.getNamespace().equals(Main.MOD_ID)).keySet()
                 .stream()
                 .map(Identifier::getPath)
-                .map(s -> s.substring(7,s.length()-5))
-                .map(s->Identifier.of(Main.MOD_ID, s))
+                .map(s -> s.substring(7, s.length() - 5))
+                .map(s -> Identifier.of(Main.MOD_ID, s))
                 .toList();
         pluginContext.addModels(modelFiles);
     }

@@ -17,7 +17,7 @@
       }
     ]
   },
-  "block.plate.place" : {
+  "block.plate.place": {
     "category": "blocks",
     "subtitle": "subtitle.cla.block.plate.place",
     "sounds": [

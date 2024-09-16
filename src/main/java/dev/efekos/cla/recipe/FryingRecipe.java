@@ -41,7 +41,7 @@ public class FryingRecipe implements Recipe<SingleStackRecipeInput> {
         return time;
     }
 
-    public boolean hasProgressBar(){
+    public boolean hasProgressBar() {
         return progressBar;
     }
 
@@ -83,7 +83,7 @@ public class FryingRecipe implements Recipe<SingleStackRecipeInput> {
                 Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("item").forGetter(FryingRecipe::getItem),
                 ItemStack.CODEC.fieldOf("result").forGetter(FryingRecipe::getRes),
                 Codecs.POSITIVE_INT.fieldOf("time").forGetter(FryingRecipe::getTime),
-                Codec.BOOL.optionalFieldOf("progress_bar",true).forGetter(FryingRecipe::hasProgressBar)
+                Codec.BOOL.optionalFieldOf("progress_bar", true).forGetter(FryingRecipe::hasProgressBar)
         ).apply(instance, FryingRecipe::new));
         public final PacketCodec<RegistryByteBuf, FryingRecipe> PACKET_CODEC = PacketCodec.ofStatic(this::write, this::read);
 

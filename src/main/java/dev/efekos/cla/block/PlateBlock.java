@@ -44,6 +44,18 @@ public class PlateBlock extends BlockWithEntity {
         super(settings);
     }
 
+    private static @NotNull ItemStack createStack(PlateBlockEntity plate) {
+        List<ItemStack> stacks = Optional.ofNullable(plate.getItems()).orElse(new ArrayList<>());
+        ItemStack stack = new ItemStack(ClaItems.PLATE, 1);
+        if (plate.hasCourse()) {
+            Course course = plate.getCurrentCourse();
+            stack.set(ClaComponentTypes.COURSE_ID, course.id());
+            stack.set(DataComponentTypes.FOOD, new FoodComponent(course.nutrition(), course.saturation(), false, course.eatSeconds(), Optional.of(ClaItems.PLATE.getDefaultStack()), List.of()));
+        }
+        if (!stacks.isEmpty()) stack.set(ClaComponentTypes.ITEMS, stacks);
+        return stack;
+    }
+
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
         return CODEC;
@@ -77,7 +89,7 @@ public class PlateBlock extends BlockWithEntity {
 
         List<ItemStack> stacks = Optional.ofNullable(plate.getItems()).orElse(new ArrayList<>());
         if (player.isSneaking()) {
-            if (stacks.isEmpty()) return pickup(world,pos,player,plate,hand);
+            if (stacks.isEmpty()) return pickup(world, pos, player, plate, hand);
             ItemScatterer.spawn(world, pos, DefaultedList.copyOf(ItemStack.EMPTY, stacks.toArray(new ItemStack[0])));
             plate.setItems(new ArrayList<>());
             plate.markDirty();
@@ -103,18 +115,6 @@ public class PlateBlock extends BlockWithEntity {
         world.playSound(pos.getX(), pos.getY(), pos.getZ(), ClaSoundEvents.PLATE_PICKUP, SoundCategory.BLOCKS, 1f, 1f, true);
         world.removeBlock(pos, false);
         return ActionResult.SUCCESS;
-    }
-
-    private static @NotNull ItemStack createStack(PlateBlockEntity plate) {
-        List<ItemStack> stacks = Optional.ofNullable(plate.getItems()).orElse(new ArrayList<>());
-        ItemStack stack = new ItemStack(ClaItems.PLATE, 1);
-        if(plate.hasCourse()){
-            Course course = plate.getCurrentCourse();
-            stack.set(ClaComponentTypes.COURSE_ID, course.id());
-            stack.set(DataComponentTypes.FOOD, new FoodComponent(course.nutrition(), course.saturation(), false, course.eatSeconds(), Optional.of(ClaItems.PLATE.getDefaultStack()), List.of()));
-        }
-        if(!stacks.isEmpty()) stack.set(ClaComponentTypes.ITEMS, stacks);
-        return stack;
     }
 
 }

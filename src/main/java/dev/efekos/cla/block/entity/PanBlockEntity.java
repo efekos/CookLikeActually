@@ -49,7 +49,7 @@ public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBl
     public void tick(World world, BlockPos pos, BlockState state) {
         if (hasRecipe(world) && world.getBlockState(pos.down()).isOf(ClaBlocks.COOKING_STAND)) {
             ticks++;
-            world.playSound(pos.getX(),pos.getY(),pos.getZ(), ClaSoundEvents.PAN_COOKING, SoundCategory.BLOCKS,1f,1f,true);
+            world.playSound(pos.getX(), pos.getY(), pos.getZ(), ClaSoundEvents.PAN_COOKING, SoundCategory.BLOCKS, 1f, 1f, true);
             PanningRecipe recipe = getRecipe(world);
             if (getTicks() >= recipe.getTime()) {
                 setTicks(0);

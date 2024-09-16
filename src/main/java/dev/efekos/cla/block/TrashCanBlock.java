@@ -35,7 +35,7 @@ public class TrashCanBlock extends Block {
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         Hand hand = player.getActiveHand();
-        if(!player.isCreative()&&!player.isSpectator()&&!player.getStackInHand(hand).isEmpty()){
+        if (!player.isCreative() && !player.isSpectator() && !player.getStackInHand(hand).isEmpty()) {
             player.setStackInHand(hand, Items.AIR.getDefaultStack());
             return ActionResult.SUCCESS;
         } else return ActionResult.PASS;

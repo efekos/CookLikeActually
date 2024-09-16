@@ -22,12 +22,12 @@ import net.minecraft.util.math.RotationAxis;
 @Environment(EnvType.CLIENT)
 public class PlateItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
 
-    public static final Identifier BASE_ITEM_ID = Identifier.of(Main.MOD_ID,"block/plate_base");
+    public static final Identifier BASE_ITEM_ID = Identifier.of(Main.MOD_ID, "block/plate_base");
 
     @Override
     public void render(ItemStack stack, ModelTransformationMode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         ItemRenderer renderer = MinecraftClient.getInstance().getItemRenderer();
-        BakedModelManager modelManager = MinecraftClient.getInstance().getBakedModelManager() ;
+        BakedModelManager modelManager = MinecraftClient.getInstance().getBakedModelManager();
         boolean leftHanded = MinecraftClient.getInstance().options.getMainArm().getValue() == Arm.LEFT;
 
         // Item itself
@@ -35,7 +35,7 @@ public class PlateItemRenderer implements BuiltinItemRendererRegistry.DynamicIte
         matrices.translate(0.5f, 0.5f, 0.5f);
         matrices.scale(1f, 1f, 1f);
         matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(0));
-        renderer.renderItem(stack.getItem().getDefaultStack(),mode,leftHanded,matrices,vertexConsumers,light,overlay, modelManager.getModel(BASE_ITEM_ID));
+        renderer.renderItem(stack.getItem().getDefaultStack(), mode, leftHanded, matrices, vertexConsumers, light, overlay, modelManager.getModel(BASE_ITEM_ID));
         matrices.pop();
 
         // Course Model
@@ -48,7 +48,7 @@ public class PlateItemRenderer implements BuiltinItemRendererRegistry.DynamicIte
             matrices.translate(0.5f, 0.5f, 0.5f);
             matrices.scale(1f, 1f, 1f);
             matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(0));
-            renderer.renderItem(stack,mode, leftHanded,matrices,vertexConsumers,light,overlay,bakedModel);
+            renderer.renderItem(stack, mode, leftHanded, matrices, vertexConsumers, light, overlay, bakedModel);
             matrices.pop();
         }
 

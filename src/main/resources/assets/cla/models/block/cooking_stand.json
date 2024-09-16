@@ -1,6 +1,6 @@
 {
   "parent": "block/cube",
-  "textures":{
+  "textures": {
     "particle": "cla:block/cooking_stand_side",
     "north": "cla:block/cooking_stand_side",
     "south": "cla:block/cooking_stand_side",

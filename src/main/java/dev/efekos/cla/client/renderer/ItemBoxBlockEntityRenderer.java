@@ -62,7 +62,7 @@ public class ItemBoxBlockEntityRenderer implements BlockEntityRenderer<ItemBoxBl
             matrices.scale(0.8f, 0.8f, 0.8f);
             if (isItem) matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(270));
 
-            itemRenderer.renderItem(item, !isItem ? ModelTransformationMode.NONE : ModelTransformationMode.GUI, 200,OverlayTexture.DEFAULT_UV, matrices,
+            itemRenderer.renderItem(item, !isItem ? ModelTransformationMode.NONE : ModelTransformationMode.GUI, 200, OverlayTexture.DEFAULT_UV, matrices,
                     vertexConsumers, world, 1);
             matrices.pop();
         }
