@@ -1,9 +1,7 @@
 package dev.efekos.cla.init;
 
 import dev.efekos.cla.Main;
-import dev.efekos.cla.block.CuttingBoardBlock;
-import dev.efekos.cla.block.PanBlock;
-import dev.efekos.cla.block.PlateBlock;
+import dev.efekos.cla.block.*;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -28,6 +26,8 @@ public class ClaBlocks {
     public static final Block FRYING_STAND = register("frying_stand",new Block(STAND_BLOCK_SETTINGS));
     public static final Block STAND = register("stand",new Block(STAND_BLOCK_SETTINGS));
     public static final PanBlock PAN = register("pan", new PanBlock(AbstractBlock.Settings.copy(Blocks.STONE).sounds(PLATE_SOUNDS)));
+    public static final PlateRackBlock PLATE_RACK = register("plate_rack", new PlateRackBlock(AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque()));
+    public static final ItemBoxBlock ITEM_BOX = register("item_box",new ItemBoxBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
 
     public static void run() {
 

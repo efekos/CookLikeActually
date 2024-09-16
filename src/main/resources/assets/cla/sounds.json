@@ -44,5 +44,12 @@
     "sounds": [
       "cla:plate_pickup"
     ]
+  },
+  "block.plate_rack.place_plate": {
+    "category": "blocks",
+    "subtitle": "subtitle.cla.block.plate_rack.place_place",
+    "sounds": [
+      "cla:plate_rack_place"
+    ]
   }
 }
