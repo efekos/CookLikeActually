@@ -27,7 +27,7 @@ public class CuttingBoardBlockEntity extends BlockEntityWithOneItem implements S
     private int maxCutsNeeded;
 
     public CuttingBoardBlockEntity(BlockPos pos, BlockState state) {
-        super(ClaBlockEntityTypes.CUTTING_BOARD_BLOCK_ENTITY_TYPE, pos, state);
+        super(ClaBlockEntityTypes.CUTTING_BOARD, pos, state);
     }
 
     @Override

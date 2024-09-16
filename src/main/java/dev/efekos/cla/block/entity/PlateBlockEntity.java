@@ -29,7 +29,7 @@ public class PlateBlockEntity extends BlockEntity implements SyncAbleBlockEntity
     private Course currentCourse;
 
     public PlateBlockEntity(BlockPos pos, BlockState state) {
-        super(ClaBlockEntityTypes.PLATE_TYPE, pos, state);
+        super(ClaBlockEntityTypes.PLATE, pos, state);
     }
 
     @Override

@@ -25,7 +25,7 @@ public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBl
     private int ticks = 0;
 
     public PanBlockEntity(BlockPos pos, BlockState state) {
-        super(ClaBlockEntityTypes.PAN_BLOCK_ENTITY_TYPE, pos, state);
+        super(ClaBlockEntityTypes.PAN, pos, state);
     }
 
     public static void tick(World world, BlockPos blockPos, BlockState blockState, PanBlockEntity panBlockEntity) {
