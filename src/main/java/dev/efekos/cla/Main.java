@@ -1,6 +1,5 @@
 package dev.efekos.cla;
 
-import dev.efekos.cla.block.ItemBoxBlock;
 import dev.efekos.cla.init.*;
 import dev.efekos.cla.packet.*;
 import dev.efekos.cla.resource.CourseManager;

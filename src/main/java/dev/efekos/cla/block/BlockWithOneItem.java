@@ -45,4 +45,5 @@ public abstract class BlockWithOneItem extends BlockWithEntity {
             return ActionResult.success(true);
         } else return ActionResult.PASS;
     }
+
 }
