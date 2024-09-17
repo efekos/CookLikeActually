@@ -1,7 +1,7 @@
 {
-  "model": "cla:block/plate_burger",
-  "nutrition": 5,
-  "saturation": 6,
+  "model": "cla:block/plate_tlburger",
+  "nutrition": 9,
+  "saturation": 9,
   "eat_seconds": 3,
   "ingredients": [
     {
@@ -9,14 +9,12 @@
     },
     {
       "item": "cla:buns"
-    }
-  ],
-  "transformers": [
-    {
-      "item": "cla:cut_lettuce"
     },
     {
       "item": "cla:cut_tomato"
+    },
+    {
+      "item": "cla:cut_lettuce"
     }
   ]
 }
