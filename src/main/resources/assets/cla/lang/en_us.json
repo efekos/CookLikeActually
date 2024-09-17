@@ -28,5 +28,6 @@
   "block.cla.plate_rack": "Plate Rack",
   "subtitle.cla.block.plate_rack.place_place": "Someone placed a plate to a rack",
   "block.cla.item_box": "Item Box",
-  "block.cla.trash_can": "Trash Can"
+  "block.cla.trash_can": "Trash Can",
+  "item.cla.frying_sieve": "Frying Sieve"
 }

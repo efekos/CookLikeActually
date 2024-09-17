@@ -29,6 +29,7 @@ public class Main implements ModInitializer {
         PayloadTypeRegistry.playS2C().register(PlateSyncS2C.PAYLOAD_ID, PlateSyncS2C.CODEC);
         PayloadTypeRegistry.playS2C().register(PanSyncS2C.PAYLOAD_ID, PanSyncS2C.CODEC);
         PayloadTypeRegistry.playS2C().register(ItemBoxSyncS2C.PAYLOAD_ID, ItemBoxSyncS2C.CODEC);
+        PayloadTypeRegistry.playS2C().register(FryingStandSyncS2C.PAYLOAD_ID, FryingStandSyncS2C.CODEC);
         PayloadTypeRegistry.playC2S().register(RequestSyncC2S.PAYLOAD_ID, RequestSyncC2S.CODEC);
 
         // Server Payload Listeners

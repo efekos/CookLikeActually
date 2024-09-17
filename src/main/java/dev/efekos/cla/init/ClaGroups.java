@@ -18,7 +18,7 @@ public class ClaGroups {
                 .entries((displayContext, entries) -> {
                     for (ItemConvertible item : List.of(
                             ClaItems.TOMATO, ClaItems.CUT_TOMATO, ClaItems.LETTUCE, ClaItems.CUT_LETTUCE, ClaItems.PATTY, ClaItems.COOKED_PATTY, ClaItems.BURNED_PATTY, ClaItems.CUT_POTATO, ClaItems.FRIES, ClaItems.BUNS,
-                            ClaItems.PLATE, ClaItems.KNIFE, ClaBlocks.CUTTING_BOARD, ClaBlocks.PAN,
+                            ClaItems.PLATE, ClaItems.KNIFE, ClaBlocks.CUTTING_BOARD, ClaBlocks.PAN, ClaItems.FRYING_SIEVE,
                             ClaBlocks.COOKING_STAND, ClaBlocks.FRYING_STAND, ClaBlocks.STAND, ClaBlocks.PLATE_RACK, ClaBlocks.ITEM_BOX, ClaBlocks.TRASH_CAN
                     ))
                         entries.add(item);

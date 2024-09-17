@@ -13,7 +13,7 @@ import net.minecraft.util.math.BlockPos;
 
 public abstract class BlockEntityWithOneItem extends BlockEntity {
 
-    protected ItemStack item;
+    protected ItemStack item = ItemStack.EMPTY;
 
     public BlockEntityWithOneItem(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
