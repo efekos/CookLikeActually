@@ -4,17 +4,21 @@ import dev.efekos.cla.Main;
 import dev.efekos.cla.block.entity.SyncAbleBlockEntity;
 import dev.efekos.cla.client.renderer.*;
 import dev.efekos.cla.init.ClaBlockEntityTypes;
+import dev.efekos.cla.init.ClaBlocks;
 import dev.efekos.cla.init.ClaItems;
 import dev.efekos.cla.packet.*;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientBlockEntityEvents;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.ai.brain.task.ForgetBellRingTask;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 
@@ -37,6 +41,7 @@ public class MainClient implements ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(PlateSyncS2C.PAYLOAD_ID, PlateSyncS2C::handle);
         ClientPlayNetworking.registerGlobalReceiver(PanSyncS2C.PAYLOAD_ID, PanSyncS2C::handle);
         ClientPlayNetworking.registerGlobalReceiver(ItemBoxSyncS2C.PAYLOAD_ID, ItemBoxSyncS2C::handle);
+        ClientPlayNetworking.registerGlobalReceiver(FryingStandSyncS2C.PAYLOAD_ID, FryingStandSyncS2C::handle);
 
         // Events
         ClientBlockEntityEvents.BLOCK_ENTITY_LOAD.register(this::loadBlockEntity);
@@ -44,6 +49,9 @@ public class MainClient implements ClientModInitializer {
 
         // Builtin Item Renderers
         BuiltinItemRendererRegistry.INSTANCE.register(ClaItems.PLATE, new PlateItemRenderer());
+
+
+        BlockRenderLayerMap.INSTANCE.putBlock(ClaBlocks.FRYING_STAND, RenderLayer.getCutout());
     }
 
     private void loadAndRegisterModels(ModelLoadingPlugin.Context pluginContext) {

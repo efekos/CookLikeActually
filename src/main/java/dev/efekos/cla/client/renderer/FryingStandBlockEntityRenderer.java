@@ -1,6 +1,7 @@
 package dev.efekos.cla.client.renderer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import dev.efekos.cla.Main;
 import dev.efekos.cla.block.entity.FryingStandBlockEntity;
 import dev.efekos.cla.block.entity.PanBlockEntity;
 import dev.efekos.cla.init.ClaTags;
@@ -30,6 +31,7 @@ import org.joml.Quaternionf;
 @Environment(EnvType.CLIENT)
 public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<FryingStandBlockEntity> {
 
+    public static final Identifier WATER_ID = Identifier.of(Main.MOD_ID, "block/frying_stand_water");
     private static final Identifier PROGRESS_TEXTURE = Identifier.of("cla", "textures/gui/progress.png");
     private static final Identifier PROGRESS_FULL_TEXTURE = Identifier.of("cla", "textures/gui/progress_full.png");
     private final ItemRenderer itemRenderer;
@@ -54,24 +56,21 @@ public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<Fryin
         World world = entity.getWorld();
         BlockPos pos = entity.getPos();
         BlockState state = world.getBlockState(pos);
-
         BlockRenderManager manager = MinecraftClient.getInstance().getBlockRenderManager();
-        BakedModel model = manager.getModel(state);
+        int lightLevel = getLightLevel(world, pos);
 
-        //block itself
+        //oil level
         matrices.push();
         matrices.translate(0, 0, 0);
         matrices.scale(1f, 1f, 1f);
-        VertexConsumer solid = vertexConsumers.getBuffer(RenderLayer.getCutout());
-        int lightLevel = getLightLevel(world, pos);
-        manager.getModelRenderer().render(world, model, state, pos, matrices, solid, false, world.getRandom(), lightLevel, 1);
+        BakedModel bakedModel = MinecraftClient.getInstance().getBakedModelManager().getModel(WATER_ID);
+        RenderSystem.setShaderColor(.5f,.5f,0,1f);
+        manager.getModelRenderer().renderFlat(world,bakedModel, state, pos, matrices, vertexConsumers.getBuffer(MinecraftClient.isFabulousGraphicsOrBetter()?RenderLayer.getSolid():RenderLayer.getTranslucent()), false, world.getRandom(), lightLevel, OverlayTexture.DEFAULT_UV);
+        RenderSystem.setShaderColor(1f,1f,1f,1f);
         matrices.pop();
 
-        if(!entity.hasItem())return;
-        ItemStack item = entity.getItem();
-
-        // the item
-        if (!item.isEmpty()) {
+        if(entity.hasItem()){
+            ItemStack item = entity.getItem();
 
             boolean isItem = item.isIn(ClaTags.RENDER_AS_ITEM) || !(item.getItem() instanceof BlockItem);
 
@@ -87,11 +86,12 @@ public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<Fryin
         }
 
         // progress bar
-        if (!entity.hasRecipe(world) || !entity.getRecipe(world).hasProgressBar()) return;
-        float v = entity.getTicks() / (float) entity.getRecipe(world).getTime();
+        if (entity.hasRecipe(world) && entity.getRecipe(world).hasProgressBar()) {
+            float v = entity.getTicks() / (float) entity.getRecipe(world).getTime();
 
-        render(PROGRESS_TEXTURE, matrices, lightLevel, 1);
-        if (v > 0) render(PROGRESS_FULL_TEXTURE, matrices, lightLevel, v);
+            render(PROGRESS_TEXTURE, matrices, lightLevel, 1);
+            if (v > 0) render(PROGRESS_FULL_TEXTURE, matrices, lightLevel, v);
+        }
     }
 
     private void render(Identifier id, MatrixStack matrices, int lightLevel, float v) {
