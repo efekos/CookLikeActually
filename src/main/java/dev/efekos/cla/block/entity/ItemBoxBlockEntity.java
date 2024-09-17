@@ -50,7 +50,7 @@ public class ItemBoxBlockEntity extends BlockEntity implements SyncAbleBlockEnti
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
-        if (!this.item.isEmpty()) nbt.put("Item", item.encode(registryLookup));
+        if (hasItem()) nbt.put("Item", item.encode(registryLookup));
     }
 
     public ItemStack getItem() {
