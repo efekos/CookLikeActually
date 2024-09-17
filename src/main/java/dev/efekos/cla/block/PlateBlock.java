@@ -6,6 +6,7 @@ import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.init.ClaItems;
 import dev.efekos.cla.init.ClaSoundEvents;
 import dev.efekos.cla.resource.Course;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.ShapeContext;
@@ -54,6 +55,11 @@ public class PlateBlock extends BlockWithEntity {
         }
         if (!stacks.isEmpty()) stack.set(ClaComponentTypes.ITEMS, stacks);
         return stack;
+    }
+
+    @Override
+    protected BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 
     @Override

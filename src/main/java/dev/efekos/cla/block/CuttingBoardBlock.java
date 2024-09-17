@@ -2,10 +2,7 @@ package dev.efekos.cla.block;
 
 import com.mojang.serialization.MapCodec;
 import dev.efekos.cla.block.entity.CuttingBoardBlockEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
@@ -27,6 +24,11 @@ public class CuttingBoardBlock extends BlockWithOneItem {
     public CuttingBoardBlock(Settings settings) {
         super(settings);
         setDefaultState(getDefaultState().with(FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 
     @Override

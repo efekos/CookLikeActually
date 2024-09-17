@@ -37,18 +37,8 @@ public class PlateBlockEntityRenderer implements BlockEntityRenderer<PlateBlockE
         World world = entity.getWorld();
         BlockPos pos = entity.getPos();
         BlockState state = world.getBlockState(pos);
-
-        BlockRenderManager manager = MinecraftClient.getInstance().getBlockRenderManager();
-        BakedModel model = manager.getModel(state);
-
-        //block itself
-        matrices.push();
-        matrices.translate(0, 0, 0);
-        matrices.scale(1f, 1f, 1f);
-        VertexConsumer solid = vertexConsumers.getBuffer(RenderLayer.getSolid());
         int lightLevel = getLightLevel(world, pos);
-        manager.getModelRenderer().render(world, model, state, pos, matrices, solid, false, world.getRandom(), lightLevel, 1);
-        matrices.pop();
+        BlockRenderManager manager = MinecraftClient.getInstance().getBlockRenderManager();
 
         // Items
         if (entity.acceptsItems()) for (int i = 0; i < entity.getItems().size(); i++) {
@@ -58,7 +48,7 @@ public class PlateBlockEntityRenderer implements BlockEntityRenderer<PlateBlockE
             matrices.translate(0.5f, 0.08f + i * 0.03f, 0.5f);
             matrices.scale(0.4f, 0.4f, 0.4f);
             matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(270));
-            itemRenderer.renderItem(item, ModelTransformationMode.NONE, getLightLevel(world, pos), OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, world, 1);
+            itemRenderer.renderItem(item, ModelTransformationMode.NONE, lightLevel, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, world, 1);
             matrices.pop();
         }
 
@@ -74,7 +64,7 @@ public class PlateBlockEntityRenderer implements BlockEntityRenderer<PlateBlockE
             matrices.push();
             matrices.translate(0, 0, 0);
             matrices.scale(1f, 1f, 1f);
-            manager.getModelRenderer().render(world, bakedModel, state, pos, matrices, solid, false, world.getRandom(), lightLevel, 1);
+            manager.getModelRenderer().render(world, bakedModel, state, pos, matrices, vertexConsumers.getBuffer(RenderLayer.getSolid()), false, world.getRandom(), lightLevel, 1);
             matrices.pop();
         }
 

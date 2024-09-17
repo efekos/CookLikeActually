@@ -44,6 +44,11 @@ public class PanBlock extends BlockWithOneItem {
     }
 
     @Override
+    protected BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
+
+    @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return makeShape();
     }

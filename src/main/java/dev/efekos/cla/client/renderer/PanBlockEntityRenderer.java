@@ -51,26 +51,11 @@ public class PanBlockEntityRenderer implements BlockEntityRenderer<PanBlockEntit
     @Override
     public void render(PanBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         World world = entity.getWorld();
-        BlockPos pos = entity.getPos();
-        BlockState state = world.getBlockState(pos);
-
-        BlockRenderManager manager = MinecraftClient.getInstance().getBlockRenderManager();
-        BakedModel model = manager.getModel(state);
-
-        //block itself
-        matrices.push();
-        matrices.translate(0, 0, 0);
-        matrices.scale(1f, 1f, 1f);
-        VertexConsumer solid = vertexConsumers.getBuffer(RenderLayer.getSolid());
-        int lightLevel = getLightLevel(world, pos);
-        manager.getModelRenderer().render(world, model, state, pos, matrices, solid, false, world.getRandom(), lightLevel, 1);
-        matrices.pop();
-
-        ItemStack item = entity.getItem();
-        if (item == null) return;
+        int lightLevel = getLightLevel(world, entity.getPos());
 
         // the item
-        if (!item.isEmpty()) {
+        if (entity.hasItem()) {
+            ItemStack item = entity.getItem();
 
             boolean isItem = item.isIn(ClaTags.RENDER_AS_ITEM) || !(item.getItem() instanceof BlockItem);
 
@@ -86,11 +71,12 @@ public class PanBlockEntityRenderer implements BlockEntityRenderer<PanBlockEntit
         }
 
         // progress bar
-        if (!entity.hasRecipe(world) || !entity.getRecipe(world).hasProgressBar()) return;
-        float v = entity.getTicks() / (float) entity.getMaxTicks();
+        if (entity.hasRecipe(world) && entity.getRecipe(world).hasProgressBar()){
+            float v = entity.getTicks() / (float) entity.getMaxTicks();
 
-        render(PROGRESS_TEXTURE, matrices, lightLevel, 1);
-        if (v > 0) render(PROGRESS_FULL_TEXTURE, matrices, lightLevel, v);
+            render(PROGRESS_TEXTURE, matrices, lightLevel, 1);
+            if (v > 0) render(PROGRESS_FULL_TEXTURE, matrices, lightLevel, v);
+        }
     }
 
     private void render(Identifier id, MatrixStack matrices, int lightLevel, float v) {

@@ -2,6 +2,7 @@ package dev.efekos.cla.block;
 
 import com.mojang.serialization.MapCodec;
 import dev.efekos.cla.block.entity.ItemBoxBlockEntity;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
@@ -41,6 +42,11 @@ public class ItemBoxBlock extends BlockWithEntity {
         ItemStack stackInHand = player.getStackInHand(hand);
         if (!(entity instanceof ItemBoxBlockEntity itemBox)) return ActionResult.PASS;
         return player.isCreative() ? creativeUse(itemBox, world, pos, stackInHand) : survivalUse(itemBox, world, pos, player, stackInHand, hand);
+    }
+
+    @Override
+    protected BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 
     private ActionResult survivalUse(ItemBoxBlockEntity entity, World world, BlockPos pos, PlayerEntity player, ItemStack playerStack, Hand hand) {
