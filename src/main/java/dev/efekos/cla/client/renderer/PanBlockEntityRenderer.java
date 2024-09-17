@@ -50,9 +50,6 @@ public class PanBlockEntityRenderer implements BlockEntityRenderer<PanBlockEntit
 
     @Override
     public void render(PanBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        ItemStack item = entity.getItem();
-        if (item == null) return;
-
         World world = entity.getWorld();
         BlockPos pos = entity.getPos();
         BlockState state = world.getBlockState(pos);
@@ -69,6 +66,8 @@ public class PanBlockEntityRenderer implements BlockEntityRenderer<PanBlockEntit
         manager.getModelRenderer().render(world, model, state, pos, matrices, solid, false, world.getRandom(), lightLevel, 1);
         matrices.pop();
 
+        ItemStack item = entity.getItem();
+        if (item == null) return;
 
         // the item
         if (!item.isEmpty()) {

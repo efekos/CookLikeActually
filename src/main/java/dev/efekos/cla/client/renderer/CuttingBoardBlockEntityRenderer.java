@@ -50,9 +50,6 @@ public class CuttingBoardBlockEntityRenderer implements BlockEntityRenderer<Cutt
 
     @Override
     public void render(CuttingBoardBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        ItemStack item = entity.getItem();
-        if (item == null) return;
-
         World world = entity.getWorld();
         BlockPos pos = entity.getPos();
         BlockState state = world.getBlockState(pos);
@@ -69,6 +66,9 @@ public class CuttingBoardBlockEntityRenderer implements BlockEntityRenderer<Cutt
         manager.getModelRenderer().render(world, model, state, pos, matrices, solid, false, world.getRandom(), lightLevel, 1);
         matrices.pop();
 
+
+        if(!entity.hasItem())return;
+        ItemStack item = entity.getItem();
 
         // the item
         if (!item.isEmpty()) {
