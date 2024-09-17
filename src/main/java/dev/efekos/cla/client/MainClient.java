@@ -18,7 +18,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.ai.brain.task.ForgetBellRingTask;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 

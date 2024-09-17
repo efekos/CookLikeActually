@@ -2,7 +2,6 @@ package dev.efekos.cla.packet;
 
 import dev.efekos.cla.Main;
 import dev.efekos.cla.block.entity.FryingStandBlockEntity;
-import dev.efekos.cla.block.entity.PanBlockEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;

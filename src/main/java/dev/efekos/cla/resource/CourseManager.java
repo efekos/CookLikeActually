@@ -40,6 +40,18 @@ public class CourseManager extends JsonDataLoader implements IdentifiableResourc
         return instance;
     }
 
+    private static @NotNull List<Ingredient> readArray(Identifier identifier, JsonObject root, RegistryOps<JsonElement> ops, String key) {
+        List<Ingredient> transformers = new ArrayList<>();
+
+        for (JsonElement element : JsonHelper.getArray(root, key)) {
+            DataResult<Ingredient> parse = Ingredient.DISALLOW_EMPTY_CODEC.parse(ops, element);
+            if (parse.isError())
+                log.error("Could not parse course: '{}'.", identifier, new JsonParseException(parse.error().orElseThrow().message()));
+            else transformers.add(parse.getOrThrow());
+        }
+        return transformers;
+    }
+
     @Override
     public Identifier getFabricId() {
         return ID;
@@ -68,19 +80,7 @@ public class CourseManager extends JsonDataLoader implements IdentifiableResourc
         float eat_seconds = JsonHelper.getFloat(root, "eat_seconds");
 
         RegistryOps<JsonElement> ops = this.wrapperLookup.getOps(JsonOps.INSTANCE);
-        courses.put(identifier, new Course(identifier, Identifier.tryParse(model), readArray(identifier,root,ops,"ingredients"), nutrition, saturation, eat_seconds, "course." + identifier.getNamespace() + "." + identifier.getPath(),root.has("transformers") ? readArray(identifier,root,ops,"transformers") : new ArrayList<>()));
-    }
-
-
-    private static @NotNull List<Ingredient> readArray(Identifier identifier, JsonObject root, RegistryOps<JsonElement> ops, String key) {
-        List<Ingredient> transformers = new ArrayList<>();
-
-        for (JsonElement element : JsonHelper.getArray(root, key)){
-            DataResult<Ingredient> parse = Ingredient.DISALLOW_EMPTY_CODEC.parse(ops, element);
-            if(parse.isError()) log.error("Could not parse course: '{}'.", identifier, new JsonParseException(parse.error().orElseThrow().message()) );
-            else transformers.add(parse.getOrThrow());
-        }
-        return transformers;
+        courses.put(identifier, new Course(identifier, Identifier.tryParse(model), readArray(identifier, root, ops, "ingredients"), nutrition, saturation, eat_seconds, "course." + identifier.getNamespace() + "." + identifier.getPath(), root.has("transformers") ? readArray(identifier, root, ops, "transformers") : new ArrayList<>()));
     }
 
     public Optional<Course> getCourse(Identifier id) {
@@ -88,10 +88,12 @@ public class CourseManager extends JsonDataLoader implements IdentifiableResourc
     }
 
     public Optional<Course> findCourse(List<ItemStack> stacks) {
-        if(stacks.isEmpty()||stacks.stream().allMatch(stack -> stack==null||stack.isEmpty()))return Optional.empty();
+        if (stacks.isEmpty() || stacks.stream().allMatch(stack -> stack == null || stack.isEmpty()))
+            return Optional.empty();
         for (Course course : courses.values()) {
-            if(!course.matches(stacks))continue;
-            if(stacks.stream().anyMatch(stack -> course.ingredients().stream().noneMatch(ingredient -> ingredient.test(stack))))continue;
+            if (!course.matches(stacks)) continue;
+            if (stacks.stream().anyMatch(stack -> course.ingredients().stream().noneMatch(ingredient -> ingredient.test(stack))))
+                continue;
             return Optional.of(course);
         }
         return Optional.empty();

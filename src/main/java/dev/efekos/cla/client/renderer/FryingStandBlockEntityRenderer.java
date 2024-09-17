@@ -3,7 +3,6 @@ package dev.efekos.cla.client.renderer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.efekos.cla.Main;
 import dev.efekos.cla.block.entity.FryingStandBlockEntity;
-import dev.efekos.cla.block.entity.PanBlockEntity;
 import dev.efekos.cla.init.ClaTags;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -64,12 +63,12 @@ public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<Fryin
         matrices.translate(0, 0, 0);
         matrices.scale(1f, 1f, 1f);
         BakedModel bakedModel = MinecraftClient.getInstance().getBakedModelManager().getModel(WATER_ID);
-        RenderSystem.setShaderColor(.5f,.5f,0,1f);
-        manager.getModelRenderer().renderFlat(world,bakedModel, state, pos, matrices, vertexConsumers.getBuffer(MinecraftClient.isFabulousGraphicsOrBetter()?RenderLayer.getSolid():RenderLayer.getTranslucent()), false, world.getRandom(), lightLevel, OverlayTexture.DEFAULT_UV);
-        RenderSystem.setShaderColor(1f,1f,1f,1f);
+        RenderSystem.setShaderColor(.5f, .5f, 0, 1f);
+        manager.getModelRenderer().renderFlat(world, bakedModel, state, pos, matrices, vertexConsumers.getBuffer(MinecraftClient.isFabulousGraphicsOrBetter() ? RenderLayer.getSolid() : RenderLayer.getTranslucent()), false, world.getRandom(), lightLevel, OverlayTexture.DEFAULT_UV);
+        RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
         matrices.pop();
 
-        if(entity.hasItem()){
+        if (entity.hasItem()) {
             ItemStack item = entity.getItem();
 
             boolean isItem = item.isIn(ClaTags.RENDER_AS_ITEM) || !(item.getItem() instanceof BlockItem);

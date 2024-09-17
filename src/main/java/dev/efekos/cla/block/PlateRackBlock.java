@@ -32,17 +32,16 @@ public class PlateRackBlock extends Block {
 
     public static final IntProperty PLATES = IntProperty.of("plates", 0, 7);
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
-
-    public PlateRackBlock(Settings settings) {
-        super(settings);
-    }
-
     private static final VoxelShape shape1 = VoxelShapes.union(
             VoxelShapes.cuboid(0.4375, 0.125, 0, 0.5625, 0.875, 0.0625),
             VoxelShapes.cuboid(0.4375, 0, 0, 0.5625, 0.125, 1),
             VoxelShapes.cuboid(0.4375, 0.125, 0.9375, 0.5625, 0.875, 1),
             VoxelShapes.cuboid(0.125, 0.125, 0.0625, 0.875, 0.875, 0.9375)
     );
+
+    public PlateRackBlock(Settings settings) {
+        super(settings);
+    }
 
     public static VoxelShape makeShape() {
         return VoxelShapes.union(
@@ -89,7 +88,7 @@ public class PlateRackBlock extends Block {
             world.setBlockState(pos, state.with(PLATES, i - 1));
             world.playSound(player, pos, ClaSoundEvents.PLATE_PICKUP, SoundCategory.PLAYERS, 1f, 1f);
             return ActionResult.SUCCESS;
-        } else if (playerStack.isOf(ClaItems.PLATE)&&!playerStack.contains(ClaComponentTypes.COURSE_ID)&&!playerStack.contains(ClaComponentTypes.ITEMS)) {
+        } else if (playerStack.isOf(ClaItems.PLATE) && !playerStack.contains(ClaComponentTypes.COURSE_ID) && !playerStack.contains(ClaComponentTypes.ITEMS)) {
             if (i == 7) return ActionResult.PASS;
             player.setStackInHand(hand, playerStack.copyWithCount(playerStack.getCount() - 1));
             world.setBlockState(pos, state.with(PLATES, i + 1));

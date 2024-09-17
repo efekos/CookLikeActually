@@ -5,15 +5,11 @@ import dev.efekos.cla.block.entity.CuttingBoardBlockEntity;
 import dev.efekos.cla.init.ClaTags;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
-import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
@@ -69,7 +65,7 @@ public class CuttingBoardBlockEntityRenderer implements BlockEntityRenderer<Cutt
             matrices.pop();
         }
 
-        if (entity.hasRecipe(world)){
+        if (entity.hasRecipe(world)) {
             float v = entity.getCuts() / (float) entity.getMaxCutsNeeded();
 
             // cut status

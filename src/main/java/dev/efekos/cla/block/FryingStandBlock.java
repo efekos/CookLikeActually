@@ -31,6 +31,11 @@ public class FryingStandBlock extends BlockWithOneItem {
 
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     public static final BooleanProperty SIEVE = BooleanProperty.of("sieve");
+    public static final MapCodec<FryingStandBlock> CODEC = createCodec(FryingStandBlock::new);
+
+    public FryingStandBlock(Settings settings) {
+        super(settings);
+    }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
@@ -45,14 +50,10 @@ public class FryingStandBlock extends BlockWithOneItem {
         return super.getPlacementState(ctx).with(FACING, ctx.getHorizontalPlayerFacing().getOpposite()).with(SIEVE, false);
     }
 
-    public FryingStandBlock(Settings settings) {
-        super(settings);
-    }
-
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         ActionResult result = super.onUse(state, world, pos, player, hit);
-        if(result==ActionResult.SUCCESS) {
+        if (result == ActionResult.SUCCESS) {
             if (state.get(SIEVE)) return result;
             FryingStandBlockEntity entity = (FryingStandBlockEntity) world.getBlockEntity(pos);
             if (entity.hasItem() && entity.getItem().isOf(ClaItems.FRYING_SIEVE)) {
@@ -72,11 +73,9 @@ public class FryingStandBlock extends BlockWithOneItem {
     @Override
     protected List<ItemStack> getDroppedStacks(BlockState state, LootContextParameterSet.Builder builder) {
         List<ItemStack> stacks = super.getDroppedStacks(state, builder);
-        if(state.get(SIEVE)) stacks.add(new ItemStack(ClaItems.FRYING_SIEVE));
+        if (state.get(SIEVE)) stacks.add(new ItemStack(ClaItems.FRYING_SIEVE));
         return stacks;
     }
-
-    public static final MapCodec<FryingStandBlock> CODEC = createCodec(FryingStandBlock::new);
 
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
@@ -85,12 +84,12 @@ public class FryingStandBlock extends BlockWithOneItem {
 
     @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new FryingStandBlockEntity(pos,state);
+        return new FryingStandBlockEntity(pos, state);
     }
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type,ClaBlockEntityTypes.FRYING_STAND,(world1, pos, state1, blockEntity) -> blockEntity.tick(state1));
+        return validateTicker(type, ClaBlockEntityTypes.FRYING_STAND, (world1, pos, state1, blockEntity) -> blockEntity.tick(state1));
     }
 
 }

@@ -5,15 +5,11 @@ import dev.efekos.cla.block.entity.PanBlockEntity;
 import dev.efekos.cla.init.ClaTags;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
-import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
@@ -71,7 +67,7 @@ public class PanBlockEntityRenderer implements BlockEntityRenderer<PanBlockEntit
         }
 
         // progress bar
-        if (entity.hasRecipe(world) && entity.getRecipe(world).hasProgressBar()){
+        if (entity.hasRecipe(world) && entity.getRecipe(world).hasProgressBar()) {
             float v = entity.getTicks() / (float) entity.getMaxTicks();
 
             render(PROGRESS_TEXTURE, matrices, lightLevel, 1);

@@ -83,7 +83,7 @@ public class PlateBlock extends BlockWithEntity {
 
     @Override
     protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
-        if(world.isAir(pos.down())) world.breakBlock(pos, true);
+        if (world.isAir(pos.down())) world.breakBlock(pos, true);
     }
 
     @Override

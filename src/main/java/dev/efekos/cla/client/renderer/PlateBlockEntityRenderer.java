@@ -6,7 +6,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.*;
+import net.minecraft.client.render.LightmapTextureManager;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
@@ -56,15 +59,15 @@ public class PlateBlockEntityRenderer implements BlockEntityRenderer<PlateBlockE
         } else
             // Items
             for (int i = 0; i < entity.getItems().size(); i++) {
-            ItemStack item = entity.getItems().get(i);
+                ItemStack item = entity.getItems().get(i);
 
-            matrices.push();
-            matrices.translate(0.5f, 0.08f + i * 0.03f, 0.5f);
-            matrices.scale(0.4f, 0.4f, 0.4f);
-            matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(270));
-            itemRenderer.renderItem(item, ModelTransformationMode.NONE, lightLevel, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, world, world.getRandom().nextBetween(1,10));
-            matrices.pop();
-        }
+                matrices.push();
+                matrices.translate(0.5f, 0.08f + i * 0.03f, 0.5f);
+                matrices.scale(0.4f, 0.4f, 0.4f);
+                matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(270));
+                itemRenderer.renderItem(item, ModelTransformationMode.NONE, lightLevel, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, world, world.getRandom().nextBetween(1, 10));
+                matrices.pop();
+            }
 
     }
 

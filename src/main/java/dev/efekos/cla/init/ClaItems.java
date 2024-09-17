@@ -30,7 +30,7 @@ public class ClaItems {
     public static final Item FRIES = register("fries", new Item(new Item.Settings().rarity(Rarity.COMMON).food(FoodComponents.BAKED_POTATO)));
     public static final Item BUNS = register("buns", new Item(new Item.Settings().rarity(Rarity.COMMON)));
     public static final KnifeItem KNIFE = register("knife", new KnifeItem(ToolMaterials.IRON, new Item.Settings().rarity(Rarity.COMMON).maxCount(1).attributeModifiers(SwordItem.createAttributeModifiers(ToolMaterials.IRON, 1, -0.8F))));
-    public static final Item FRYING_SIEVE = register("frying_sieve",new Item(new Item.Settings().rarity(Rarity.COMMON).maxCount(1)));
+    public static final Item FRYING_SIEVE = register("frying_sieve", new Item(new Item.Settings().rarity(Rarity.COMMON).maxCount(1)));
 
     public static void run() {
 
