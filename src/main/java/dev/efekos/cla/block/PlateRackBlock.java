@@ -1,5 +1,6 @@
 package dev.efekos.cla.block;
 
+import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.init.ClaItems;
 import dev.efekos.cla.init.ClaSoundEvents;
 import net.minecraft.block.Block;
@@ -18,6 +19,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -34,6 +36,13 @@ public class PlateRackBlock extends Block {
     public PlateRackBlock(Settings settings) {
         super(settings);
     }
+
+    private static final VoxelShape shape1 = VoxelShapes.union(
+            VoxelShapes.cuboid(0.4375, 0.125, 0, 0.5625, 0.875, 0.0625),
+            VoxelShapes.cuboid(0.4375, 0, 0, 0.5625, 0.125, 1),
+            VoxelShapes.cuboid(0.4375, 0.125, 0.9375, 0.5625, 0.875, 1),
+            VoxelShapes.cuboid(0.125, 0.125, 0.0625, 0.875, 0.875, 0.9375)
+    );
 
     public static VoxelShape makeShape() {
         return VoxelShapes.union(
@@ -53,7 +62,7 @@ public class PlateRackBlock extends Block {
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return makeShape();
+        return state.get(FACING) == Direction.WEST || state.get(FACING) == Direction.EAST ? shape1 : makeShape();
     }
 
     @Nullable
@@ -80,7 +89,7 @@ public class PlateRackBlock extends Block {
             world.setBlockState(pos, state.with(PLATES, i - 1));
             world.playSound(player, pos, ClaSoundEvents.PLATE_PICKUP, SoundCategory.PLAYERS, 1f, 1f);
             return ActionResult.SUCCESS;
-        } else if (playerStack.isOf(ClaItems.PLATE)) {
+        } else if (playerStack.isOf(ClaItems.PLATE)&&!playerStack.contains(ClaComponentTypes.COURSE_ID)&&!playerStack.contains(ClaComponentTypes.ITEMS)) {
             if (i == 7) return ActionResult.PASS;
             player.setStackInHand(hand, playerStack.copyWithCount(playerStack.getCount() - 1));
             world.setBlockState(pos, state.with(PLATES, i + 1));

@@ -101,8 +101,8 @@ public class PlateBlockEntity extends BlockEntity implements SyncAbleBlockEntity
         this.currentCourse = courseO.orElse(null);
     }
 
-    public boolean acceptsItems() {
-        return this.currentCourse == null;
+    public boolean acceptsItems(ItemStack stack) {
+        return this.currentCourse == null || this.currentCourse.canTransform(stack);
     }
 
     public Course getCurrentCourse() {

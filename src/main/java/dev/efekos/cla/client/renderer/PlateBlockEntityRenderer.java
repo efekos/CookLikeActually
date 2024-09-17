@@ -40,19 +40,6 @@ public class PlateBlockEntityRenderer implements BlockEntityRenderer<PlateBlockE
         int lightLevel = getLightLevel(world, pos);
         BlockRenderManager manager = MinecraftClient.getInstance().getBlockRenderManager();
 
-        // Items
-        if (entity.acceptsItems()) for (int i = 0; i < entity.getItems().size(); i++) {
-            ItemStack item = entity.getItems().get(i);
-
-            matrices.push();
-            matrices.translate(0.5f, 0.08f + i * 0.03f, 0.5f);
-            matrices.scale(0.4f, 0.4f, 0.4f);
-            matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(270));
-            itemRenderer.renderItem(item, ModelTransformationMode.NONE, lightLevel, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, world, 1);
-            matrices.pop();
-        }
-
-
         // Course Model
         if (entity.hasCourse()) {
             Course course = entity.getCurrentCourse();
@@ -64,7 +51,18 @@ public class PlateBlockEntityRenderer implements BlockEntityRenderer<PlateBlockE
             matrices.push();
             matrices.translate(0, 0, 0);
             matrices.scale(1f, 1f, 1f);
-            manager.getModelRenderer().render(world, bakedModel, state, pos, matrices, vertexConsumers.getBuffer(RenderLayer.getSolid()), false, world.getRandom(), lightLevel, 1);
+            manager.getModelRenderer().render(world, bakedModel, state, pos, matrices, vertexConsumers.getBuffer(RenderLayer.getSolid()), false, world.getRandom(), lightLevel, OverlayTexture.DEFAULT_UV);
+            matrices.pop();
+        } else
+            // Items
+            for (int i = 0; i < entity.getItems().size(); i++) {
+            ItemStack item = entity.getItems().get(i);
+
+            matrices.push();
+            matrices.translate(0.5f, 0.08f + i * 0.03f, 0.5f);
+            matrices.scale(0.4f, 0.4f, 0.4f);
+            matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(270));
+            itemRenderer.renderItem(item, ModelTransformationMode.NONE, lightLevel, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, world, world.getRandom().nextBetween(1,10));
             matrices.pop();
         }
 

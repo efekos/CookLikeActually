@@ -2,6 +2,7 @@ package dev.efekos.cla.resource;
 
 import com.google.gson.*;
 import com.mojang.logging.LogUtils;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import dev.efekos.cla.Main;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
@@ -14,6 +15,7 @@ import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.profiler.Profiler;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 import java.util.*;
@@ -64,13 +66,21 @@ public class CourseManager extends JsonDataLoader implements IdentifiableResourc
         int nutrition = JsonHelper.getInt(root, "nutrition");
         int saturation = JsonHelper.getInt(root, "saturation");
         float eat_seconds = JsonHelper.getFloat(root, "eat_seconds");
-        List<Ingredient> ingredients = new ArrayList<>();
 
         RegistryOps<JsonElement> ops = this.wrapperLookup.getOps(JsonOps.INSTANCE);
+        courses.put(identifier, new Course(identifier, Identifier.tryParse(model), readArray(identifier,root,ops,"ingredients"), nutrition, saturation, eat_seconds, "course." + identifier.getNamespace() + "." + identifier.getPath(),root.has("transformers") ? readArray(identifier,root,ops,"transformers") : new ArrayList<>()));
+    }
 
-        for (JsonElement element : JsonHelper.getArray(root, "ingredients"))
-            ingredients.add(Ingredient.DISALLOW_EMPTY_CODEC.parse(ops, element).getOrThrow());
-        courses.put(identifier, new Course(identifier, Identifier.tryParse(model), ingredients, nutrition, saturation, eat_seconds, "course." + identifier.getNamespace() + "." + identifier.getPath()));
+
+    private static @NotNull List<Ingredient> readArray(Identifier identifier, JsonObject root, RegistryOps<JsonElement> ops, String key) {
+        List<Ingredient> transformers = new ArrayList<>();
+
+        for (JsonElement element : JsonHelper.getArray(root, key)){
+            DataResult<Ingredient> parse = Ingredient.DISALLOW_EMPTY_CODEC.parse(ops, element);
+            if(parse.isError()) log.error("Could not parse course: '{}'.", identifier, new JsonParseException(parse.error().orElseThrow().message()) );
+            else transformers.add(parse.getOrThrow());
+        }
+        return transformers;
     }
 
     public Optional<Course> getCourse(Identifier id) {
@@ -78,7 +88,13 @@ public class CourseManager extends JsonDataLoader implements IdentifiableResourc
     }
 
     public Optional<Course> findCourse(List<ItemStack> stacks) {
-        return courses.values().stream().filter(course -> stacks.stream().noneMatch(itemStack -> course.ingredients().stream().noneMatch(ingredient -> ingredient.test(itemStack))) && course.matches(stacks)).findFirst();
+        if(stacks.isEmpty()||stacks.stream().allMatch(stack -> stack==null||stack.isEmpty()))return Optional.empty();
+        for (Course course : courses.values()) {
+            if(!course.matches(stacks))continue;
+            if(stacks.stream().anyMatch(stack -> course.ingredients().stream().noneMatch(ingredient -> ingredient.test(stack))))continue;
+            return Optional.of(course);
+        }
+        return Optional.empty();
     }
 
     @Override

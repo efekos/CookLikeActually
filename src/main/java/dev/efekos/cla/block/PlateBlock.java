@@ -103,7 +103,7 @@ public class PlateBlock extends BlockWithEntity {
             return ActionResult.SUCCESS;
         } else {
             if (plate.hasCourse() && playerStack.isEmpty()) return pickup(world, pos, player, plate, hand);
-            if (!plate.acceptsItems() || playerStack.isEmpty() || stacks.stream().anyMatch(itemStack -> itemStack.isOf(playerStack.getItem())))
+            if (!plate.acceptsItems(playerStack) || playerStack.isEmpty() || stacks.stream().anyMatch(itemStack -> itemStack.isOf(playerStack.getItem())))
                 return ActionResult.PASS;
             stacks.add(playerStack.copyWithCount(1));
             plate.setItems(stacks);
