@@ -1,6 +1,6 @@
 {
   "model": "cla:block/plate_cheese_tburger",
-  "nutrition": 5,
+  "nutrition": 8,
   "saturation": 7,
   "eat_seconds": 3,
   "ingredients": [
