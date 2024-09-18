@@ -1,7 +1,7 @@
 {
-  "model": "cla:block/plate_tlburger",
-  "nutrition": 9,
-  "saturation": 9,
+  "model": "cla:block/plate_cheese_tburger",
+  "nutrition": 5,
+  "saturation": 7,
   "eat_seconds": 3,
   "ingredients": [
     {
@@ -11,7 +11,7 @@
       "item": "cla:buns"
     },
     {
-      "item": "cla:cut_tomato"
+      "item": "cla:cut_cheese"
     },
     {
       "item": "cla:cut_lettuce"
@@ -19,7 +19,7 @@
   ],
   "transformers": [
     {
-      "item": "cla:cut_cheese"
+      "item": "cla:cut_tomato"
     }
   ]
 }
