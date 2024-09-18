@@ -49,7 +49,6 @@ public class PlateBlockEntityRenderer implements BlockEntityRenderer<PlateBlockE
             Identifier modelId = course.modelId();
             BakedModelManager modelManager = MinecraftClient.getInstance().getBakedModelManager();
             BakedModel bakedModel = modelManager.getModel(modelId);
-            //TODO: modelId is always null, find a different way to get models
             if (bakedModel == null) return;
             matrices.push();
             matrices.translate(0, 0, 0);
