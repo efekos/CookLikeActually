@@ -1,0 +1,11 @@
+{
+  "model": "cla:block/plate_fries",
+  "nutrition": 3,
+  "saturation": 4,
+  "eat_seconds": 1.5,
+  "ingredients": [
+    {
+      "item": "cla:fries"
+    }
+  ]
+}
