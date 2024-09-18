@@ -31,6 +31,11 @@ public class PlateItem extends BlockItem {
     }
 
     @Override
+    public ItemStack getRecipeRemainder(ItemStack stack) {
+        return getDefaultStack();
+    }
+
+    @Override
     public String getTranslationKey(ItemStack stack) {
         Identifier identifier = stack.get(ClaComponentTypes.COURSE_ID);
         if (identifier == null) return super.getTranslationKey(stack);

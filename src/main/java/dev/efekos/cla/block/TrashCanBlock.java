@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -35,10 +36,10 @@ public class TrashCanBlock extends Block {
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         Hand hand = player.getActiveHand();
-        if (!player.isCreative() && !player.isSpectator() && !player.getStackInHand(hand).isEmpty()) {
-            player.setStackInHand(hand, Items.AIR.getDefaultStack());
-            return ActionResult.SUCCESS;
-        } else return ActionResult.PASS;
+        ItemStack playerStack = player.getStackInHand(hand);
+        if (player.isCreative() || player.isSpectator() || playerStack.isEmpty()) return ActionResult.PASS;
+        player.setStackInHand(hand, playerStack.getRecipeRemainder());
+        return ActionResult.SUCCESS;
     }
 
 }
