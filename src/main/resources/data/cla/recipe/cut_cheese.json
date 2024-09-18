@@ -1,0 +1,10 @@
+{
+  "type": "cla:cutting",
+  "cuts": 5,
+  "item": {
+    "item": "cla:cheese"
+  },
+  "result": {
+    "id": "cla:cut_cheese"
+  }
+}
