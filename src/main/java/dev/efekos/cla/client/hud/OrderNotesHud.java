@@ -3,6 +3,7 @@ package dev.efekos.cla.client.hud;
 import dev.efekos.cla.Main;
 import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.init.ClaItems;
+import dev.efekos.cla.util.IDrawContextMixin;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -40,7 +41,8 @@ public class OrderNotesHud implements HudRenderCallback {
             Identifier courseId = noteStack.get(ClaComponentTypes.COURSE_ID);
             drawContext.drawGuiTexture(NOTE_TEXTURE,i*80+10,0,70,100);
             ItemStack plateStack = new ItemStack(RegistryEntry.of(ClaItems.PLATE), 1, ComponentChanges.builder().add(ClaComponentTypes.COURSE_ID, courseId).build());
-            drawContext.drawItem(plateStack,25,8);
+            IDrawContextMixin context = (IDrawContextMixin) drawContext;
+            context.cla$drawItemWithScale(plateStack,35,4,32f);
         }
 
     }
