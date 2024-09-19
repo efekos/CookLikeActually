@@ -25,7 +25,7 @@ public class OrderNotesHud implements HudRenderCallback {
     public void onHudRender(DrawContext drawContext, RenderTickCounter tickCounter) {
         MinecraftClient client = MinecraftClient.getInstance();
         ClientPlayerEntity player = client.player;
-        if(player == null) return;
+        if(player == null||player.isCreative()||player.isSpectator()) return;
         PlayerInventory inventory = player.getInventory();
         if (!inventory.contains(stack -> stack.isOf(ClaItems.ORDER_NOTE))) return;
         ArrayList<ItemStack> stacks = new ArrayList<>();
