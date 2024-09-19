@@ -7,6 +7,8 @@ import dev.efekos.cla.resource.Course;
 import dev.efekos.cla.resource.CourseManager;
 import dev.efekos.cla.util.CachedFunction;
 import dev.efekos.cla.util.IDrawContextMixin;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Environment(EnvType.CLIENT)
 public class OrderNotesHud implements HudRenderCallback {
 
     public static final Identifier NOTE_TEXTURE = Identifier.of(Main.MOD_ID, "hud/order_note");

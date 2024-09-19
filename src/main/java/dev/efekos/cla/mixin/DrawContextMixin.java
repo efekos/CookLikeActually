@@ -1,6 +1,8 @@
 package dev.efekos.cla.mixin;
 
 import dev.efekos.cla.util.IDrawContextMixin;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.DiffuseLighting;
@@ -22,6 +24,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(DrawContext.class)
+@Environment(EnvType.CLIENT)
 public abstract class DrawContextMixin implements IDrawContextMixin {
 
     @Shadow

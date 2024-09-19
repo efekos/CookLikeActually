@@ -9,6 +9,8 @@ import dev.efekos.cla.init.ClaBlocks;
 import dev.efekos.cla.init.ClaItems;
 import dev.efekos.cla.packet.*;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientBlockEntityEvents;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
@@ -25,6 +27,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.List;
 
+@Environment(EnvType.CLIENT)
 public class MainClient implements ClientModInitializer {
 
     @Override
