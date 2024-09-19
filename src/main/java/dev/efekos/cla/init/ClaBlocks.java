@@ -2,10 +2,7 @@ package dev.efekos.cla.init;
 
 import dev.efekos.cla.Main;
 import dev.efekos.cla.block.*;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.MapColor;
+import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -27,6 +24,7 @@ public class ClaBlocks {
     public static final Block COOKING_STAND = register("cooking_stand", new Block(STAND_BLOCK_SETTINGS));
     public static final Block FRYING_STAND = register("frying_stand", new FryingStandBlock(STAND_BLOCK_SETTINGS.nonOpaque()));
     public static final Block STAND = register("stand", new Block(STAND_BLOCK_SETTINGS));
+    public static final CropBlock TOMATOES = register("tomatoes",new TomatoesBlock(AbstractBlock.Settings.copy(Blocks.CARROTS).mapColor(MapColor.DULL_RED)));
 
     public static void run() {
 

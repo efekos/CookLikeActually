@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "cla:block/tomatoes_stage0"
+    },
+    "age=1": {
+      "model": "cla:block/tomatoes_stage0"
+    },
+    "age=2": {
+      "model": "cla:block/tomatoes_stage1"
+    },
+    "age=3": {
+      "model": "cla:block/tomatoes_stage1"
+    },
+    "age=4": {
+      "model": "cla:block/tomatoes_stage1"
+    },
+    "age=5": {
+      "model": "cla:block/tomatoes_stage2"
+    },
+    "age=6": {
+      "model": "cla:block/tomatoes_stage2"
+    },
+    "age=7": {
+      "model": "cla:block/tomatoes_stage3"
+    }
+  }
+}

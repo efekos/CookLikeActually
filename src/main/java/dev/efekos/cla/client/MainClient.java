@@ -55,6 +55,7 @@ public class MainClient implements ClientModInitializer {
 
         // Block Render Layers
         BlockRenderLayerMap.INSTANCE.putBlock(ClaBlocks.FRYING_STAND, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ClaBlocks.TOMATOES, RenderLayer.getCutout());
     }
 
     private void loadAndRegisterModels(ModelLoadingPlugin.Context pluginContext) {
