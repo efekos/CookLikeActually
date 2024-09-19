@@ -22,9 +22,10 @@ public class OrderNoteItem extends Item {
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         Optional<Course> course = CourseManager.getInstance().getCourse(stack.get(ClaComponentTypes.COURSE_ID));
-        if(course.isPresent()) {
+        if (course.isPresent()) {
             Course crs = course.get();
-            for (Ingredient ingredient : crs.ingredients()) tooltip.add(ingredient.getMatchingStacks()[0].getName().copy().formatted(Formatting.GRAY));
+            for (Ingredient ingredient : crs.ingredients())
+                tooltip.add(ingredient.getMatchingStacks()[0].getName().copy().formatted(Formatting.GRAY));
         }
     }
 

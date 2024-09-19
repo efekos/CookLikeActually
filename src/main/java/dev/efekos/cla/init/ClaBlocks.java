@@ -20,11 +20,11 @@ public class ClaBlocks {
     public static final PlateRackBlock PLATE_RACK = register("plate_rack", new PlateRackBlock(AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque()));
     public static final ItemBoxBlock ITEM_BOX = register("item_box", new ItemBoxBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
     public static final TrashCanBlock TRASH_CAN = register("trash_can", new TrashCanBlock(AbstractBlock.Settings.copy(Blocks.STONE)));
+    public static final CropBlock TOMATOES = register("tomatoes", new TomatoesBlock(AbstractBlock.Settings.copy(Blocks.CARROTS).mapColor(MapColor.DULL_RED)));
     private static final AbstractBlock.Settings STAND_BLOCK_SETTINGS = AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).hardness(2.5f).resistance(3).mapColor(MapColor.PURPLE);
     public static final Block COOKING_STAND = register("cooking_stand", new Block(STAND_BLOCK_SETTINGS));
     public static final Block FRYING_STAND = register("frying_stand", new FryingStandBlock(STAND_BLOCK_SETTINGS.nonOpaque()));
     public static final Block STAND = register("stand", new Block(STAND_BLOCK_SETTINGS));
-    public static final CropBlock TOMATOES = register("tomatoes",new TomatoesBlock(AbstractBlock.Settings.copy(Blocks.CARROTS).mapColor(MapColor.DULL_RED)));
 
     public static void run() {
 

@@ -24,10 +24,10 @@ import java.util.Optional;
 
 public class OrderNotesHud implements HudRenderCallback {
 
-    public static final Identifier NOTE_TEXTURE = Identifier.of(Main.MOD_ID,"hud/order_note");
-    public static final Identifier SLOT_TEXTURE = Identifier.of(Main.MOD_ID,"hud/order_note_ingredient");
+    public static final Identifier NOTE_TEXTURE = Identifier.of(Main.MOD_ID, "hud/order_note");
+    public static final Identifier SLOT_TEXTURE = Identifier.of(Main.MOD_ID, "hud/order_note_ingredient");
 
-    private static final CachedFunction<Identifier,ItemStack> courseIdToStack = new CachedFunction<>(identifier -> new ItemStack(RegistryEntry.of(ClaItems.PLATE),1,ComponentChanges.builder().add(ClaComponentTypes.COURSE_ID,identifier).build()));
+    private static final CachedFunction<Identifier, ItemStack> courseIdToStack = new CachedFunction<>(identifier -> new ItemStack(RegistryEntry.of(ClaItems.PLATE), 1, ComponentChanges.builder().add(ClaComponentTypes.COURSE_ID, identifier).build()));
     private static final CachedFunction<Identifier, List<ItemStack>> courseIdToIngredients = new CachedFunction<>(identifier -> {
         Optional<Course> course = CourseManager.getInstance().getCourse(identifier);
         return course.map(value -> value.ingredients().stream().map(ingredient -> ingredient.getMatchingStacks()[0]).toList()).orElseGet(ArrayList::new);
@@ -37,35 +37,35 @@ public class OrderNotesHud implements HudRenderCallback {
     public void onHudRender(DrawContext drawContext, RenderTickCounter tickCounter) {
         MinecraftClient client = MinecraftClient.getInstance();
         ClientPlayerEntity player = client.player;
-        if(player == null||player.isCreative()||player.isSpectator()) return;
+        if (player == null || player.isCreative() || player.isSpectator()) return;
         PlayerInventory inventory = player.getInventory();
         if (!inventory.contains(stack -> stack.isOf(ClaItems.ORDER_NOTE))) return;
         ArrayList<ItemStack> stacks = new ArrayList<>();
         for (int i = 0; i < 35; i++) {
             ItemStack stack = inventory.getStack(i);
-            if(stack==null||stack.isEmpty())continue;
-            if(stack.isOf(ClaItems.ORDER_NOTE))stacks.add(stack);
+            if (stack == null || stack.isEmpty()) continue;
+            if (stack.isOf(ClaItems.ORDER_NOTE)) stacks.add(stack);
         }
 
         for (int i = 0; i < stacks.size(); i++) {
             int x = i * 80 + 10;
-            drawContext.drawGuiTexture(NOTE_TEXTURE, x-1,0,71,100);
+            drawContext.drawGuiTexture(NOTE_TEXTURE, x - 1, 0, 71, 100);
 
             ItemStack noteStack = stacks.get(i);
             Identifier courseId = noteStack.get(ClaComponentTypes.COURSE_ID);
-            if(courseId==null)continue;
+            if (courseId == null) continue;
 
             ItemStack plateStack = courseIdToStack.apply(courseId);
-            ((IDrawContextMixin) drawContext).cla$drawItemWithScale(plateStack,x+26,4,32f);
+            ((IDrawContextMixin) drawContext).cla$drawItemWithScale(plateStack, x + 26, 4, 32f);
 
             List<ItemStack> ingredientStacks = courseIdToIngredients.apply(courseId);
-            int startX = x + 33 - Math.min(4,ingredientStacks.size()) * 8;
+            int startX = x + 33 - Math.min(4, ingredientStacks.size()) * 8;
             for (int j = 0; j < ingredientStacks.size(); j++) {
                 ItemStack stack = ingredientStacks.get(j);
-                int x1 = startX + (j%4)*17;
-                int y = ((int)Math.floor(j/4d))*17+36;
-                drawContext.drawGuiTexture(SLOT_TEXTURE,x1,y,16,16);
-                ((IDrawContextMixin) drawContext).cla$drawItemWithScale(stack, x1,y,12f);
+                int x1 = startX + (j % 4) * 17;
+                int y = ((int) Math.floor(j / 4d)) * 17 + 36;
+                drawContext.drawGuiTexture(SLOT_TEXTURE, x1, y, 16, 16);
+                ((IDrawContextMixin) drawContext).cla$drawItemWithScale(stack, x1, y, 12f);
             }
         }
 

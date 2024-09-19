@@ -24,18 +24,24 @@ import org.spongepowered.asm.mixin.Unique;
 @Mixin(DrawContext.class)
 public abstract class DrawContextMixin implements IDrawContextMixin {
 
-    @Shadow @Final private MinecraftClient client;
+    @Shadow
+    @Final
+    private MinecraftClient client;
 
-    @Shadow @Final private MatrixStack matrices;
+    @Shadow
+    @Final
+    private MatrixStack matrices;
 
-    @Shadow public abstract void draw();
+    @Shadow
+    public abstract void draw();
 
-    @Shadow public abstract VertexConsumerProvider.Immediate getVertexConsumers();
+    @Shadow
+    public abstract VertexConsumerProvider.Immediate getVertexConsumers();
 
     @Override
     @Unique
     public void cla$drawItemWithScale(ItemStack item, int x, int y, float scale) {
-        drawItemWithScale(this.client.player,this.client.world,item,x,y, scale);
+        drawItemWithScale(this.client.player, this.client.world, item, x, y, scale);
     }
 
     @Unique
@@ -43,10 +49,10 @@ public abstract class DrawContextMixin implements IDrawContextMixin {
         if (!stack.isEmpty()) {
             BakedModel bakedModel = this.client.getItemRenderer().getModel(stack, world, entity, 0);
             this.matrices.push();
-            this.matrices.translate((float)(x + 8), (float)(y + 8), (float)(150));
+            this.matrices.translate((float) (x + 8), (float) (y + 8), (float) (150));
 
             try {
-                this.matrices.scale(scale,-scale,scale);
+                this.matrices.scale(scale, -scale, scale);
                 boolean bl = !bakedModel.isSideLit();
                 if (bl) {
                     DiffuseLighting.disableGuiDepthLighting();

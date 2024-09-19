@@ -30,14 +30,14 @@ public class ClaItems {
     public static final Item BURNED_PATTY = register("burned_patty", new Item(new Item.Settings().rarity(Rarity.COMMON)));
     public static final Item CUT_POTATO = register("cut_potato", new Item(new Item.Settings().rarity(Rarity.COMMON).food(FoodComponents.POTATO)));
     public static final Item FRIES = register("fries", new Item(new Item.Settings().rarity(Rarity.COMMON).food(FoodComponents.BAKED_POTATO)));
-    public static final Item BURNED_FRIES = register("burned_fries",new Item(new Item.Settings().rarity(Rarity.COMMON)));
+    public static final Item BURNED_FRIES = register("burned_fries", new Item(new Item.Settings().rarity(Rarity.COMMON)));
     public static final Item BUNS = register("buns", new Item(new Item.Settings().rarity(Rarity.COMMON)));
     public static final KnifeItem KNIFE = register("knife", new KnifeItem(ToolMaterials.IRON, new Item.Settings().rarity(Rarity.COMMON).maxCount(1).attributeModifiers(SwordItem.createAttributeModifiers(ToolMaterials.IRON, 1, -0.8F))));
     public static final Item FRYING_SIEVE = register("frying_sieve", new Item(new Item.Settings().rarity(Rarity.COMMON).maxCount(1)));
-    public static final Item CHEESE = register("cheese",new Item(new Item.Settings().rarity(Rarity.COMMON)));
-    public static final Item CUT_CHEESE = register("cut_cheese",new Item(new Item.Settings().rarity(Rarity.COMMON)));
-    public static final Item ORDER_NOTE = register("order_note",new OrderNoteItem(new Item.Settings().rarity(Rarity.COMMON).maxCount(1).component(ClaComponentTypes.COURSE_ID,Identifier.of("cla","salad"))));
-    public static final Item TOMATO_SEEDS = register("tomato_seeds",new AliasedBlockItem(ClaBlocks.TOMATOES,new Item.Settings().rarity(Rarity.COMMON)));
+    public static final Item CHEESE = register("cheese", new Item(new Item.Settings().rarity(Rarity.COMMON)));
+    public static final Item CUT_CHEESE = register("cut_cheese", new Item(new Item.Settings().rarity(Rarity.COMMON)));
+    public static final Item ORDER_NOTE = register("order_note", new OrderNoteItem(new Item.Settings().rarity(Rarity.COMMON).maxCount(1).component(ClaComponentTypes.COURSE_ID, Identifier.of("cla", "salad"))));
+    public static final Item TOMATO_SEEDS = register("tomato_seeds", new AliasedBlockItem(ClaBlocks.TOMATOES, new Item.Settings().rarity(Rarity.COMMON)));
 
     public static void run() {
 

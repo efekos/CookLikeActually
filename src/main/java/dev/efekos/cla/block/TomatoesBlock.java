@@ -22,12 +22,12 @@ public class TomatoesBlock extends CropBlock {
             Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 15.0, 16.0)
     };
 
-    public MapCodec<CarrotsBlock> getCodec() {
-        return CODEC;
-    }
-
     public TomatoesBlock(AbstractBlock.Settings settings) {
         super(settings);
+    }
+
+    public MapCodec<CarrotsBlock> getCodec() {
+        return CODEC;
     }
 
     protected ItemConvertible getSeedsItem() {
