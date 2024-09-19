@@ -39,11 +39,7 @@ public class RequestSyncC2S implements CustomPayload {
         ServerPlayerEntity p = context.player();
         World world = p.getWorld();
         BlockEntity entity = world.getBlockEntity(pos);
-
-        if (entity instanceof SyncAbleBlockEntity<?> cuttingBoard) {
-            System.out.println("sending sync");
-            ServerPlayNetworking.send(p, cuttingBoard.createSyncPacket());
-        }
+        if (entity instanceof SyncAbleBlockEntity<?> cuttingBoard) ServerPlayNetworking.send(p, cuttingBoard.createSyncPacket());
     }
 
 }

@@ -66,7 +66,6 @@ public class PlateBlockEntity extends BlockEntity implements SyncAbleBlockEntity
             NbtList list = nbt.getList("Items", NbtElement.COMPOUND_TYPE);
             if (list.isEmpty()) return;
             for (NbtElement element : list) {
-                System.out.println(element);
                 Optional<ItemStack> stack = ItemStack.fromNbt(registryLookup, element);
                 stack.ifPresent(items::add);
             }

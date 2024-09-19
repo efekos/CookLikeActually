@@ -49,7 +49,6 @@ public class ItemBoxSyncS2C implements CustomPayload {
         BlockEntity entity = context.client().world.getBlockEntity(pos);
         if (!(entity instanceof ItemBoxBlockEntity itemBox)) return;
         itemBox.setItem(item);
-        System.out.println("handled itemboxsync with " + item + "and " + pos);
     }
 
 }
