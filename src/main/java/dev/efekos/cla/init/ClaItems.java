@@ -2,6 +2,7 @@ package dev.efekos.cla.init;
 
 import dev.efekos.cla.Main;
 import dev.efekos.cla.item.KnifeItem;
+import dev.efekos.cla.item.OrderNoteItem;
 import dev.efekos.cla.item.PlateItem;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.component.type.FoodComponents;
@@ -34,6 +35,7 @@ public class ClaItems {
     public static final Item FRYING_SIEVE = register("frying_sieve", new Item(new Item.Settings().rarity(Rarity.COMMON).maxCount(1)));
     public static final Item CHEESE = register("cheese",new Item(new Item.Settings().rarity(Rarity.COMMON)));
     public static final Item CUT_CHEESE = register("cut_cheese",new Item(new Item.Settings().rarity(Rarity.COMMON)));
+    public static final Item ORDER_NOTE = register("order_note",new OrderNoteItem(new Item.Settings().rarity(Rarity.COMMON).maxCount(1).component(ClaComponentTypes.COURSE_ID,Identifier.of("cla","salad"))));
 
     public static void run() {
 

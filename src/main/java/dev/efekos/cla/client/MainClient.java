@@ -2,6 +2,7 @@ package dev.efekos.cla.client;
 
 import dev.efekos.cla.Main;
 import dev.efekos.cla.block.entity.SyncAbleBlockEntity;
+import dev.efekos.cla.client.hud.OrderNotesHud;
 import dev.efekos.cla.client.renderer.*;
 import dev.efekos.cla.init.ClaBlockEntityTypes;
 import dev.efekos.cla.init.ClaBlocks;
@@ -13,6 +14,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientBlockEntityEvents
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
@@ -45,11 +47,13 @@ public class MainClient implements ClientModInitializer {
         // Events
         ClientBlockEntityEvents.BLOCK_ENTITY_LOAD.register(this::loadBlockEntity);
         ModelLoadingPlugin.register(this::loadAndRegisterModels);
+        HudRenderCallback.EVENT.register(new OrderNotesHud());
 
         // Builtin Item Renderers
         BuiltinItemRendererRegistry.INSTANCE.register(ClaItems.PLATE, new PlateItemRenderer());
 
 
+        // Block Render Layers
         BlockRenderLayerMap.INSTANCE.putBlock(ClaBlocks.FRYING_STAND, RenderLayer.getCutout());
     }
 
