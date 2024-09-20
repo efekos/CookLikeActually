@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -64,13 +65,25 @@ public class TrashCanBlock extends BlockWithEntity {
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         Hand hand = player.getActiveHand();
         ItemStack playerStack = player.getStackInHand(hand).copy();
-        if (player.isCreative() || player.isSpectator() || playerStack.isEmpty()) return ActionResult.PASS;
-        player.setStackInHand(hand, ItemStack.EMPTY);
+        if (player.isSpectator()) return ActionResult.PASS;
         TrashCanBlockEntity entity = (TrashCanBlockEntity) world.getBlockEntity(pos);
-        entity.addItem(playerStack);
-        entity.markDirty();
-        world.playSound(player, pos, ClaSoundEvents.TRASH_CAN_PUT_THRASH, SoundCategory.BLOCKS);
-        return ActionResult.SUCCESS;
+        if(!player.isSneaking()){
+            if(playerStack.isEmpty()) return ActionResult.PASS;
+            player.setStackInHand(hand, ItemStack.EMPTY);
+            entity.addItem(playerStack);
+            entity.markDirty();
+            world.playSound(player, pos, ClaSoundEvents.TRASH_CAN_PUT_THRASH, SoundCategory.BLOCKS);
+            return ActionResult.SUCCESS;
+        } else {
+            if(!playerStack.isEmpty()) return ActionResult.PASS;
+            List<ItemStack> items = entity.getItems();
+            ItemStack stack = items.removeLast();
+            player.setStackInHand(hand, stack);
+            entity.setItems(items);
+            entity.markDirty();
+            world.playSound(player,pos, SoundEvents.ENTITY_ITEM_PICKUP,SoundCategory.BLOCKS);
+            return ActionResult.SUCCESS;
+        }
     }
 
 }
