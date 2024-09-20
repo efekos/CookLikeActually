@@ -17,9 +17,9 @@ public class ClaBlocks {
     public static final CuttingBoardBlock CUTTING_BOARD = register("cutting_board", new CuttingBoardBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
     public static final PlateBlock PLATE = registerWithoutItem("plate", new PlateBlock(AbstractBlock.Settings.copy(Blocks.GLASS).sounds(PLATE_SOUNDS)));
     public static final PanBlock PAN = register("pan", new PanBlock(AbstractBlock.Settings.copy(Blocks.GLASS).sounds(PLATE_SOUNDS)));
-    public static final PlateRackBlock PLATE_RACK = register("plate_rack", new PlateRackBlock(AbstractBlock.Settings.copy(Blocks.STONE).nonOpaque()));
+    public static final PlateRackBlock PLATE_RACK = register("plate_rack", new PlateRackBlock(AbstractBlock.Settings.copy(Blocks.DIRT).mapColor(MapColor.WHITE_GRAY).sounds(BlockSoundGroup.WOOD).nonOpaque()));
     public static final ItemBoxBlock ITEM_BOX = register("item_box", new ItemBoxBlock(AbstractBlock.Settings.copy(Blocks.OAK_PLANKS)));
-    public static final TrashCanBlock TRASH_CAN = register("trash_can", new TrashCanBlock(AbstractBlock.Settings.copy(Blocks.STONE)));
+    public static final TrashCanBlock TRASH_CAN = register("trash_can", new TrashCanBlock(AbstractBlock.Settings.copy(Blocks.DIRT).mapColor(MapColor.GRAY).sounds(BlockSoundGroup.WOOD)));
     public static final CropBlock TOMATOES = register("tomatoes", new TomatoesBlock(AbstractBlock.Settings.copy(Blocks.CARROTS).mapColor(MapColor.DULL_RED)));
     public static final LettuceBlock LETTUCE = register("lettuce", new LettuceBlock(AbstractBlock.Settings.copy(Blocks.CARROTS).mapColor(MapColor.GREEN)));
     private static final AbstractBlock.Settings STAND_BLOCK_SETTINGS = AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).hardness(2.5f).resistance(3).mapColor(MapColor.PURPLE);

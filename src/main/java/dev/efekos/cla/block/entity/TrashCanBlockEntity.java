@@ -17,7 +17,7 @@ import java.util.List;
 
 public class TrashCanBlockEntity extends BlockEntity {
 
-    private List<ItemStack> items;
+    private List<ItemStack> items = new ArrayList<>();
 
     public TrashCanBlockEntity(BlockPos pos, BlockState state) {
         super(ClaBlockEntityTypes.TRASH_CAN, pos, state);

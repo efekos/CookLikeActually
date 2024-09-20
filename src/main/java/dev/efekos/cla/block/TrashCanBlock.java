@@ -3,6 +3,7 @@ package dev.efekos.cla.block;
 import com.mojang.serialization.MapCodec;
 import dev.efekos.cla.block.entity.TrashCanBlockEntity;
 import dev.efekos.cla.init.ClaSoundEvents;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.ShapeContext;
@@ -64,6 +65,11 @@ public class TrashCanBlock extends BlockWithEntity {
     }
 
     @Override
+    protected BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
+
+    @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         Hand hand = player.getActiveHand();
         ItemStack playerStack = player.getStackInHand(hand).copy();
@@ -75,17 +81,16 @@ public class TrashCanBlock extends BlockWithEntity {
             entity.addItem(playerStack);
             entity.markDirty();
             world.playSound(player, pos, ClaSoundEvents.TRASH_CAN_PUT_THRASH, SoundCategory.BLOCKS);
-            return ActionResult.SUCCESS;
         } else {
-            if (!playerStack.isEmpty()) return ActionResult.PASS;
+            if (!playerStack.isEmpty()||!entity.containsItems()) return ActionResult.PASS;
             List<ItemStack> items = entity.getItems();
             ItemStack stack = items.removeLast();
             player.setStackInHand(hand, stack);
             entity.setItems(items);
             entity.markDirty();
             world.playSound(player, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS);
-            return ActionResult.SUCCESS;
         }
+        return ActionResult.SUCCESS;
     }
 
 }
