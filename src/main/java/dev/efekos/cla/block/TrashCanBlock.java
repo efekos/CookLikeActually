@@ -82,7 +82,7 @@ public class TrashCanBlock extends BlockWithEntity {
             entity.markDirty();
             world.playSound(player, pos, ClaSoundEvents.TRASH_CAN_PUT_THRASH, SoundCategory.BLOCKS);
         } else {
-            if (!playerStack.isEmpty()||!entity.containsItems()) return ActionResult.PASS;
+            if (!playerStack.isEmpty() || !entity.containsItems()) return ActionResult.PASS;
             List<ItemStack> items = entity.getItems();
             ItemStack stack = items.removeLast();
             player.setStackInHand(hand, stack);
