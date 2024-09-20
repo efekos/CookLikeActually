@@ -58,11 +58,11 @@ public class ItemBoxBlock extends BlockWithEntity {
         return ActionResult.PASS;
     }
 
-    private ActionResult creativeUse(ItemBoxBlockEntity entity, World world, BlockPos pos, PlayerEntity player,ItemStack playerStack) {
+    private ActionResult creativeUse(ItemBoxBlockEntity entity, World world, BlockPos pos, PlayerEntity player, ItemStack playerStack) {
         if (playerStack.isEmpty()) return ActionResult.PASS;
         entity.setItem(playerStack);
         entity.markDirty();
-        world.playSound(player, pos,SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS);
+        world.playSound(player, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS);
         return ActionResult.SUCCESS;
     }
 

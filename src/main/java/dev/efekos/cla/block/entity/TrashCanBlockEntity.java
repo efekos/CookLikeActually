@@ -17,48 +17,49 @@ import java.util.List;
 
 public class TrashCanBlockEntity extends BlockEntity {
 
+    private List<ItemStack> items;
+
     public TrashCanBlockEntity(BlockPos pos, BlockState state) {
         super(ClaBlockEntityTypes.TRASH_CAN, pos, state);
     }
 
-    private List<ItemStack> items;
-
     @Override
     protected void readComponents(ComponentsAccess components) {
         super.readComponents(components);
-        items = components.getOrDefault(ClaComponentTypes.ITEMS,new ArrayList<>());
+        items = components.getOrDefault(ClaComponentTypes.ITEMS, new ArrayList<>());
     }
 
     @Override
     protected void addComponents(ComponentMap.Builder componentMapBuilder) {
         super.addComponents(componentMapBuilder);
-        if(containsItems()) componentMapBuilder.add(ClaComponentTypes.ITEMS,items);
+        if (containsItems()) componentMapBuilder.add(ClaComponentTypes.ITEMS, items);
     }
 
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
-        if(nbt.contains("Items", NbtElement.LIST_TYPE)){
-            NbtList Items = nbt.getList("Items",NbtElement.COMPOUND_TYPE);
+        if (nbt.contains("Items", NbtElement.LIST_TYPE)) {
+            NbtList Items = nbt.getList("Items", NbtElement.COMPOUND_TYPE);
             this.items = new ArrayList<>();
             try {
-                for (NbtElement item : Items) items.add(ItemStack.fromNbt(registryLookup,item).orElseThrow());
-            } catch (Exception ignored) {}
+                for (NbtElement item : Items) items.add(ItemStack.fromNbt(registryLookup, item).orElseThrow());
+            } catch (Exception ignored) {
+            }
         }
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
-        if(containsItems()) {
+        if (containsItems()) {
             NbtList list = new NbtList();
             for (ItemStack item : items) list.add(item.encode(registryLookup));
             nbt.put("Items", list);
         }
     }
 
-    public boolean containsItems(){
-        return items!=null&&!items.isEmpty();
+    public boolean containsItems() {
+        return items != null && !items.isEmpty();
     }
 
     public List<ItemStack> getItems() {
@@ -69,7 +70,7 @@ public class TrashCanBlockEntity extends BlockEntity {
         this.items = items;
     }
 
-    public void addItem(ItemStack item){
+    public void addItem(ItemStack item) {
         items.add(item);
     }
 

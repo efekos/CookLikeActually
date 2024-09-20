@@ -3,7 +3,9 @@ package dev.efekos.cla.block;
 import com.mojang.serialization.MapCodec;
 import dev.efekos.cla.block.entity.TrashCanBlockEntity;
 import dev.efekos.cla.init.ClaSoundEvents;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -25,11 +27,11 @@ import java.util.List;
 
 public class TrashCanBlock extends BlockWithEntity {
 
+    public static final MapCodec<TrashCanBlock> CODEC = createCodec(TrashCanBlock::new);
+
     public TrashCanBlock(Settings settings) {
         super(settings);
     }
-
-    public static final MapCodec<TrashCanBlock> CODEC = createCodec(TrashCanBlock::new);
 
     public static VoxelShape makeShape() {
         return VoxelShapes.union(
@@ -57,7 +59,7 @@ public class TrashCanBlock extends BlockWithEntity {
     protected List<ItemStack> getDroppedStacks(BlockState state, LootContextParameterSet.Builder builder) {
         TrashCanBlockEntity can = (TrashCanBlockEntity) builder.get(LootContextParameters.BLOCK_ENTITY);
         List<ItemStack> stacks = super.getDroppedStacks(state, builder);
-        if(can.containsItems())stacks.addAll(can.getItems());
+        if (can.containsItems()) stacks.addAll(can.getItems());
         return stacks;
     }
 
@@ -67,21 +69,21 @@ public class TrashCanBlock extends BlockWithEntity {
         ItemStack playerStack = player.getStackInHand(hand).copy();
         if (player.isSpectator()) return ActionResult.PASS;
         TrashCanBlockEntity entity = (TrashCanBlockEntity) world.getBlockEntity(pos);
-        if(!player.isSneaking()){
-            if(playerStack.isEmpty()) return ActionResult.PASS;
+        if (!player.isSneaking()) {
+            if (playerStack.isEmpty()) return ActionResult.PASS;
             player.setStackInHand(hand, ItemStack.EMPTY);
             entity.addItem(playerStack);
             entity.markDirty();
             world.playSound(player, pos, ClaSoundEvents.TRASH_CAN_PUT_THRASH, SoundCategory.BLOCKS);
             return ActionResult.SUCCESS;
         } else {
-            if(!playerStack.isEmpty()) return ActionResult.PASS;
+            if (!playerStack.isEmpty()) return ActionResult.PASS;
             List<ItemStack> items = entity.getItems();
             ItemStack stack = items.removeLast();
             player.setStackInHand(hand, stack);
             entity.setItems(items);
             entity.markDirty();
-            world.playSound(player,pos, SoundEvents.ENTITY_ITEM_PICKUP,SoundCategory.BLOCKS);
+            world.playSound(player, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS);
             return ActionResult.SUCCESS;
         }
     }

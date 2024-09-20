@@ -107,7 +107,7 @@ public class PlateBlock extends BlockWithEntity {
             ItemScatterer.spawn(world, pos, DefaultedList.copyOf(ItemStack.EMPTY, stacks.toArray(new ItemStack[0])));
             plate.setItems(new ArrayList<>());
             plate.markDirty();
-            world.playSound(player,pos, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.BLOCKS);
+            world.playSound(player, pos, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.BLOCKS);
             return ActionResult.SUCCESS;
         } else {
             if (plate.hasCourse() && playerStack.isEmpty()) return pickup(world, pos, player, plate, hand);
@@ -117,7 +117,7 @@ public class PlateBlock extends BlockWithEntity {
             plate.setItems(stacks);
             plate.markDirty();
             playerStack.decrement(1);
-            world.playSound(player,pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS);
+            world.playSound(player, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS);
             return ActionResult.success(true);
         }
 
@@ -126,7 +126,7 @@ public class PlateBlock extends BlockWithEntity {
     private ActionResult pickup(World world, BlockPos pos, PlayerEntity player, PlateBlockEntity plate, Hand hand) {
         ItemStack stack = createStack(plate);
         player.setStackInHand(hand, stack);
-        world.playSound(player,pos, ClaSoundEvents.PLATE_PICKUP, SoundCategory.BLOCKS);
+        world.playSound(player, pos, ClaSoundEvents.PLATE_PICKUP, SoundCategory.BLOCKS);
         world.removeBlock(pos, false);
         return ActionResult.SUCCESS;
     }

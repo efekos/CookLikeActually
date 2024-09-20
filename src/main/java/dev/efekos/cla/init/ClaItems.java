@@ -21,7 +21,7 @@ import java.util.Optional;
 public class ClaItems {
 
     public static final Item TOMATO = register("tomato", new Item(new Item.Settings().rarity(Rarity.COMMON).food(new FoodComponent(2, 4, false, 3, Optional.empty(), List.of()))));
-    public static final Item LETTUCE = register("lettuce", new AliasedBlockItem(ClaBlocks.LETTUCE,new Item.Settings().rarity(Rarity.COMMON).food(new FoodComponent(4, 2, false, 2.5f, Optional.empty(), List.of()))));
+    public static final Item LETTUCE = register("lettuce", new AliasedBlockItem(ClaBlocks.LETTUCE, new Item.Settings().rarity(Rarity.COMMON).food(new FoodComponent(4, 2, false, 2.5f, Optional.empty(), List.of()))));
     public static final Item CUT_TOMATO = register("cut_tomato", new Item(new Item.Settings().rarity(Rarity.COMMON).food(new FoodComponent(2, 4, false, 1f, Optional.empty(), List.of()))));
     public static final Item CUT_LETTUCE = register("cut_lettuce", new Item(new Item.Settings().rarity(Rarity.COMMON).food(new FoodComponent(4, 2, false, 0.8f, Optional.empty(), List.of()))));
     public static final Item PLATE = register("plate", new PlateItem(new Item.Settings().rarity(Rarity.COMMON)));

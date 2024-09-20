@@ -1,10 +1,9 @@
 package dev.efekos.cla;
 
 import dev.efekos.cla.init.*;
-import dev.efekos.cla.packet.*;
+import dev.efekos.cla.packet.RequestSyncC2S;
 import dev.efekos.cla.resource.CourseManager;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resource.ResourceType;

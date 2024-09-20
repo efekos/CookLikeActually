@@ -2,7 +2,10 @@ package dev.efekos.cla.block;
 
 import com.mojang.serialization.MapCodec;
 import dev.efekos.cla.init.ClaItems;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.CropBlock;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
