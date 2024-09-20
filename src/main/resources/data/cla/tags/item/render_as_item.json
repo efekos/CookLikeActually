@@ -3,6 +3,8 @@
     "minecraft:wheat_seeds",
     "minecraft:beetroot_seeds",
     "minecraft:potato",
-    "minecraft:carrot"
+    "minecraft:carrot",
+    "cla:lettuce",
+    "cla:tomato_seeds"
   ]
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "block/crop",
+  "textures": {
+    "crop": "cla:block/lettuce_stage1"
+  }
+}

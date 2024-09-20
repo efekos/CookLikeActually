@@ -2,5 +2,6 @@
   "values": [
     "cla:cutting_board",
     "cla:plate_rack"
-  ]
+  ],
+  "replace": false
 }
