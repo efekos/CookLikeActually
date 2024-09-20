@@ -30,7 +30,7 @@ public class KnifeItem extends SwordItem {
         CuttingBoardBlockEntity blockEntity = blockEntityOptional.get();
         if (!blockEntity.hasRecipe(world)) return ActionResult.PASS;
         blockEntity.setCuts(blockEntity.getCuts() + 1);
-        world.playSound(context.getPlayer(), pos, ClaSoundEvents.KNIFE_SLICE, SoundCategory.BLOCKS, 1f, 1f);
+        world.playSound(context.getPlayer(), pos, ClaSoundEvents.KNIFE_SLICE, SoundCategory.BLOCKS);
         return ActionResult.success(true);
     }
 

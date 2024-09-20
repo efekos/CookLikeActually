@@ -41,7 +41,7 @@ public class ItemBoxBlock extends BlockWithEntity {
         BlockEntity entity = world.getBlockEntity(pos);
         ItemStack stackInHand = player.getStackInHand(hand);
         if (!(entity instanceof ItemBoxBlockEntity itemBox)) return ActionResult.PASS;
-        return player.isCreative() ? creativeUse(itemBox, world, pos, stackInHand) : survivalUse(itemBox, world, pos, player, stackInHand, hand);
+        return player.isCreative() ? creativeUse(itemBox, world, pos, player, stackInHand) : survivalUse(itemBox, world, pos, player, stackInHand, hand);
     }
 
     @Override
@@ -52,17 +52,17 @@ public class ItemBoxBlock extends BlockWithEntity {
     private ActionResult survivalUse(ItemBoxBlockEntity entity, World world, BlockPos pos, PlayerEntity player, ItemStack playerStack, Hand hand) {
         if (playerStack.isEmpty()) {
             player.setStackInHand(hand, entity.getItem().copy());
-            world.playSound(player, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 1f, 1f);
+            world.playSound(player, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS);
             return ActionResult.SUCCESS;
         }
         return ActionResult.PASS;
     }
 
-    private ActionResult creativeUse(ItemBoxBlockEntity entity, World world, BlockPos pos, ItemStack playerStack) {
+    private ActionResult creativeUse(ItemBoxBlockEntity entity, World world, BlockPos pos, PlayerEntity player,ItemStack playerStack) {
         if (playerStack.isEmpty()) return ActionResult.PASS;
         entity.setItem(playerStack);
         entity.markDirty();
-        world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 1f, 1f, true);
+        world.playSound(player, pos,SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS);
         return ActionResult.SUCCESS;
     }
 

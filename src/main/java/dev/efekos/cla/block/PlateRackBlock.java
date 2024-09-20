@@ -86,13 +86,13 @@ public class PlateRackBlock extends Block {
             if (i == 0) return ActionResult.PASS;
             player.setStackInHand(hand, new ItemStack(ClaItems.PLATE, 1));
             world.setBlockState(pos, state.with(PLATES, i - 1));
-            world.playSound(player, pos, ClaSoundEvents.PLATE_PICKUP, SoundCategory.PLAYERS, 1f, 1f);
+            world.playSound(player, pos, ClaSoundEvents.PLATE_PICKUP, SoundCategory.PLAYERS);
             return ActionResult.SUCCESS;
         } else if (playerStack.isOf(ClaItems.PLATE) && !playerStack.contains(ClaComponentTypes.COURSE_ID) && !playerStack.contains(ClaComponentTypes.ITEMS)) {
             if (i == 7) return ActionResult.PASS;
             player.setStackInHand(hand, playerStack.copyWithCount(playerStack.getCount() - 1));
             world.setBlockState(pos, state.with(PLATES, i + 1));
-            world.playSound(player, pos, ClaSoundEvents.PLATE_PLACE_TO_RACK, SoundCategory.PLAYERS, 1f, 1f);
+            world.playSound(player, pos, ClaSoundEvents.PLATE_PLACE_TO_RACK, SoundCategory.PLAYERS);
             return ActionResult.SUCCESS;
         } else return ActionResult.PASS;
 
