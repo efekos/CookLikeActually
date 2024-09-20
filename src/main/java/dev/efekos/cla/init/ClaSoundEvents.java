@@ -12,6 +12,7 @@ public class ClaSoundEvents {
     public static final SoundEvent PAN_COOKING = of("block.pan.cook");
     public static final SoundEvent PLATE_PICKUP = of("block.plate.pickup");
     public static final SoundEvent PLATE_PLACE_TO_RACK = of("block.plate_rack.place_plate");
+    public static final SoundEvent TRASH_CAN_PUT_THRASH = of("block.trash_can.put_thrash");
 
     private static @NotNull SoundEvent of(String path) {
         return SoundEvent.of(Identifier.of(Main.MOD_ID, path));

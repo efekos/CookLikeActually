@@ -43,6 +43,7 @@
   "subtitle.cla.block.plate.pickup": "Plate picked up",
   "subtitle.cla.block.plate.place": "Plate placed",
   "subtitle.cla.block.plate_rack.place_place": "Someone placed a plate to a rack",
+  "subtitle.cla.block.trash_can.put_trash": "Something thrown away",
   "subtitle.cla.item.knife.slice": "Something got sliced by a knife",
   "tag.item.cla.render_as_item": "Render as an Item"
 }

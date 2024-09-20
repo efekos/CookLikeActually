@@ -51,5 +51,12 @@
     "sounds": [
       "cla:plate_rack_place"
     ]
+  },
+  "block.trash_can.put_trash": {
+    "category": "blocks",
+    "subtitle": "subtitle.cla.block.trash_can.put_trash",
+    "sounds": [
+      "cla:trash_can"
+    ]
   }
 }
