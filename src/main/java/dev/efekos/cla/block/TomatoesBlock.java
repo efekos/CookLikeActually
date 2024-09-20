@@ -10,7 +10,7 @@ import net.minecraft.world.BlockView;
 
 public class TomatoesBlock extends CropBlock {
 
-    public static final MapCodec<CarrotsBlock> CODEC = createCodec(CarrotsBlock::new);
+    public static final MapCodec<TomatoesBlock> CODEC = createCodec(TomatoesBlock::new);
     private static final VoxelShape[] AGE_TO_SHAPE = new VoxelShape[]{
             Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 3.0, 16.0),
             Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 3.0, 16.0),
@@ -26,7 +26,7 @@ public class TomatoesBlock extends CropBlock {
         super(settings);
     }
 
-    public MapCodec<CarrotsBlock> getCodec() {
+    public MapCodec<TomatoesBlock> getCodec() {
         return CODEC;
     }
 
