@@ -3,6 +3,7 @@ package dev.efekos.cla.init;
 import dev.efekos.cla.Main;
 import dev.efekos.cla.block.*;
 import net.minecraft.block.*;
+import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -26,6 +27,7 @@ public class ClaBlocks {
     public static final Block COOKING_STAND = register("cooking_stand", new Block(STAND_BLOCK_SETTINGS));
     public static final Block FRYING_STAND = register("frying_stand", new FryingStandBlock(STAND_BLOCK_SETTINGS.nonOpaque()));
     public static final Block STAND = register("stand", new Block(STAND_BLOCK_SETTINGS));
+    public static final Block WASHING_STAND = register("washing_stand",new WashingStandBlock(STAND_BLOCK_SETTINGS.nonOpaque()));
 
     public static void run() {
 

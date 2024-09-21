@@ -3,7 +3,8 @@
     "cla:frying_stand",
     "cla:cooking_stand",
     "cla:stand",
-    "cla:pan"
+    "cla:pan",
+    "cla:washing_stand"
   ],
   "replace": false
 }

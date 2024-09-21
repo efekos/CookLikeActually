@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "BCB",
+    "BBB"
+  ],
+  "key": {
+    "A": {
+      "tag": "minecraft:wool"
+    },
+    "B": {
+      "item": "minecraft:cobblestone"
+    },
+    "C": {
+      "item": "minecraft:water_bucket"
+    }
+  },
+  "result": {
+    "id": "cla:washing_stand",
+    "count": 1
+  }
+}
