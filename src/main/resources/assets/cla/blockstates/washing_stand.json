@@ -1,7 +1,13 @@
 {
   "variants": {
-    "": {
+    "plates=none": {
       "model": "cla:block/washing_stand"
+    },
+    "plates=singular":{
+      "model": "cla:block/washing_stand_plate"
+    },
+    "plates=multiple": {
+      "model": "cla:block/washing_stand_plates"
     }
   }
 }

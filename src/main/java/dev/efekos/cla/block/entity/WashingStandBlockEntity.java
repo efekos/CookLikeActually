@@ -1,5 +1,6 @@
 package dev.efekos.cla.block.entity;
 
+import dev.efekos.cla.block.WashingStandBlock;
 import dev.efekos.cla.init.ClaBlockEntityTypes;
 import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.init.ClaItems;
@@ -100,24 +101,33 @@ public class WashingStandBlockEntity extends BlockEntity implements SyncAbleBloc
 
 
     public void tick(World world, BlockPos pos, BlockState state){
+        updateState(world,pos,state);
         if(!hasPlates())return;
 
-        if(getLastInteraction()<3){
+        if(getLastInteraction()<=3){
             progress++;
-            if(progress>=MAX_PROGRESS) wash(world,pos.up());
+            if(progress>=MAX_PROGRESS) wash(world,pos,state);
+            markDirty();
         }
 
         lastInteraction++;
-        markDirty();
     }
 
-    private void wash(World world,BlockPos pos) {
+    private void wash(World world,BlockPos pos,BlockState state) {
         if(!hasPlates())return;
         setProgress(0);
         ItemStack stack = plates.removeLast();
         ItemStack stackToDrop = stack.copyComponentsToNewStack(ClaItems.PLATE, 1);
-        world.spawnEntity(new ItemEntity(world,pos.getX()+.5,pos.getY(),pos.getZ()+.5,stackToDrop));
+        world.spawnEntity(new ItemEntity(world,pos.getX()+.5,pos.getY()+1,pos.getZ()+.5,stackToDrop));
     }
+
+    private void updateState(World world,BlockPos pos,BlockState state) {
+        if(plates.size()>1) world.setBlockState(pos,state.with(WashingStandBlock.PLATES, WashingStandBlock.Plates.MULTIPLE));
+        else if (plates.size()==1) world.setBlockState(pos,state.with(WashingStandBlock.PLATES,WashingStandBlock.Plates.SINGULAR));
+        else world.setBlockState(pos,state.with(WashingStandBlock.PLATES,WashingStandBlock.Plates.NONE));
+    }
+
+
 
     public void addPlate(ItemStack playerStack) {
         plates.add(playerStack);
