@@ -13,6 +13,7 @@ public class ClaPayloadTypes {
     public static final CustomPayload.Type<? super RegistryByteBuf, PanSyncS2C> PAN_SYNC_S2C = registers2c(PanSyncS2C.class);
     public static final CustomPayload.Type<? super RegistryByteBuf, ItemBoxSyncS2C> ITEM_BOX_SYNC_S2C = registers2c(ItemBoxSyncS2C.class);
     public static final CustomPayload.Type<? super RegistryByteBuf, FryingStandSyncS2C> FRYING_STAND_SYNC_S2C = registers2c(FryingStandSyncS2C.class);
+    public static final CustomPayload.Type<? super RegistryByteBuf, WashingStandSyncS2C> WASHING_STAND_SYNC_S2C = registers2c(WashingStandSyncS2C.class);
     public static final CustomPayload.Type<? super RegistryByteBuf, RequestSyncC2S> REQUEST_SYNC_C2S = registerc2s(RequestSyncC2S.class);
 
     @SuppressWarnings("unchecked")

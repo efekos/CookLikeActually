@@ -47,6 +47,7 @@ public class MainClient implements ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(PanSyncS2C.PAYLOAD_ID, PanSyncS2C::handle);
         ClientPlayNetworking.registerGlobalReceiver(ItemBoxSyncS2C.PAYLOAD_ID, ItemBoxSyncS2C::handle);
         ClientPlayNetworking.registerGlobalReceiver(FryingStandSyncS2C.PAYLOAD_ID, FryingStandSyncS2C::handle);
+        ClientPlayNetworking.registerGlobalReceiver(WashingStandSyncS2C.PAYLOAD_ID, WashingStandSyncS2C::handle);
 
         // Events
         ClientBlockEntityEvents.BLOCK_ENTITY_LOAD.register(this::loadBlockEntity);

@@ -3,6 +3,7 @@ package dev.efekos.cla.block.entity;
 import dev.efekos.cla.init.ClaBlockEntityTypes;
 import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.init.ClaItems;
+import dev.efekos.cla.packet.WashingStandSyncS2C;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.ComponentMap;
@@ -20,7 +21,7 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WashingStandBlockEntity extends BlockEntity {
+public class WashingStandBlockEntity extends BlockEntity implements SyncAbleBlockEntity<WashingStandSyncS2C> {
 
     public WashingStandBlockEntity(BlockPos pos, BlockState state) {
         super(ClaBlockEntityTypes.WASHING_STAND, pos, state);
@@ -122,6 +123,11 @@ public class WashingStandBlockEntity extends BlockEntity {
 
     public void addPlate(ItemStack playerStack) {
         plates.add(playerStack);
+    }
+
+    @Override
+    public WashingStandSyncS2C createSyncPacket() {
+        return new WashingStandSyncS2C(pos,progress,plates);
     }
 
 }
