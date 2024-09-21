@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +37,7 @@ public class PlateItem extends BlockItem {
 
     @Override
     public String getTranslationKey(ItemStack stack) {
-        return Optional.ofNullable(stack.get(ClaComponentTypes.COURSE_ID)).map(identifier -> CourseManager.getInstance().getCourse(identifier)).get().map(Course::translationKey).orElse(super.getTranslationKey(stack));
+        return Optional.ofNullable(stack.get(ClaComponentTypes.COURSE_ID)).flatMap(CourseManager.getInstance()::getCourse).map(Course::translationKey).orElse(super.getTranslationKey(stack));
     }
 
 }
