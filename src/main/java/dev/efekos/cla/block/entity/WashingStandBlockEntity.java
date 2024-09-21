@@ -116,7 +116,7 @@ public class WashingStandBlockEntity extends BlockEntity implements SyncAbleBloc
         setProgress(0);
         ItemStack stack = plates.removeLast();
         ItemStack stackToDrop = stack.copyComponentsToNewStack(ClaItems.PLATE, 1);
-        world.spawnEntity(new ItemEntity(world,pos.getX(),pos.getY(),pos.getZ(),stackToDrop));
+        world.spawnEntity(new ItemEntity(world,pos.getX()+.5,pos.getY(),pos.getZ()+.5,stackToDrop));
     }
 
     public void addPlate(ItemStack playerStack) {
