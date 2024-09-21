@@ -24,7 +24,7 @@
       "conditions": [
         {
           "condition": "minecraft:block_state_property",
-          "block": "cla:lettuce",
+          "block": "cla:lettuces",
           "properties": {
             "age": "7"
           }
