@@ -6,8 +6,6 @@ import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.init.ClaSoundEvents;
 import dev.efekos.cla.packet.PanSyncS2C;
 import dev.efekos.cla.recipe.PanningRecipe;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.item.ItemStack;
@@ -15,7 +13,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -100,13 +97,6 @@ public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBl
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
         ticks = nbt.getInt("Ticks");
-    }
-
-    @Override
-    public void markDirty() {
-        if (!world.isClient) for (ServerPlayerEntity player : PlayerLookup.tracking(this))
-            ServerPlayNetworking.send(player, createSyncPacket());
-        super.markDirty();
     }
 
     public int getMaxTicks() {

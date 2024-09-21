@@ -6,8 +6,6 @@ import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.init.ClaSoundEvents;
 import dev.efekos.cla.packet.FryingStandSyncS2C;
 import dev.efekos.cla.recipe.FryingRecipe;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.item.ItemStack;
@@ -15,7 +13,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -89,13 +86,6 @@ public class FryingStandBlockEntity extends BlockEntityWithOneItem implements Sy
     @Override
     public FryingStandSyncS2C createSyncPacket() {
         return new FryingStandSyncS2C(hasItem() ? item : ItemStack.EMPTY, ticks, pos);
-    }
-
-    @Override
-    public void markDirty() {
-        if (!world.isClient)
-            for (ServerPlayerEntity p : PlayerLookup.tracking(this)) ServerPlayNetworking.send(p, createSyncPacket());
-        super.markDirty();
     }
 
     public void setItemWithoutReset(ItemStack item) {

@@ -4,8 +4,6 @@ import dev.efekos.cla.init.ClaBlockEntityTypes;
 import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.packet.CuttingBoardSyncS2C;
 import dev.efekos.cla.recipe.CuttingRecipe;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.item.ItemStack;
@@ -13,8 +11,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -94,13 +90,6 @@ public class CuttingBoardBlockEntity extends BlockEntityWithOneItem implements S
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
         nbt.putInt("Cuts", cuts);
-    }
-
-    @Override
-    public void markDirty() {
-        if (!world.isClient) for (ServerPlayerEntity player : PlayerLookup.tracking(((ServerWorld) world), pos))
-            ServerPlayNetworking.send(player, createSyncPacket());
-        super.markDirty();
     }
 
     public CuttingBoardSyncS2C createSyncPacket() {

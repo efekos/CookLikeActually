@@ -3,8 +3,6 @@ package dev.efekos.cla.block.entity;
 import dev.efekos.cla.init.ClaBlockEntityTypes;
 import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.packet.ItemBoxSyncS2C;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.ComponentMap;
@@ -12,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 
 public class ItemBoxBlockEntity extends BlockEntity implements SyncAbleBlockEntity<ItemBoxSyncS2C> {
@@ -59,13 +56,6 @@ public class ItemBoxBlockEntity extends BlockEntity implements SyncAbleBlockEnti
 
     public void setItem(ItemStack item) {
         this.item = item.copyWithCount(1);
-    }
-
-    @Override
-    public void markDirty() {
-        if (!world.isClient)
-            for (ServerPlayerEntity p : PlayerLookup.tracking(this)) ServerPlayNetworking.send(p, createSyncPacket());
-        super.markDirty();
     }
 
     public boolean hasItem() {
