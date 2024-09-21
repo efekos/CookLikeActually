@@ -49,7 +49,7 @@ public class PlateBlock extends BlockWithEntity {
         if (plate.hasCourse()) {
             Course course = plate.getCurrentCourse();
             stack.set(ClaComponentTypes.COURSE_ID, course.id());
-            stack.set(DataComponentTypes.FOOD, new FoodComponent(course.nutrition(), course.saturation(), false, course.eatSeconds(), Optional.of(ClaItems.PLATE.getDefaultStack()), List.of()));
+            stack.set(DataComponentTypes.FOOD, new FoodComponent(course.nutrition(), course.saturation(), false, course.eatSeconds(), Optional.of(ClaItems.DIRTY_PLATE.getDefaultStack()), List.of()));
         }
         if (!stacks.isEmpty()) stack.set(ClaComponentTypes.ITEMS, stacks);
         return stack;

@@ -1,0 +1,7 @@
+{
+  "parent": "cla:block/plate_base",
+  "textures": {
+    "tex": "cla:block/dirty_dish",
+    "particle": "cla:block/dirty_dish"
+  }
+}
