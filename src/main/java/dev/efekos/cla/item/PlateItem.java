@@ -14,6 +14,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class PlateItem extends BlockItem {
 
@@ -37,10 +38,7 @@ public class PlateItem extends BlockItem {
 
     @Override
     public String getTranslationKey(ItemStack stack) {
-        Identifier identifier = stack.get(ClaComponentTypes.COURSE_ID);
-        if (identifier == null) return super.getTranslationKey(stack);
-        Course course = CourseManager.getInstance().getCourse(identifier).orElseThrow();
-        return course.translationKey();
+        return Optional.ofNullable(stack.get(ClaComponentTypes.COURSE_ID)).map(identifier -> CourseManager.getInstance().getCourse(identifier)).get().map(Course::translationKey).orElse(super.getTranslationKey(stack));
     }
 
 }
