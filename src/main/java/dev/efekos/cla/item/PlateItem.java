@@ -37,7 +37,7 @@ public class PlateItem extends BlockItem {
 
     @Override
     public String getTranslationKey(ItemStack stack) {
-        return Optional.ofNullable(stack.get(ClaComponentTypes.COURSE_ID)).flatMap(CourseManager.getInstance()::getCourse).map(Course::translationKey).orElse(super.getTranslationKey(stack));
+        return Optional.ofNullable(stack.get(ClaComponentTypes.COURSE_ID)).flatMap(identifier -> CourseManager.getInstance()==null?Optional.empty():CourseManager.getInstance().getCourse(identifier)).map(Course::translationKey).orElse(super.getTranslationKey(stack));
     }
 
 }
