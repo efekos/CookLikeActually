@@ -26,5 +26,6 @@ public class ClaBlockEntityTypes {
     public static final BlockEntityType<ItemBoxBlockEntity> ITEM_BOX = register("item_box", ItemBoxBlockEntity::new, ClaBlocks.ITEM_BOX);
     public static final BlockEntityType<FryingStandBlockEntity> FRYING_STAND = register("frying_stand", FryingStandBlockEntity::new, ClaBlocks.FRYING_STAND);
     public static final BlockEntityType<TrashCanBlockEntity> TRASH_CAN = register("trash_can", TrashCanBlockEntity::new, ClaBlocks.TRASH_CAN);
+    public static final BlockEntityType<WashingStandBlockEntity> WASHING_STAND = register("washing_stand",WashingStandBlockEntity::new, ClaBlocks.WASHING_STAND);
 
 }

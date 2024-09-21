@@ -39,6 +39,7 @@ public class MainClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(ClaBlockEntityTypes.PAN, PanBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(ClaBlockEntityTypes.ITEM_BOX, ItemBoxBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(ClaBlockEntityTypes.FRYING_STAND, FryingStandBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(ClaBlockEntityTypes.WASHING_STAND, WashingStandBlockEntityRenderer::new);
 
         // Packet Receivers
         ClientPlayNetworking.registerGlobalReceiver(CuttingBoardSyncS2C.PAYLOAD_ID, CuttingBoardSyncS2C::handle);
