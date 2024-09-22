@@ -48,6 +48,7 @@ public class ClaItems {
     public static final Item BURNED_SALMON = register("burned_salmon",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_SALMON))));
     public static final Item BURNED_COD = register("burned_cod",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_COD))));
     public static final Item BURNED_RABBIT = register("burned_rabbit",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_RABBIT))));
+    public static final Item BURNED_PORKCHOP = register("burned_porkchop",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_PORKCHOP))));
 
     private static FoodComponent burn(FoodComponent component){
         return new FoodComponent(0, Math.max(0.25f,component.saturation()/4f), component.canAlwaysEat(), component.eatSeconds()/2f,Optional.empty(),List.of(new FoodComponent.StatusEffectEntry(new StatusEffectInstance(StatusEffects.POISON,200,2),0.5f)));
