@@ -89,7 +89,7 @@ public class FryingStandBlock extends BlockWithOneItem {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ClaBlockEntityTypes.FRYING_STAND, (world1, pos, state1, blockEntity) -> blockEntity.tick(state1));
+        return validateTicker(type, ClaBlockEntityTypes.FRYING_STAND, (world1, pos, state1, blockEntity) -> blockEntity.tick(state1,pos,world1));
     }
 
 }
