@@ -6,6 +6,8 @@ import dev.efekos.cla.item.OrderNoteItem;
 import dev.efekos.cla.item.PlateItem;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.component.type.FoodComponents;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.AliasedBlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SwordItem;
@@ -39,6 +41,17 @@ public class ClaItems {
     public static final Item ORDER_NOTE = register("order_note", new OrderNoteItem(new Item.Settings().rarity(Rarity.COMMON).maxCount(1).component(ClaComponentTypes.COURSE_ID, Identifier.of("cla", "salad"))));
     public static final Item TOMATO_SEEDS = register("tomato_seeds", new AliasedBlockItem(ClaBlocks.TOMATOES, new Item.Settings().rarity(Rarity.COMMON)));
     public static final Item DIRTY_PLATE = register("dirty_plate", new Item(new Item.Settings().rarity(Rarity.COMMON).maxCount(1)));
+
+    public static final Item BURNED_BEEF = register("burned_beef",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_BEEF))));
+    public static final Item BURNED_CHICKEN = register("burned_chicken",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_CHICKEN))));
+    public static final Item BURNED_MUTTON = register("burned_mutton",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_MUTTON))));
+    public static final Item BURNED_SALMON = register("burned_salmon",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_SALMON))));
+    public static final Item BURNED_COD = register("burned_cod",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_COD))));
+    public static final Item BURNED_RABBIT = register("burned_rabbit",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_RABBIT))));
+
+    private static FoodComponent burn(FoodComponent component){
+        return new FoodComponent(0, Math.max(0.25f,component.saturation()/4f), component.canAlwaysEat(), component.eatSeconds()/2f,Optional.empty(),List.of(new FoodComponent.StatusEffectEntry(new StatusEffectInstance(StatusEffects.POISON,200,2),0.5f)));
+    }
 
     public static void run() {
 

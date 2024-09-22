@@ -1,10 +1,14 @@
 package dev.efekos.cla.init;
 
 import dev.efekos.cla.Main;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -25,6 +29,13 @@ public class ClaGroups {
                     ))
                         entries.add(item);
                 }).build());
+
+        ItemGroupEvents.MODIFY_ENTRIES_ALL.register((group, entries) -> {
+            if(RegistryKey.of(RegistryKeys.ITEM_GROUP,Registries.ITEM_GROUP.getId(group)).equals(ItemGroups.FOOD_AND_DRINK))
+                for (ItemConvertible item : List.of(
+                        ClaItems.BURNED_BEEF, ClaItems.BURNED_CHICKEN, ClaItems.BURNED_COD, ClaItems.BURNED_SALMON, ClaItems.BURNED_RABBIT, ClaItems.BURNED_MUTTON
+                )) entries.add(item);
+        });
     }
 
 }
