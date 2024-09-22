@@ -106,14 +106,14 @@ public class WashingStandBlockEntity extends BlockEntity implements SyncAbleBloc
 
         if(getLastInteraction()<=3){
             progress++;
-            if(progress>=MAX_PROGRESS) wash(world,pos,state);
+            if(progress>=MAX_PROGRESS) wash(world,pos);
             markDirty();
         }
 
         lastInteraction++;
     }
 
-    private void wash(World world,BlockPos pos,BlockState state) {
+    private void wash(World world,BlockPos pos) {
         if(!hasPlates())return;
         setProgress(0);
         ItemStack stack = plates.removeLast();

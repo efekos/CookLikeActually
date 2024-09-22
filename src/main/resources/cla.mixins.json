@@ -8,7 +8,8 @@
   ],
   "client": [
     "BlockColorsMixin",
-    "DrawContextMixin"
+    "DrawContextMixin",
+    "MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1
