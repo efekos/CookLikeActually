@@ -66,7 +66,6 @@ public class WashingStandBlockEntity extends BlockEntity implements SyncAbleBloc
 
     public void setPlates(List<ItemStack> plates) {
         this.plates = plates;
-        if (plates.isEmpty()) setProgress(0);
     }
 
     public boolean hasProgress() {
