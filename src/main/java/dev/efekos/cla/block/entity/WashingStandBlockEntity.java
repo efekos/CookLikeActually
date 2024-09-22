@@ -13,8 +13,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -117,6 +120,15 @@ public class WashingStandBlockEntity extends BlockEntity implements SyncAbleBloc
         ItemStack stack = plates.removeLast();
         ItemStack stackToDrop = stack.copyComponentsToNewStack(ClaItems.PLATE, 1);
         world.spawnEntity(new ItemEntity(world, pos.getX() + .5, pos.getY() + 1, pos.getZ() + .5, stackToDrop));
+
+        if(world.isClient()) {
+            Box box = new Box(new Vec3d(pos.getX()+.05, pos.getY() + .9, pos.getZ()+.05), new Vec3d(pos.getX() +.95, pos.getY() + 1.05, pos.getZ() +.95));
+            for (int i = 0; i < 10; i++) {
+                Vec3d p = findRandomPos(box);
+                world.addParticle(ParticleTypes.RAIN.getType(), p.x, p.y, p.z, 0, 0, 0);
+            }
+        }
+
     }
 
     private void updateState(World world, BlockPos pos, BlockState state) {
