@@ -21,8 +21,8 @@ public class MinecraftClientMixin implements IMinecraftClientMixin {
         return progressBarRenderer;
     }
 
-    @Inject(method = "<init>",at = @At("TAIL"))
-    public void init(RunArgs args, CallbackInfo ci){
+    @Inject(method = "<init>", at = @At("TAIL"))
+    public void init(RunArgs args, CallbackInfo ci) {
         this.progressBarRenderer = new ProgressBarRenderer();
     }
 

@@ -22,20 +22,21 @@ import java.util.List;
 
 public class WashingStandBlockEntity extends BlockEntity implements SyncAbleBlockEntity<WashingStandSyncS2C> {
 
-    public WashingStandBlockEntity(BlockPos pos, BlockState state) {
-        super(ClaBlockEntityTypes.WASHING_STAND, pos, state);
-    }
-
+    public static final int MAX_PROGRESS = 50;
     private List<ItemStack> plates = new ArrayList<>();
     private int progress;
     private int lastInteraction;
+
+    public WashingStandBlockEntity(BlockPos pos, BlockState state) {
+        super(ClaBlockEntityTypes.WASHING_STAND, pos, state);
+    }
 
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
         plates = new ArrayList<>();
-        if(nbt.contains("Plates", NbtElement.LIST_TYPE))
-            nbt.getList("Plates",NbtElement.COMPOUND_TYPE).forEach(nbtElement -> ItemStack.fromNbt(registryLookup,nbtElement).ifPresent(plates::add));
+        if (nbt.contains("Plates", NbtElement.LIST_TYPE))
+            nbt.getList("Plates", NbtElement.COMPOUND_TYPE).forEach(nbtElement -> ItemStack.fromNbt(registryLookup, nbtElement).ifPresent(plates::add));
         lastInteraction = nbt.contains("LastInteraction", NbtElement.INT_TYPE) ? nbt.getInt("LastInteraction") : 0;
         progress = nbt.contains("Progress", NbtElement.INT_TYPE) ? nbt.getInt("Progress") : 0;
     }
@@ -43,7 +44,7 @@ public class WashingStandBlockEntity extends BlockEntity implements SyncAbleBloc
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
-        if(hasPlates()){
+        if (hasPlates()) {
             NbtList list = new NbtList();
             for (ItemStack plate : getPlates()) list.add(plate.encode(registryLookup));
             nbt.put("Plates", list);
@@ -52,8 +53,8 @@ public class WashingStandBlockEntity extends BlockEntity implements SyncAbleBloc
         nbt.putInt("Progress", progress);
     }
 
-    public boolean hasPlates(){
-        return plates!=null && !plates.isEmpty();
+    public boolean hasPlates() {
+        return plates != null && !plates.isEmpty();
     }
 
     public List<ItemStack> getPlates() {
@@ -62,11 +63,11 @@ public class WashingStandBlockEntity extends BlockEntity implements SyncAbleBloc
 
     public void setPlates(List<ItemStack> plates) {
         this.plates = plates;
-        if(plates.isEmpty())setProgress(0);
+        if (plates.isEmpty()) setProgress(0);
     }
 
-    public boolean hasProgress(){
-        return progress>0;
+    public boolean hasProgress() {
+        return progress > 0;
     }
 
     public int getProgress() {
@@ -88,45 +89,43 @@ public class WashingStandBlockEntity extends BlockEntity implements SyncAbleBloc
     @Override
     protected void addComponents(ComponentMap.Builder componentMapBuilder) {
         super.addComponents(componentMapBuilder);
-        if(hasPlates()) componentMapBuilder.add(ClaComponentTypes.PLATES,plates);
+        if (hasPlates()) componentMapBuilder.add(ClaComponentTypes.PLATES, plates);
     }
 
     @Override
     protected void readComponents(ComponentsAccess components) {
         super.readComponents(components);
-        plates = components.getOrDefault(ClaComponentTypes.PLATES,new ArrayList<>());
+        plates = components.getOrDefault(ClaComponentTypes.PLATES, new ArrayList<>());
     }
 
-    public static final int MAX_PROGRESS = 50;
+    public void tick(World world, BlockPos pos, BlockState state) {
+        updateState(world, pos, state);
+        if (!hasPlates()) return;
 
-
-    public void tick(World world, BlockPos pos, BlockState state){
-        updateState(world,pos,state);
-        if(!hasPlates())return;
-
-        if(getLastInteraction()<=3){
+        if (getLastInteraction() <= 3) {
             progress++;
-            if(progress>=MAX_PROGRESS) wash(world,pos);
+            if (progress >= MAX_PROGRESS) wash(world, pos);
             markDirty();
         }
 
         lastInteraction++;
     }
 
-    private void wash(World world,BlockPos pos) {
-        if(!hasPlates())return;
+    private void wash(World world, BlockPos pos) {
+        if (!hasPlates()) return;
         setProgress(0);
         ItemStack stack = plates.removeLast();
         ItemStack stackToDrop = stack.copyComponentsToNewStack(ClaItems.PLATE, 1);
-        world.spawnEntity(new ItemEntity(world,pos.getX()+.5,pos.getY()+1,pos.getZ()+.5,stackToDrop));
+        world.spawnEntity(new ItemEntity(world, pos.getX() + .5, pos.getY() + 1, pos.getZ() + .5, stackToDrop));
     }
 
-    private void updateState(World world,BlockPos pos,BlockState state) {
-        if(plates.size()>1) world.setBlockState(pos,state.with(WashingStandBlock.PLATES, WashingStandBlock.Plates.MULTIPLE));
-        else if (plates.size()==1) world.setBlockState(pos,state.with(WashingStandBlock.PLATES,WashingStandBlock.Plates.SINGULAR));
-        else world.setBlockState(pos,state.with(WashingStandBlock.PLATES,WashingStandBlock.Plates.NONE));
+    private void updateState(World world, BlockPos pos, BlockState state) {
+        if (plates.size() > 1)
+            world.setBlockState(pos, state.with(WashingStandBlock.PLATES, WashingStandBlock.Plates.MULTIPLE));
+        else if (plates.size() == 1)
+            world.setBlockState(pos, state.with(WashingStandBlock.PLATES, WashingStandBlock.Plates.SINGULAR));
+        else world.setBlockState(pos, state.with(WashingStandBlock.PLATES, WashingStandBlock.Plates.NONE));
     }
-
 
 
     public void addPlate(ItemStack playerStack) {
@@ -135,7 +134,7 @@ public class WashingStandBlockEntity extends BlockEntity implements SyncAbleBloc
 
     @Override
     public WashingStandSyncS2C createSyncPacket() {
-        return new WashingStandSyncS2C(pos,progress,plates);
+        return new WashingStandSyncS2C(pos, progress, plates);
     }
 
 }

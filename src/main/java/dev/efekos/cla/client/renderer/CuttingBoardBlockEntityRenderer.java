@@ -7,7 +7,10 @@ import dev.efekos.cla.util.IMinecraftClientMixin;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.*;
+import net.minecraft.client.render.Camera;
+import net.minecraft.client.render.LightmapTextureManager;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
@@ -73,7 +76,7 @@ public class CuttingBoardBlockEntityRenderer implements BlockEntityRenderer<Cutt
             matrices.scale(1f, 1f, 1f);
             Camera camera = this.renderDispatcher.camera;
             matrices.multiply(new Quaternionf().rotationYXZ(-0.017453292F * getBackwardsYaw(camera), -0.017453292F * getNegatedPitch(camera), 0f));
-            barRenderer.renderBar(matrices,ProgressBarRenderer.getDefaultTextures(),v,lightLevel);
+            barRenderer.renderBar(matrices, ProgressBarRenderer.getDefaultTextures(), v, lightLevel);
             matrices.pop();
         }
     }

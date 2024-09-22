@@ -19,15 +19,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BlockEntity.class)
 public abstract class BlockEntityMixin {
 
-    @Shadow @Nullable protected World world;
+    @Shadow
+    @Nullable
+    protected World world;
 
-    @Shadow @Final protected BlockPos pos;
+    @Shadow
+    @Final
+    protected BlockPos pos;
 
-    @Inject(method = "markDirty()V",at=@At("HEAD"))
-    public void markDirty(CallbackInfo ci){
-        if(this instanceof SyncAbleBlockEntity<?> s &&!this.world.isClient)
+    @Inject(method = "markDirty()V", at = @At("HEAD"))
+    public void markDirty(CallbackInfo ci) {
+        if (this instanceof SyncAbleBlockEntity<?> s && !this.world.isClient)
             for (ServerPlayerEntity entity : PlayerLookup.tracking(((ServerWorld) world), pos))
-                ServerPlayNetworking.send(entity,s.createSyncPacket());
+                ServerPlayNetworking.send(entity, s.createSyncPacket());
     }
 
 }

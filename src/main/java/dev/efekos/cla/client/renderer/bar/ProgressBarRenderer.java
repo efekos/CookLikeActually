@@ -11,19 +11,19 @@ import org.joml.Matrix4f;
 @Environment(EnvType.CLIENT)
 public class ProgressBarRenderer {
 
-    public static final ProgressBarTextures DEFAULT = new ProgressBarTextures(Identifier.of("cla","textures/gui/progress.png"),Identifier.of("cla","textures/gui/progress_full.png"));
+    public static final ProgressBarTextures DEFAULT = new ProgressBarTextures(Identifier.of("cla", "textures/gui/progress.png"), Identifier.of("cla", "textures/gui/progress_full.png"));
 
-    public static ProgressBarTextures getDefaultTextures(){
+    public static ProgressBarTextures getDefaultTextures() {
         return DEFAULT;
     }
 
-    public void renderBar(MatrixStack matrices,ProgressBarTextures textures,float value,int lightLevel){
+    public void renderBar(MatrixStack matrices, ProgressBarTextures textures, float value, int lightLevel) {
         renderSingle(matrices, textures.empty(), 1, lightLevel);
         renderSingle(matrices, textures.full(), value, lightLevel);
     }
 
-    public void renderBar(MatrixStack matrices,ProgressBarTextures textures,float value){
-        renderBar(matrices,textures,value,200);
+    public void renderBar(MatrixStack matrices, ProgressBarTextures textures, float value) {
+        renderBar(matrices, textures, value, 200);
     }
 
     private void renderSingle(MatrixStack matrices, Identifier id, float value, int lightLevel) {

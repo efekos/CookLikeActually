@@ -1,10 +1,7 @@
 package dev.efekos.cla.packet;
 
 import dev.efekos.cla.Main;
-import dev.efekos.cla.block.entity.PlateBlockEntity;
 import dev.efekos.cla.block.entity.WashingStandBlockEntity;
-import dev.efekos.cla.resource.Course;
-import dev.efekos.cla.resource.CourseManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;

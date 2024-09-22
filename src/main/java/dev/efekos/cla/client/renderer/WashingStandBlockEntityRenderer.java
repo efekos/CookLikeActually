@@ -4,7 +4,9 @@ import dev.efekos.cla.block.entity.WashingStandBlockEntity;
 import dev.efekos.cla.client.renderer.bar.ProgressBarRenderer;
 import dev.efekos.cla.util.IMinecraftClientMixin;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.*;
+import net.minecraft.client.render.Camera;
+import net.minecraft.client.render.LightmapTextureManager;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
@@ -22,9 +24,17 @@ public class WashingStandBlockEntityRenderer implements BlockEntityRenderer<Wash
         this.renderDispatcher = context.getRenderDispatcher();
     }
 
+    private static float getBackwardsYaw(Camera camera) {
+        return camera.getYaw() - 180.0F;
+    }
+
+    private static float getNegatedPitch(Camera camera) {
+        return -camera.getPitch();
+    }
+
     @Override
     public void render(WashingStandBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        if(!entity.hasPlates())return;
+        if (!entity.hasPlates()) return;
 
         int lightLevel = getLightLevel(entity.getWorld(), entity.getPos());
         // cut status
@@ -35,18 +45,9 @@ public class WashingStandBlockEntityRenderer implements BlockEntityRenderer<Wash
         matrices.scale(1f, 1f, 1f);
         Camera camera = this.renderDispatcher.camera;
         matrices.multiply(new Quaternionf().rotationYXZ(-0.017453292F * getBackwardsYaw(camera), -0.017453292F * getNegatedPitch(camera), 0f));
-        barRenderer.renderBar(matrices,ProgressBarRenderer.getDefaultTextures(),entity.getProgress()/50f,lightLevel);
+        barRenderer.renderBar(matrices, ProgressBarRenderer.getDefaultTextures(), entity.getProgress() / 50f, lightLevel);
         matrices.pop();
     }
-
-    private static float getBackwardsYaw(Camera camera) {
-        return camera.getYaw() - 180.0F;
-    }
-
-    private static float getNegatedPitch(Camera camera) {
-        return -camera.getPitch();
-    }
-
 
     private int getLightLevel(World world, BlockPos pos) {
         return LightmapTextureManager.pack(world.getLightLevel(LightType.BLOCK, pos), world.getLightLevel(LightType.SKY, pos));

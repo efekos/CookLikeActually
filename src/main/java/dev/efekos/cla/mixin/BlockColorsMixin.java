@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BlockColors.class)
 public class BlockColorsMixin {
 
-    @Inject(method = "create",at = @At("TAIL"), cancellable = true)
-    private static void cr(CallbackInfoReturnable<BlockColors> cir){
+    @Inject(method = "create", at = @At("TAIL"), cancellable = true)
+    private static void cr(CallbackInfoReturnable<BlockColors> cir) {
         BlockColors blockColors = cir.getReturnValue();
         blockColors.registerColorProvider((state, world, pos, tintIndex) -> world != null && pos != null ? BiomeColors.getWaterColor(world, pos) : -1, ClaBlocks.WASHING_STAND);
         cir.setReturnValue(blockColors);

@@ -38,7 +38,7 @@ public class ClaItems {
     public static final Item CUT_CHEESE = register("cut_cheese", new Item(new Item.Settings().rarity(Rarity.COMMON)));
     public static final Item ORDER_NOTE = register("order_note", new OrderNoteItem(new Item.Settings().rarity(Rarity.COMMON).maxCount(1).component(ClaComponentTypes.COURSE_ID, Identifier.of("cla", "salad"))));
     public static final Item TOMATO_SEEDS = register("tomato_seeds", new AliasedBlockItem(ClaBlocks.TOMATOES, new Item.Settings().rarity(Rarity.COMMON)));
-    public static final Item DIRTY_PLATE = register("dirty_plate",new Item(new Item.Settings().rarity(Rarity.COMMON).maxCount(1)));
+    public static final Item DIRTY_PLATE = register("dirty_plate", new Item(new Item.Settings().rarity(Rarity.COMMON).maxCount(1)));
 
     public static void run() {
 

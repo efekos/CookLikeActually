@@ -29,22 +29,10 @@ import java.util.Locale;
 
 public class WashingStandBlock extends BlockWithEntity {
 
+    public static final MapCodec<WashingStandBlock> CODEC = createCodec(WashingStandBlock::new);
+    public static final EnumProperty<Plates> PLATES = EnumProperty.of("plates", Plates.class);
     public WashingStandBlock(Settings settings) {
         super(settings);
-    }
-
-    public static final MapCodec<WashingStandBlock> CODEC = createCodec(WashingStandBlock::new);
-    public static final EnumProperty<Plates> PLATES = EnumProperty.of("plates",Plates.class);
-
-    public enum Plates implements StringIdentifiable {
-        NONE,
-        SINGULAR,
-        MULTIPLE;
-
-        @Override
-        public String asString() {
-            return this.name().toLowerCase(Locale.ENGLISH);
-        }
     }
 
     @Override
@@ -54,12 +42,12 @@ public class WashingStandBlock extends BlockWithEntity {
 
     @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new WashingStandBlockEntity(pos,state);
+        return new WashingStandBlockEntity(pos, state);
     }
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ClaBlockEntityTypes.WASHING_STAND,(world1, pos, state1, blockEntity) -> blockEntity.tick(world1,pos,state1));
+        return validateTicker(type, ClaBlockEntityTypes.WASHING_STAND, (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
     }
 
     @Override
@@ -74,13 +62,13 @@ public class WashingStandBlock extends BlockWithEntity {
         ItemStack playerStack = player.getStackInHand(hand).copy();
         if (player.isSpectator()) return ActionResult.PASS;
         WashingStandBlockEntity entity = (WashingStandBlockEntity) world.getBlockEntity(pos);
-        if(entity==null)return ActionResult.PASS;
-        if(playerStack.isEmpty()||!playerStack.isOf(ClaItems.DIRTY_PLATE)){
-            if(!entity.hasPlates()) return ActionResult.PASS;
+        if (entity == null) return ActionResult.PASS;
+        if (playerStack.isEmpty() || !playerStack.isOf(ClaItems.DIRTY_PLATE)) {
+            if (!entity.hasPlates()) return ActionResult.PASS;
             entity.setLastInteraction(0);
             entity.markDirty();
-        } else if (!player.isSneaking()){
-            if (playerStack.isEmpty()||!playerStack.isOf(ClaItems.DIRTY_PLATE)) return ActionResult.PASS;
+        } else if (!player.isSneaking()) {
+            if (playerStack.isEmpty() || !playerStack.isOf(ClaItems.DIRTY_PLATE)) return ActionResult.PASS;
             player.setStackInHand(hand, ItemStack.EMPTY);
             entity.addPlate(playerStack);
             entity.markDirty();
@@ -92,6 +80,17 @@ public class WashingStandBlock extends BlockWithEntity {
     @Override
     protected BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
+    }
+
+    public enum Plates implements StringIdentifiable {
+        NONE,
+        SINGULAR,
+        MULTIPLE;
+
+        @Override
+        public String asString() {
+            return this.name().toLowerCase(Locale.ENGLISH);
+        }
     }
 
 }

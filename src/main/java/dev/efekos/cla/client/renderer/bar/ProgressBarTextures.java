@@ -5,4 +5,5 @@ import net.fabricmc.api.Environment;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
-public record ProgressBarTextures(Identifier empty,Identifier full) { }
+public record ProgressBarTextures(Identifier empty, Identifier full) {
+}
