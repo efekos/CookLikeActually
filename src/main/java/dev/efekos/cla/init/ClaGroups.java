@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemGroups;
+import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -31,10 +32,15 @@ public class ClaGroups {
                 }).build());
 
         ItemGroupEvents.MODIFY_ENTRIES_ALL.register((group, entries) -> {
-            if(RegistryKey.of(RegistryKeys.ITEM_GROUP,Registries.ITEM_GROUP.getId(group)).equals(ItemGroups.FOOD_AND_DRINK))
-                for (ItemConvertible item : List.of(
-                        ClaItems.BURNED_BEEF, ClaItems.BURNED_CHICKEN, ClaItems.BURNED_COD, ClaItems.BURNED_SALMON, ClaItems.BURNED_RABBIT, ClaItems.BURNED_MUTTON
-                )) entries.add(item);
+            if(RegistryKey.of(RegistryKeys.ITEM_GROUP,Registries.ITEM_GROUP.getId(group)).equals(ItemGroups.FOOD_AND_DRINK)){
+                entries.addAfter(Items.COOKED_BEEF,ClaItems.BURNED_BEEF);
+                entries.addAfter(Items.COOKED_CHICKEN,ClaItems.BURNED_CHICKEN);
+                entries.addAfter(Items.COOKED_COD,ClaItems.BURNED_COD);
+                entries.addAfter(Items.COOKED_SALMON,ClaItems.BURNED_SALMON);
+                entries.addAfter(Items.COOKED_RABBIT,ClaItems.BURNED_RABBIT);
+                entries.addAfter(Items.COOKED_MUTTON,ClaItems.BURNED_MUTTON);
+                entries.addAfter(Items.COOKED_PORKCHOP,ClaItems.BURNED_PORKCHOP);
+            }
         });
     }
 
