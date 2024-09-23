@@ -100,7 +100,7 @@ public class PanningRecipe implements Recipe<SingleStackRecipeInput> {
                 Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("item").forGetter(PanningRecipe::getItem),
                 ItemStack.CODEC.fieldOf("result").forGetter(PanningRecipe::getRes),
                 Codecs.POSITIVE_INT.fieldOf("time").forGetter(PanningRecipe::getTime),
-                Codec.BOOL.optionalFieldOf("burn", true).forGetter(PanningRecipe::isBurnRecipe)
+                Codec.BOOL.optionalFieldOf("burn", false).forGetter(PanningRecipe::isBurnRecipe)
         ).apply(instance, PanningRecipe::new));
         public final PacketCodec<RegistryByteBuf, PanningRecipe> PACKET_CODEC = PacketCodec.ofStatic(this::write, this::read);
 
