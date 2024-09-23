@@ -1,0 +1,11 @@
+{
+  "type": "cla:panning",
+  "time": 100,
+  "item": {
+    "item": "cooked_cod"
+  },
+  "result": {
+    "id": "cla:burned_cod"
+  },
+  "progress_bar": false
+}

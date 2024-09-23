@@ -1,0 +1,11 @@
+{
+  "type": "cla:panning",
+  "time": 100,
+  "item": {
+    "item": "cooked_mutton"
+  },
+  "result": {
+    "id": "cla:burned_mutton"
+  },
+  "progress_bar": false
+}
