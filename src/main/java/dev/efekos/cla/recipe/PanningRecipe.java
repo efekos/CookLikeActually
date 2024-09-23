@@ -6,6 +6,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
@@ -20,24 +22,32 @@ public class PanningRecipe implements Recipe<SingleStackRecipeInput> {
     private final Ingredient item;
     private final ItemStack result;
     private final int time;
-    private final boolean progressBar;
+    private final boolean burnRecipe;
 
     public PanningRecipe(Ingredient item, ItemStack result, int time) {
         this.item = item;
         this.result = result;
         this.time = time;
-        this.progressBar = true;
+        this.burnRecipe = true;
     }
 
-    public PanningRecipe(Ingredient item, ItemStack result, int time, boolean progressBar) {
+    public PanningRecipe(Ingredient item, ItemStack result, int time, boolean burnRecipe) {
         this.item = item;
         this.result = result;
         this.time = time;
-        this.progressBar = progressBar;
+        this.burnRecipe = burnRecipe;
     }
 
     public boolean hasProgressBar() {
-        return progressBar;
+        return !burnRecipe;
+    }
+
+    public boolean isBurnRecipe() {
+        return burnRecipe;
+    }
+
+    public SimpleParticleType getParticleType() {
+        return burnRecipe ? ParticleTypes.DUST_PLUME : ParticleTypes.FLAME;
     }
 
     public Ingredient getItem() {
@@ -90,7 +100,7 @@ public class PanningRecipe implements Recipe<SingleStackRecipeInput> {
                 Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("item").forGetter(PanningRecipe::getItem),
                 ItemStack.CODEC.fieldOf("result").forGetter(PanningRecipe::getRes),
                 Codecs.POSITIVE_INT.fieldOf("time").forGetter(PanningRecipe::getTime),
-                Codec.BOOL.optionalFieldOf("progress_bar", true).forGetter(PanningRecipe::hasProgressBar)
+                Codec.BOOL.optionalFieldOf("burn", true).forGetter(PanningRecipe::isBurnRecipe)
         ).apply(instance, PanningRecipe::new));
         public final PacketCodec<RegistryByteBuf, PanningRecipe> PACKET_CODEC = PacketCodec.ofStatic(this::write, this::read);
 
@@ -108,7 +118,7 @@ public class PanningRecipe implements Recipe<SingleStackRecipeInput> {
             Ingredient.PACKET_CODEC.encode(buf, recipe.getItem());
             ItemStack.PACKET_CODEC.encode(buf, recipe.getRes());
             buf.writeInt(recipe.getTime());
-            buf.writeBoolean(recipe.hasProgressBar());
+            buf.writeBoolean(recipe.isBurnRecipe());
         }
 
         public PanningRecipe read(RegistryByteBuf buf) {
