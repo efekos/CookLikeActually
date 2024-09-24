@@ -1,0 +1,10 @@
+{
+  "type": "cla:panning",
+  "time": 180,
+  "item": {
+    "item": "cla:cubic_chicken"
+  },
+  "result": {
+    "id": "cla:cubic_cooked_chicken"
+  }
+}
