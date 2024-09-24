@@ -48,6 +48,8 @@ public class ClaItems {
     public static final Item CUBIC_CHICKEN = register("cubic_chicken",new Item(new Item.Settings().rarity(Rarity.COMMON).food(FoodComponents.CHICKEN)));
     public static final Item CUBIC_COOKED_BEEF = register("cubic_cooked_beef",new Item(new Item.Settings().rarity(Rarity.COMMON).food(FoodComponents.COOKED_BEEF)));
     public static final Item CUBIC_COOKED_CHICKEN = register("cubic_cooked_chicken",new Item(new Item.Settings().rarity(Rarity.COMMON).food(FoodComponents.COOKED_CHICKEN)));
+    public static final Item CUBIC_BURNED_BEEF = register("cubic_burned_beef",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_BEEF))));
+    public static final Item CUBIC_BURNED_CHICKEN = register("cubic_burned_chicken",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_CHICKEN))));
 
     public static final Item BURNED_BEEF = register("burned_beef",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_BEEF))));
     public static final Item BURNED_CHICKEN = register("burned_chicken",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_CHICKEN))));

@@ -54,6 +54,8 @@
   "item.cla.cubic_chicken": "Cubic Raw Chicken",
   "item.cla.cubic_cooked_beef": "Cubic Steak",
   "item.cla.cubic_cooked_chicken": "Cubic Chicken",
+  "item.cla.cubic_burned_beef": "Cubic Burned Beef",
+  "item.cla.cubic_burned_chicken": "Cubic Burned Chicken",
   "itemGroup.cla": "Cook Like Actually",
   "subtitle.cla.block.pan.cook": "Pan cooking something",
   "subtitle.cla.block.plate.pickup": "Plate picked up",
