@@ -1,7 +1,48 @@
 {
+  "block.pan.cook": {
+    "category": "blocks",
+    "sounds": [
+      "cla:pan_cooking/0",
+      "cla:pan_cooking/1",
+      "cla:pan_cooking/2",
+      "cla:pan_cooking/3",
+      "cla:pan_cooking/4",
+      "cla:pan_cooking/5",
+      "cla:pan_cooking/6",
+      "cla:pan_cooking/7"
+    ],
+    "subtitle": "subtitle.cla.block.pan.cook"
+  },
+  "block.plate.pickup": {
+    "category": "blocks",
+    "sounds": [
+      "cla:plate_pickup"
+    ],
+    "subtitle": "subtitle.cla.block.plate.pickup"
+  },
+  "block.plate.place": {
+    "category": "blocks",
+    "sounds": [
+      "cla:plate_place"
+    ],
+    "subtitle": "subtitle.cla.block.plate.place"
+  },
+  "block.plate_rack.place_plate": {
+    "category": "blocks",
+    "sounds": [
+      "cla:plate_rack_place"
+    ],
+    "subtitle": "subtitle.cla.block.plate_rack.place_place"
+  },
+  "block.trash_can.put_trash": {
+    "category": "blocks",
+    "sounds": [
+      "cla:trash_can"
+    ],
+    "subtitle": "subtitle.cla.block.trash_can.put_trash"
+  },
   "item.knife.slice": {
     "category": "player",
-    "subtitle": "subtitle.cla.item.knife.slice",
     "sounds": [
       {
         "name": "cla:knife_slice",
@@ -15,48 +56,7 @@
         "name": "cla:knife_slice",
         "pitch": 0.8
       }
-    ]
-  },
-  "block.plate.place": {
-    "category": "blocks",
-    "subtitle": "subtitle.cla.block.plate.place",
-    "sounds": [
-      "cla:plate_place"
-    ]
-  },
-  "block.pan.cook": {
-    "category": "blocks",
-    "subtitle": "subtitle.cla.block.pan.cook",
-    "sounds": [
-      "cla:pan_cooking/0",
-      "cla:pan_cooking/1",
-      "cla:pan_cooking/2",
-      "cla:pan_cooking/3",
-      "cla:pan_cooking/4",
-      "cla:pan_cooking/5",
-      "cla:pan_cooking/6",
-      "cla:pan_cooking/7"
-    ]
-  },
-  "block.plate.pickup": {
-    "category": "blocks",
-    "subtitle": "subtitle.cla.block.plate.pickup",
-    "sounds": [
-      "cla:plate_pickup"
-    ]
-  },
-  "block.plate_rack.place_plate": {
-    "category": "blocks",
-    "subtitle": "subtitle.cla.block.plate_rack.place_place",
-    "sounds": [
-      "cla:plate_rack_place"
-    ]
-  },
-  "block.trash_can.put_trash": {
-    "category": "blocks",
-    "subtitle": "subtitle.cla.block.trash_can.put_trash",
-    "sounds": [
-      "cla:trash_can"
-    ]
+    ],
+    "subtitle": "subtitle.cla.item.knife.slice"
   }
 }
