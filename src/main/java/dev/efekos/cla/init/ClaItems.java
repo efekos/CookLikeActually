@@ -41,6 +41,9 @@ public class ClaItems {
     public static final Item ORDER_NOTE = register("order_note", new OrderNoteItem(new Item.Settings().rarity(Rarity.COMMON).maxCount(1).component(ClaComponentTypes.COURSE_ID, Identifier.of("cla", "salad"))));
     public static final Item TOMATO_SEEDS = register("tomato_seeds", new AliasedBlockItem(ClaBlocks.TOMATOES, new Item.Settings().rarity(Rarity.COMMON)));
     public static final Item DIRTY_PLATE = register("dirty_plate", new Item(new Item.Settings().rarity(Rarity.COMMON).maxCount(1)));
+    public static final Item FLOUR = register("flour", new Item(new Item.Settings().rarity(Rarity.COMMON)));
+    public static final Item FLOUR_PACK = register("flour_pack",new Item(new Item.Settings().rarity(Rarity.COMMON)));
+    public static final Item TORTILLA = register("tortilla",new Item(new Item.Settings().rarity(Rarity.COMMON)));
 
     public static final Item BURNED_BEEF = register("burned_beef",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_BEEF))));
     public static final Item BURNED_CHICKEN = register("burned_chicken",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_CHICKEN))));
