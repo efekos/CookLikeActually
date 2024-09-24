@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "AA",
+    "AA"
+  ],
+  "key": {
+    "A": {
+      "item": "cla:flour"
+    }
+  },
+  "result": {
+    "id": "cla:flour_pack",
+    "count": 1
+  },
+  "group": "cla:flour_pack"
+}

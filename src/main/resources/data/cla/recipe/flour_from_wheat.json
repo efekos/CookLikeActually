@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "cla:wheat"
+    }
+  ],
+  "result": {
+    "id": "cla:flour",
+    "count": 2
+  },
+  "group": "cla:flour"
+}

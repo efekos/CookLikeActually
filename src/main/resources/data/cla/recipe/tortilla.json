@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "cla:flour"
+    }
+  ],
+  "result": {
+    "id": "cla:tortilla",
+    "count": 1
+  }
+}
