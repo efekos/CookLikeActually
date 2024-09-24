@@ -11,12 +11,12 @@ public interface SyncAbleBlockEntity<T extends CustomPayload> {
     T createSyncPacket();
 
 
-    default Vec3d findRandomPos(Box box){
+    default Vec3d findRandomPos(Box box) {
         Random random = new Random();
-        double x = random.nextDouble(box.minX,box.maxX);
-        double y = random.nextDouble(box.minY,box.maxY);
-        double z = random.nextDouble(box.minZ,box.maxZ);
-        return new Vec3d(x,y,z);
+        double x = random.nextDouble(box.minX, box.maxX);
+        double y = random.nextDouble(box.minY, box.maxY);
+        double z = random.nextDouble(box.minZ, box.maxZ);
+        return new Vec3d(x, y, z);
     }
 
 }

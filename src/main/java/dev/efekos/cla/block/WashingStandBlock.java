@@ -31,6 +31,7 @@ public class WashingStandBlock extends BlockWithEntity {
 
     public static final MapCodec<WashingStandBlock> CODEC = createCodec(WashingStandBlock::new);
     public static final EnumProperty<Plates> PLATES = EnumProperty.of("plates", Plates.class);
+
     public WashingStandBlock(Settings settings) {
         super(settings);
     }

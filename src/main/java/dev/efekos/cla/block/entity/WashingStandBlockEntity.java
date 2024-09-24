@@ -120,8 +120,8 @@ public class WashingStandBlockEntity extends BlockEntity implements SyncAbleBloc
         ItemStack stackToDrop = stack.copyComponentsToNewStack(ClaItems.PLATE, 1);
         world.spawnEntity(new ItemEntity(world, pos.getX() + .5, pos.getY() + 1, pos.getZ() + .5, stackToDrop));
 
-        if(world.isClient()) {
-            Box box = new Box(new Vec3d(pos.getX()+.05, pos.getY() + .9, pos.getZ()+.05), new Vec3d(pos.getX() +.95, pos.getY() + 1.05, pos.getZ() +.95));
+        if (world.isClient()) {
+            Box box = new Box(new Vec3d(pos.getX() + .05, pos.getY() + .9, pos.getZ() + .05), new Vec3d(pos.getX() + .95, pos.getY() + 1.05, pos.getZ() + .95));
             for (int i = 0; i < 10; i++) {
                 Vec3d p = findRandomPos(box);
                 world.addParticle(ParticleTypes.RAIN.getType(), p.x, p.y, p.z, 0, 0, 0);

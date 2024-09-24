@@ -53,8 +53,8 @@ public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBl
             PanningRecipe recipe = getRecipe(world);
             if (getTicks() >= recipe.getTime()) {
 
-                if(world.isClient()) {
-                    Box box = new Box(new Vec3d(pos.getX()+.1, pos.getY() + .1, pos.getZ()+.1), new Vec3d(pos.getX() +.9, pos.getY() + .15, pos.getZ() +.9));
+                if (world.isClient()) {
+                    Box box = new Box(new Vec3d(pos.getX() + .1, pos.getY() + .1, pos.getZ() + .1), new Vec3d(pos.getX() + .9, pos.getY() + .15, pos.getZ() + .9));
                     for (int i = 0; i < 10; i++) {
                         Vec3d p = findRandomPos(box);
                         world.addParticle(ParticleTypes.FLAME.getType(), p.x, p.y, p.z, 0, 0, 0);

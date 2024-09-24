@@ -42,25 +42,25 @@ public class ClaItems {
     public static final Item TOMATO_SEEDS = register("tomato_seeds", new AliasedBlockItem(ClaBlocks.TOMATOES, new Item.Settings().rarity(Rarity.COMMON)));
     public static final Item DIRTY_PLATE = register("dirty_plate", new Item(new Item.Settings().rarity(Rarity.COMMON).maxCount(1)));
     public static final Item FLOUR = register("flour", new Item(new Item.Settings().rarity(Rarity.COMMON)));
-    public static final Item FLOUR_PACK = register("flour_pack",new Item(new Item.Settings().rarity(Rarity.COMMON)));
-    public static final Item TORTILLA = register("tortilla",new Item(new Item.Settings().rarity(Rarity.COMMON)));
-    public static final Item CUBIC_BEEF = register("cubic_beef",new Item(new Item.Settings().rarity(Rarity.COMMON).food(FoodComponents.BEEF)));
-    public static final Item CUBIC_CHICKEN = register("cubic_chicken",new Item(new Item.Settings().rarity(Rarity.COMMON).food(FoodComponents.CHICKEN)));
-    public static final Item CUBIC_COOKED_BEEF = register("cubic_cooked_beef",new Item(new Item.Settings().rarity(Rarity.COMMON).food(FoodComponents.COOKED_BEEF)));
-    public static final Item CUBIC_COOKED_CHICKEN = register("cubic_cooked_chicken",new Item(new Item.Settings().rarity(Rarity.COMMON).food(FoodComponents.COOKED_CHICKEN)));
-    public static final Item CUBIC_BURNED_BEEF = register("cubic_burned_beef",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_BEEF))));
-    public static final Item CUBIC_BURNED_CHICKEN = register("cubic_burned_chicken",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_CHICKEN))));
+    public static final Item FLOUR_PACK = register("flour_pack", new Item(new Item.Settings().rarity(Rarity.COMMON)));
+    public static final Item TORTILLA = register("tortilla", new Item(new Item.Settings().rarity(Rarity.COMMON)));
+    public static final Item CUBIC_BEEF = register("cubic_beef", new Item(new Item.Settings().rarity(Rarity.COMMON).food(FoodComponents.BEEF)));
+    public static final Item CUBIC_CHICKEN = register("cubic_chicken", new Item(new Item.Settings().rarity(Rarity.COMMON).food(FoodComponents.CHICKEN)));
+    public static final Item CUBIC_COOKED_BEEF = register("cubic_cooked_beef", new Item(new Item.Settings().rarity(Rarity.COMMON).food(FoodComponents.COOKED_BEEF)));
+    public static final Item CUBIC_COOKED_CHICKEN = register("cubic_cooked_chicken", new Item(new Item.Settings().rarity(Rarity.COMMON).food(FoodComponents.COOKED_CHICKEN)));
+    public static final Item CUBIC_BURNED_BEEF = register("cubic_burned_beef", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_BEEF))));
+    public static final Item CUBIC_BURNED_CHICKEN = register("cubic_burned_chicken", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_CHICKEN))));
 
-    public static final Item BURNED_BEEF = register("burned_beef",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_BEEF))));
-    public static final Item BURNED_CHICKEN = register("burned_chicken",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_CHICKEN))));
-    public static final Item BURNED_MUTTON = register("burned_mutton",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_MUTTON))));
-    public static final Item BURNED_SALMON = register("burned_salmon",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_SALMON))));
-    public static final Item BURNED_COD = register("burned_cod",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_COD))));
-    public static final Item BURNED_RABBIT = register("burned_rabbit",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_RABBIT))));
-    public static final Item BURNED_PORKCHOP = register("burned_porkchop",new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_PORKCHOP))));
+    public static final Item BURNED_BEEF = register("burned_beef", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_BEEF))));
+    public static final Item BURNED_CHICKEN = register("burned_chicken", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_CHICKEN))));
+    public static final Item BURNED_MUTTON = register("burned_mutton", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_MUTTON))));
+    public static final Item BURNED_SALMON = register("burned_salmon", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_SALMON))));
+    public static final Item BURNED_COD = register("burned_cod", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_COD))));
+    public static final Item BURNED_RABBIT = register("burned_rabbit", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_RABBIT))));
+    public static final Item BURNED_PORKCHOP = register("burned_porkchop", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_PORKCHOP))));
 
-    private static FoodComponent burn(FoodComponent component){
-        return new FoodComponent(0, Math.max(0.25f,component.saturation()/4f), component.canAlwaysEat(), component.eatSeconds()/2f,Optional.empty(),List.of(new FoodComponent.StatusEffectEntry(new StatusEffectInstance(StatusEffects.POISON,200,2),0.5f)));
+    private static FoodComponent burn(FoodComponent component) {
+        return new FoodComponent(0, Math.max(0.25f, component.saturation() / 4f), component.canAlwaysEat(), component.eatSeconds() / 2f, Optional.empty(), List.of(new FoodComponent.StatusEffectEntry(new StatusEffectInstance(StatusEffects.POISON, 200, 2), 0.5f)));
     }
 
     public static void run() {

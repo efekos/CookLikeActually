@@ -41,14 +41,14 @@ public class FryingStandBlockEntity extends BlockEntityWithOneItem implements Sy
         return world.getRecipeManager().getFirstMatch(FryingRecipe.Type.INSTANCE, new SingleStackRecipeInput(item), world).map(RecipeEntry::value).orElse(null);
     }
 
-    public void tick(BlockState state,BlockPos pos,World world) {
+    public void tick(BlockState state, BlockPos pos, World world) {
         if (hasRecipe() && state.get(FryingStandBlock.SIEVE)) {
             ticks++;
             world.playSound(pos.getX(), pos.getY(), pos.getZ(), ClaSoundEvents.PAN_COOKING, SoundCategory.BLOCKS, 1f, 1f, true);
             FryingRecipe recipe = getRecipe(world);
             if (getTicks() >= recipe.getTime()) {
-                if(world.isClient()) {
-                    Box box = new Box(new Vec3d(pos.getX()+.25, pos.getY() + .85, pos.getZ()+.25), new Vec3d(pos.getX() +.75, pos.getY() + 1.1, pos.getZ() +.75));
+                if (world.isClient()) {
+                    Box box = new Box(new Vec3d(pos.getX() + .25, pos.getY() + .85, pos.getZ() + .25), new Vec3d(pos.getX() + .75, pos.getY() + 1.1, pos.getZ() + .75));
                     for (int i = 0; i < 10; i++) {
                         Vec3d p = findRandomPos(box);
                         world.addParticle(ParticleTypes.FLAME.getType(), p.x, p.y, p.z, 0, 0, 0);
