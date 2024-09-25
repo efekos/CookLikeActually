@@ -16,9 +16,9 @@ import net.minecraft.util.Identifier;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FryingCategory implements DisplayCategory<ArrowProgressDisplay> {
+public class PanningCategory implements DisplayCategory<ArrowProgressDisplay> {
 
-    public static final Identifier ID = Identifier.of(Main.MOD_ID,"frying");
+    public static final Identifier ID = Identifier.of(Main.MOD_ID,"panning");
     public static final CategoryIdentifier<ArrowProgressDisplay> CATEGORY_ID = CategoryIdentifier.of(ID);
 
     @Override
@@ -28,12 +28,12 @@ public class FryingCategory implements DisplayCategory<ArrowProgressDisplay> {
 
     @Override
     public Text getTitle() {
-        return Text.translatable("category.cla.frying");
+        return Text.translatable("category.cla.panning");
     }
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(ClaBlocks.FRYING_STAND);
+        return EntryStacks.of(ClaBlocks.PAN);
     }
 
     @Override
