@@ -9,7 +9,6 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
@@ -17,7 +16,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 
-public class PanningRecipe implements Recipe<SingleStackRecipeInput> {
+public class PanningRecipe implements RecipeWithArrowProgress<SingleStackRecipeInput> {
 
     private final Ingredient item;
     private final ItemStack result;

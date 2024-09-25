@@ -3,6 +3,7 @@ package dev.efekos.cla.recipe;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.efekos.cla.rei.ArrowProgressDisplay;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -15,7 +16,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 
-public class FryingRecipe implements Recipe<SingleStackRecipeInput> {
+public class FryingRecipe implements RecipeWithArrowProgress<SingleStackRecipeInput> {
 
     private final Ingredient item;
     private final ItemStack result;
