@@ -1,15 +1,10 @@
 package dev.efekos.cla.rei;
 
-import dev.efekos.cla.recipe.FryingRecipe;
-import dev.efekos.cla.recipe.PanningRecipe;
 import dev.efekos.cla.recipe.RecipeWithArrowProgress;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeEntry;
 
 import java.util.List;
 

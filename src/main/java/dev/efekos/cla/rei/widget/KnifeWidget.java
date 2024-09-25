@@ -1,13 +1,13 @@
 package dev.efekos.cla.rei.widget;
 
 import dev.efekos.cla.Main;
+import me.shedaniel.clothconfig2.api.animator.NumberAnimator;
 import me.shedaniel.clothconfig2.api.animator.ValueAnimator;
 import me.shedaniel.math.Point;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
 import net.minecraft.util.Identifier;
-import me.shedaniel.clothconfig2.api.animator.NumberAnimator;
 
 import java.util.List;
 
