@@ -12,10 +12,17 @@ import java.util.List;
 
 public class CuttingDisplay extends BasicDisplay {
 
+    private int cuts;
+
+    public CuttingDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs, int cuts) {
+        super(inputs, outputs);
+        this.cuts = cuts;
+    }
+
     public CuttingDisplay(RecipeEntry<CuttingRecipe> entry) {
-        super(List.of(
+        this(List.of(
                 EntryIngredient.of(Arrays.stream(entry.value().getItem().getMatchingStacks()).map(EntryStacks::of).toList())),
-                List.of(EntryIngredient.of(EntryStacks.of(entry.value().getRes()))));
+                List.of(EntryIngredient.of(EntryStacks.of(entry.value().getRes()))),entry.value().getCuts());
     }
 
     @Override
@@ -35,6 +42,10 @@ public class CuttingDisplay extends BasicDisplay {
     @Override
     public List<EntryIngredient> getOutputEntries() {
         return super.getOutputEntries();
+    }
+
+    public int getCuts() {
+        return cuts;
     }
 
 }
