@@ -18,7 +18,7 @@ import java.util.List;
 
 public class CuttingCategory implements DisplayCategory<CuttingDisplay> {
 
-    public static final CategoryIdentifier<CuttingDisplay> ID = CategoryIdentifier.of(Main.MOD_ID,"cutting");
+    public static final CategoryIdentifier<CuttingDisplay> ID = CategoryIdentifier.of(Main.MOD_ID, "cutting");
 
     @Override
     public CategoryIdentifier<? extends CuttingDisplay> getCategoryIdentifier() {
@@ -45,9 +45,9 @@ public class CuttingCategory implements DisplayCategory<CuttingDisplay> {
         List<Widget> widgets = new ArrayList<>();
         Point center = new Point(bounds.getCenterX(), bounds.getCenterY());
         widgets.add(Widgets.createRecipeBase(bounds));
-        widgets.add(Widgets.createSlot(new Point(center.x-40,center.y-8)).entries(display.getInputEntries().getFirst()).markInput());
-        widgets.add(Widgets.createSlot(new Point(center.x+24,center.y-8)).entries(display.getOutputEntries().getFirst()).markInput());
-        widgets.add(new KnifeWidget(new Point(center.x-16,center.y-5)).maxCuts(display.getCuts()));
+        widgets.add(Widgets.createSlot(new Point(center.x - 40, center.y - 8)).entries(display.getInputEntries().getFirst()).markInput());
+        widgets.add(Widgets.createSlot(new Point(center.x + 24, center.y - 8)).entries(display.getOutputEntries().getFirst()).markInput());
+        widgets.add(new KnifeWidget(new Point(center.x - 16, center.y - 5)).maxCuts(display.getCuts()));
         return widgets;
     }
 

@@ -18,7 +18,7 @@ import java.util.List;
 
 public class PanningCategory implements DisplayCategory<ArrowProgressDisplay> {
 
-    public static final Identifier ID = Identifier.of(Main.MOD_ID,"panning");
+    public static final Identifier ID = Identifier.of(Main.MOD_ID, "panning");
     public static final CategoryIdentifier<ArrowProgressDisplay> CATEGORY_ID = CategoryIdentifier.of(ID);
 
     @Override
@@ -41,9 +41,9 @@ public class PanningCategory implements DisplayCategory<ArrowProgressDisplay> {
         ArrayList<Widget> widgets = new ArrayList<>();
         Point center = new Point(bounds.getCenterX(), bounds.getCenterY());
         widgets.add(Widgets.createRecipeBase(bounds));
-        widgets.add(Widgets.createSlot(new Point(center.x-40,center.y-8)).entries(display.getInputEntries().getFirst()).markInput());
-        widgets.add(Widgets.createSlot(new Point(center.x+24,center.y-8)).entries(display.getOutputEntries().getFirst()).markOutput());
-        widgets.add(Widgets.createArrow(new Point(center.x-12, center.y-8)).animationDurationTicks(display.getTime()));
+        widgets.add(Widgets.createSlot(new Point(center.x - 40, center.y - 8)).entries(display.getInputEntries().getFirst()).markInput());
+        widgets.add(Widgets.createSlot(new Point(center.x + 24, center.y - 8)).entries(display.getOutputEntries().getFirst()).markOutput());
+        widgets.add(Widgets.createArrow(new Point(center.x - 12, center.y - 8)).animationDurationTicks(display.getTime()));
         return widgets;
     }
 

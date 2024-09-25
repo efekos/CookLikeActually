@@ -21,8 +21,8 @@ public class CuttingDisplay extends BasicDisplay {
 
     public CuttingDisplay(RecipeEntry<CuttingRecipe> entry) {
         this(List.of(
-                EntryIngredient.of(Arrays.stream(entry.value().getItem().getMatchingStacks()).map(EntryStacks::of).toList())),
-                List.of(EntryIngredient.of(EntryStacks.of(entry.value().getRes()))),entry.value().getCuts());
+                        EntryIngredient.of(Arrays.stream(entry.value().getItem().getMatchingStacks()).map(EntryStacks::of).toList())),
+                List.of(EntryIngredient.of(EntryStacks.of(entry.value().getRes()))), entry.value().getCuts());
     }
 
     @Override

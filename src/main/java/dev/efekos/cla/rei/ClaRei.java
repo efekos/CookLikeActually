@@ -18,14 +18,14 @@ public class ClaRei implements REIClientPlugin {
         registry.add(new FryingCategory());
         registry.addWorkstations(FryingCategory.CATEGORY_ID, EntryStacks.of(ClaBlocks.FRYING_STAND));
         registry.add(new PanningCategory());
-        registry.addWorkstations(PanningCategory.CATEGORY_ID,EntryStacks.of(ClaBlocks.PAN));
+        registry.addWorkstations(PanningCategory.CATEGORY_ID, EntryStacks.of(ClaBlocks.PAN));
     }
 
     @Override
     public void registerDisplays(DisplayRegistry registry) {
-        registry.registerRecipeFiller(CuttingRecipe.class,CuttingRecipe.Type.INSTANCE, CuttingDisplay::new);
-        registry.registerRecipeFiller(FryingRecipe.class,FryingRecipe.Type.INSTANCE, entry -> new ArrowProgressDisplay(FryingCategory.CATEGORY_ID,entry.value()));
-        registry.registerRecipeFiller(PanningRecipe.class,PanningRecipe.Type.INSTANCE,entry -> new ArrowProgressDisplay(PanningCategory.CATEGORY_ID,entry.value()));
+        registry.registerRecipeFiller(CuttingRecipe.class, CuttingRecipe.Type.INSTANCE, CuttingDisplay::new);
+        registry.registerRecipeFiller(FryingRecipe.class, FryingRecipe.Type.INSTANCE, entry -> new ArrowProgressDisplay(FryingCategory.CATEGORY_ID, entry.value()));
+        registry.registerRecipeFiller(PanningRecipe.class, PanningRecipe.Type.INSTANCE, entry -> new ArrowProgressDisplay(PanningCategory.CATEGORY_ID, entry.value()));
     }
 
 }

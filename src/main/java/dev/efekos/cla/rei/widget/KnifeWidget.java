@@ -20,21 +20,22 @@ public class KnifeWidget extends Widget {
         this.point = point;
     }
 
-    public static final Identifier KNIFE_TEXTURE = Identifier.of(Main.MOD_ID,"knife");
-    public static final Identifier KNIFE_FULL = Identifier.of(Main.MOD_ID,"knife_full");
+    public static final Identifier KNIFE_TEXTURE = Identifier.of(Main.MOD_ID, "knife");
+    public static final Identifier KNIFE_FULL = Identifier.of(Main.MOD_ID, "knife_full");
 
     private final NumberAnimator<Integer> cutAnimator = ValueAnimator.ofInt()
-            .withConvention(() -> maxCuts,5000)
+            .withConvention(() -> maxCuts, 5000)
             .asInt();
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         cutAnimator.update(delta);
-        context.drawGuiTexture(KNIFE_TEXTURE, point.x, point.y, 32,11);
-        if(cutAnimator.value()>0) context.drawGuiTexture(KNIFE_FULL,33,12,0,0,point.x, point.y,0,(int)((cutAnimator.value()/(float)maxCuts)*33),12);
+        context.drawGuiTexture(KNIFE_TEXTURE, point.x, point.y, 32, 11);
+        if (cutAnimator.value() > 0)
+            context.drawGuiTexture(KNIFE_FULL, 33, 12, 0, 0, point.x, point.y, 0, (int) ((cutAnimator.value() / (float) maxCuts) * 33), 12);
     }
 
-    public KnifeWidget maxCuts(int i){
+    public KnifeWidget maxCuts(int i) {
         this.maxCuts = i;
         return this;
     }
