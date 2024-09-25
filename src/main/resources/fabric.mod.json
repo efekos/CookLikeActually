@@ -15,6 +15,9 @@
     ],
     "main": [
       "dev.efekos.cla.Main"
+    ],
+    "rei_client": [
+      "dev.efekos.cla.rei.ClaRei"
     ]
   },
   "mixins": [
