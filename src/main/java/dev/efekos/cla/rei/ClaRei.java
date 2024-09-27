@@ -21,7 +21,7 @@ public class ClaRei implements REIClientPlugin {
         registry.add(new PanningCategory());
         registry.addWorkstations(PanningCategory.CATEGORY_ID, EntryStacks.of(ClaBlocks.PAN));
         registry.add(new PottingCategory());
-        registry.addWorkstations(PottingCategory.CATEGORY_ID,EntryStacks.of(ClaBlocks.POT));
+        registry.addWorkstations(PottingCategory.CATEGORY_ID, EntryStacks.of(ClaBlocks.POT));
     }
 
     @Override

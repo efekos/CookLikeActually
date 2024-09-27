@@ -2,7 +2,6 @@ package dev.efekos.cla.init;
 
 import dev.efekos.cla.Main;
 import dev.efekos.cla.block.entity.*;
-import dev.efekos.cla.client.renderer.PotBlockEntityRenderer;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;

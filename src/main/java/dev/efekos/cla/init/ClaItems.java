@@ -51,8 +51,8 @@ public class ClaItems {
     public static final Item CUBIC_COOKED_CHICKEN = register("cubic_cooked_chicken", new Item(new Item.Settings().rarity(Rarity.COMMON).food(FoodComponents.COOKED_CHICKEN)));
     public static final Item CUBIC_BURNED_BEEF = register("cubic_burned_beef", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_BEEF))));
     public static final Item CUBIC_BURNED_CHICKEN = register("cubic_burned_chicken", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_CHICKEN))));
-    public static final Item RICE = register("rice",new Item(new Item.Settings().rarity(Rarity.COMMON).food(new FoodComponent(2,3,false,1.5f,Optional.empty(),poison()))));
-    public static final Item COOKED_RICE = register("cooked_rice",new Item(new Item.Settings().rarity(Rarity.COMMON).food(new FoodComponent(2,6,false,1.5f,Optional.empty(),List.of()))));
+    public static final Item RICE = register("rice", new Item(new Item.Settings().rarity(Rarity.COMMON).food(new FoodComponent(2, 3, false, 1.5f, Optional.empty(), poison()))));
+    public static final Item COOKED_RICE = register("cooked_rice", new Item(new Item.Settings().rarity(Rarity.COMMON).food(new FoodComponent(2, 6, false, 1.5f, Optional.empty(), List.of()))));
 
     public static final Item BURNED_BEEF = register("burned_beef", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_BEEF))));
     public static final Item BURNED_CHICKEN = register("burned_chicken", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_CHICKEN))));

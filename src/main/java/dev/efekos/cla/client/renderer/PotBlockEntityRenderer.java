@@ -1,7 +1,5 @@
-
 package dev.efekos.cla.client.renderer;
 
-import dev.efekos.cla.block.entity.PanBlockEntity;
 import dev.efekos.cla.block.entity.PotBlockEntity;
 import dev.efekos.cla.client.renderer.bar.ProgressBarRenderer;
 import dev.efekos.cla.init.ClaTags;
