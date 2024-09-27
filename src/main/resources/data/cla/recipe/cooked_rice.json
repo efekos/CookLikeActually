@@ -1,0 +1,10 @@
+{
+  "type": "cla:potting",
+  "time": 200,
+  "item": {
+    "item": "cla:rice"
+  },
+  "result": {
+    "id": "cla:cooked_rice"
+  }
+}
