@@ -16,6 +16,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Optional;
@@ -50,6 +51,8 @@ public class ClaItems {
     public static final Item CUBIC_COOKED_CHICKEN = register("cubic_cooked_chicken", new Item(new Item.Settings().rarity(Rarity.COMMON).food(FoodComponents.COOKED_CHICKEN)));
     public static final Item CUBIC_BURNED_BEEF = register("cubic_burned_beef", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_BEEF))));
     public static final Item CUBIC_BURNED_CHICKEN = register("cubic_burned_chicken", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_CHICKEN))));
+    public static final Item RICE = register("rice",new Item(new Item.Settings().rarity(Rarity.COMMON).food(new FoodComponent(2,3,false,1.5f,Optional.empty(),poison()))));
+    public static final Item COOKED_RICE = register("cooked_rice",new Item(new Item.Settings().rarity(Rarity.COMMON).food(new FoodComponent(2,6,false,1.5f,Optional.empty(),List.of()))));
 
     public static final Item BURNED_BEEF = register("burned_beef", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_BEEF))));
     public static final Item BURNED_CHICKEN = register("burned_chicken", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_CHICKEN))));
@@ -60,7 +63,11 @@ public class ClaItems {
     public static final Item BURNED_PORKCHOP = register("burned_porkchop", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_PORKCHOP))));
 
     private static FoodComponent burn(FoodComponent component) {
-        return new FoodComponent(0, Math.max(0.25f, component.saturation() / 4f), component.canAlwaysEat(), component.eatSeconds() / 2f, Optional.empty(), List.of(new FoodComponent.StatusEffectEntry(new StatusEffectInstance(StatusEffects.POISON, 200, 2), 0.5f)));
+        return new FoodComponent(0, Math.max(0.25f, component.saturation() / 4f), component.canAlwaysEat(), component.eatSeconds() / 2f, Optional.empty(), poison());
+    }
+
+    private static @NotNull List<FoodComponent.StatusEffectEntry> poison() {
+        return List.of(new FoodComponent.StatusEffectEntry(new StatusEffectInstance(StatusEffects.POISON, 200, 2), 0.5f));
     }
 
     public static void run() {
