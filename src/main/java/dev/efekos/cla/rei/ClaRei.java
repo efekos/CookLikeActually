@@ -4,6 +4,7 @@ import dev.efekos.cla.init.ClaBlocks;
 import dev.efekos.cla.recipe.CuttingRecipe;
 import dev.efekos.cla.recipe.FryingRecipe;
 import dev.efekos.cla.recipe.PanningRecipe;
+import dev.efekos.cla.recipe.PottingRecipe;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
@@ -19,6 +20,8 @@ public class ClaRei implements REIClientPlugin {
         registry.addWorkstations(FryingCategory.CATEGORY_ID, EntryStacks.of(ClaBlocks.FRYING_STAND));
         registry.add(new PanningCategory());
         registry.addWorkstations(PanningCategory.CATEGORY_ID, EntryStacks.of(ClaBlocks.PAN));
+        registry.add(new PottingCategory());
+        registry.addWorkstations(PottingCategory.CATEGORY_ID,EntryStacks.of(ClaBlocks.POT));
     }
 
     @Override
@@ -26,6 +29,7 @@ public class ClaRei implements REIClientPlugin {
         registry.registerRecipeFiller(CuttingRecipe.class, CuttingRecipe.Type.INSTANCE, CuttingDisplay::new);
         registry.registerRecipeFiller(FryingRecipe.class, FryingRecipe.Type.INSTANCE, entry -> new ArrowProgressDisplay(FryingCategory.CATEGORY_ID, entry.value()));
         registry.registerRecipeFiller(PanningRecipe.class, PanningRecipe.Type.INSTANCE, entry -> new ArrowProgressDisplay(PanningCategory.CATEGORY_ID, entry.value()));
+        registry.registerRecipeFiller(PottingRecipe.class, PottingRecipe.Type.INSTANCE, entry -> new ArrowProgressDisplay(PottingCategory.CATEGORY_ID, entry.value()));
     }
 
 }
