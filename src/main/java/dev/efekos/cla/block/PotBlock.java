@@ -36,11 +36,13 @@ public class PotBlock extends BlockWithOneItem {
 
     public static VoxelShape makeShape() {
         return VoxelShapes.union(
-                VoxelShapes.cuboid(0.75, 0.0625, 0.1875, 0.8125, 0.125, 0.75),
-                VoxelShapes.cuboid(0.25, 0, 0.25, 0.75, 0.0625, 0.75),
-                VoxelShapes.cuboid(0.1875, 0.0625, 0.1875, 0.75, 0.125, 0.25),
-                VoxelShapes.cuboid(0.1875, 0.0625, 0.25, 0.25, 0.125, 0.8125),
-                VoxelShapes.cuboid(0.25, 0.0625, 0.75, 0.8125, 0.125, 0.8125)
+                VoxelShapes.cuboid(0.1875, 0, 0.1875, 0.8125, 0.0625, 0.8125),
+                VoxelShapes.cuboid(0.1875, 0.0625, 0.1875, 0.25, 0.625, 0.8125),
+                VoxelShapes.cuboid(0.75, 0.0625, 0.1875, 0.8125, 0.625, 0.8125),
+                VoxelShapes.cuboid(0.25, 0.0625, 0.75, 0.75, 0.625, 0.8125),
+                VoxelShapes.cuboid(0.25, 0.0625, 0.1875, 0.75, 0.625, 0.25),
+                VoxelShapes.cuboid(0.375, 0.5, 0.8125, 0.625, 0.5625, 0.875),
+                VoxelShapes.cuboid(0.375, 0.5, 0.125, 0.625, 0.5625, 0.1875)
         );
     }
 
