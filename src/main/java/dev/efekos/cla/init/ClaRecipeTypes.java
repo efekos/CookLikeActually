@@ -4,6 +4,7 @@ import dev.efekos.cla.Main;
 import dev.efekos.cla.recipe.CuttingRecipe;
 import dev.efekos.cla.recipe.FryingRecipe;
 import dev.efekos.cla.recipe.PanningRecipe;
+import dev.efekos.cla.recipe.PottingRecipe;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
@@ -17,6 +18,7 @@ public class ClaRecipeTypes {
         register("cutting", CuttingRecipe.Serializer.INSTANCE, CuttingRecipe.Type.INSTANCE);
         register("frying", FryingRecipe.Serializer.INSTANCE, FryingRecipe.Type.INSTANCE);
         register("panning", PanningRecipe.Serializer.INSTANCE, PanningRecipe.Type.INSTANCE);
+        register("potting", PottingRecipe.Serializer.INSTANCE, PottingRecipe.Type.INSTANCE);
     }
 
     private static <T extends Recipe<?>> void register(String id, RecipeSerializer<T> serializer, RecipeType<T> type) {

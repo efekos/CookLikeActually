@@ -37,6 +37,7 @@ public class MainClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(ClaBlockEntityTypes.CUTTING_BOARD, CuttingBoardBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(ClaBlockEntityTypes.PLATE, PlateBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(ClaBlockEntityTypes.PAN, PanBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(ClaBlockEntityTypes.POT, PotBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(ClaBlockEntityTypes.ITEM_BOX, ItemBoxBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(ClaBlockEntityTypes.FRYING_STAND, FryingStandBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(ClaBlockEntityTypes.WASHING_STAND, WashingStandBlockEntityRenderer::new);
@@ -45,6 +46,7 @@ public class MainClient implements ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(CuttingBoardSyncS2C.PAYLOAD_ID, CuttingBoardSyncS2C::handle);
         ClientPlayNetworking.registerGlobalReceiver(PlateSyncS2C.PAYLOAD_ID, PlateSyncS2C::handle);
         ClientPlayNetworking.registerGlobalReceiver(PanSyncS2C.PAYLOAD_ID, PanSyncS2C::handle);
+        ClientPlayNetworking.registerGlobalReceiver(PotSyncS2C.PAYLOAD_ID, PotSyncS2C::handle);
         ClientPlayNetworking.registerGlobalReceiver(ItemBoxSyncS2C.PAYLOAD_ID, ItemBoxSyncS2C::handle);
         ClientPlayNetworking.registerGlobalReceiver(FryingStandSyncS2C.PAYLOAD_ID, FryingStandSyncS2C::handle);
         ClientPlayNetworking.registerGlobalReceiver(WashingStandSyncS2C.PAYLOAD_ID, WashingStandSyncS2C::handle);

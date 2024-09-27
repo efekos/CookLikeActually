@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "cla:block/pot"
+    },
+    "facing=east": {
+      "y": 90,
+      "model": "cla:block/pot"
+    },
+    "facing=south": {
+      "y": 180,
+      "model": "cla:block/pot"
+    },
+    "facing=west": {
+      "y": 270,
+      "model": "cla:block/pot"
+    }
+  }
+}

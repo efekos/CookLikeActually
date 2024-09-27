@@ -11,6 +11,7 @@ public class ClaPayloadTypes {
     public static final CustomPayload.Type<? super RegistryByteBuf, CuttingBoardSyncS2C> CUTTING_BOARD_SYNC_S2C = registers2c(CuttingBoardSyncS2C.class);
     public static final CustomPayload.Type<? super RegistryByteBuf, PlateSyncS2C> PLATE_SYNC = registers2c(PlateSyncS2C.class);
     public static final CustomPayload.Type<? super RegistryByteBuf, PanSyncS2C> PAN_SYNC_S2C = registers2c(PanSyncS2C.class);
+    public static final CustomPayload.Type<? super RegistryByteBuf, PotSyncS2C> POT_SYNC_S2C = registers2c(PotSyncS2C.class);
     public static final CustomPayload.Type<? super RegistryByteBuf, ItemBoxSyncS2C> ITEM_BOX_SYNC_S2C = registers2c(ItemBoxSyncS2C.class);
     public static final CustomPayload.Type<? super RegistryByteBuf, FryingStandSyncS2C> FRYING_STAND_SYNC_S2C = registers2c(FryingStandSyncS2C.class);
     public static final CustomPayload.Type<? super RegistryByteBuf, WashingStandSyncS2C> WASHING_STAND_SYNC_S2C = registers2c(WashingStandSyncS2C.class);
