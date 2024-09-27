@@ -2,6 +2,7 @@ package dev.efekos.cla.block;
 
 import com.mojang.serialization.MapCodec;
 import dev.efekos.cla.block.entity.PanBlockEntity;
+import dev.efekos.cla.block.entity.PotBlockEntity;
 import dev.efekos.cla.init.ClaBlockEntityTypes;
 import dev.efekos.cla.init.ClaComponentTypes;
 import net.minecraft.block.*;
@@ -72,7 +73,7 @@ public class PotBlock extends BlockWithOneItem {
 
     @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new PanBlockEntity(pos, state);
+        return new PotBlockEntity(pos, state);
     }
 
     @Override
