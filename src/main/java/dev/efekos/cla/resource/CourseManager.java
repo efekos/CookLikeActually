@@ -80,7 +80,11 @@ public class CourseManager extends JsonDataLoader implements IdentifiableResourc
         float eat_seconds = JsonHelper.getFloat(root, "eat_seconds");
 
         RegistryOps<JsonElement> ops = this.wrapperLookup.getOps(JsonOps.INSTANCE);
-        courses.put(identifier, new Course(identifier, Identifier.tryParse(model), readArray(identifier, root, ops, "ingredients"), nutrition, saturation, eat_seconds, "course." + identifier.getNamespace() + "." + identifier.getPath(), root.has("transformers") ? readArray(identifier, root, ops, "transformers") : new ArrayList<>()));
+        courses.put(identifier, new Course(identifier, Identifier.tryParse(model), readArray(identifier, root, ops, "ingredients"), nutrition, saturation, eat_seconds, root.has("key") ? root.get("key").getAsString() : createTranslationKey(identifier), root.has("transformers") ? readArray(identifier, root, ops, "transformers") : new ArrayList<>()));
+    }
+
+    private static @NotNull String createTranslationKey(Identifier identifier) {
+        return "course." + identifier.getNamespace() + "." + identifier.getPath();
     }
 
     public Optional<Course> getCourse(Identifier id) {

@@ -19,6 +19,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -46,6 +47,18 @@ public class PotBlock extends BlockWithOneItem {
         );
     }
 
+    public static VoxelShape makeSShape() {
+        return VoxelShapes.union(
+                VoxelShapes.cuboid(0.25, 0.0625, 0.1875, 0.75, 0.625, 0.25),
+                VoxelShapes.cuboid(0.1875, 0, 0.1875, 0.8125, 0.0625, 0.8125),
+                VoxelShapes.cuboid(0.1875, 0.0625, 0.1875, 0.25, 0.625, 0.8125),
+                VoxelShapes.cuboid(0.75, 0.0625, 0.1875, 0.8125, 0.625, 0.8125),
+                VoxelShapes.cuboid(0.25, 0.0625, 0.75, 0.75, 0.625, 0.8125),
+                VoxelShapes.cuboid(0.8125, 0.5, 0.375, 0.875, 0.5625, 0.625),
+                VoxelShapes.cuboid(0.125, 0.5, 0.375, 0.1875, 0.5625, 0.625)
+        );
+    }
+
     @Override
     protected BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
@@ -53,7 +66,8 @@ public class PotBlock extends BlockWithOneItem {
 
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return makeShape();
+        Direction direction = state.get(FACING);
+        return direction==Direction.EAST||direction==Direction.WEST?makeSShape():makeShape();
     }
 
     @Override
@@ -80,7 +94,7 @@ public class PotBlock extends BlockWithOneItem {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, ClaBlockEntityTypes.PAN, PanBlockEntity::tick);
+        return validateTicker(type, ClaBlockEntityTypes.POT, PotBlockEntity::tick);
     }
 
     @Override
@@ -89,7 +103,7 @@ public class PotBlock extends BlockWithOneItem {
             Hand hand = player.getActiveHand();
             if (!player.getStackInHand(hand).isEmpty()) return ActionResult.PASS;
 
-            PanBlockEntity pan = (PanBlockEntity) world.getBlockEntity(pos);
+            PotBlockEntity pan = (PotBlockEntity) world.getBlockEntity(pos);
             ItemStack stack = this.asItem().getDefaultStack();
             stack.set(ClaComponentTypes.TICKS, pan.getTicks());
             if (pan.hasItem()) stack.set(ClaComponentTypes.ITEM, pan.getItem());

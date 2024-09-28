@@ -3,6 +3,7 @@
   "nutrition": 9,
   "saturation": 9,
   "eat_seconds": 3,
+  "key": "course.cla.burger",
   "ingredients": [
     {
       "item": "cla:cooked_patty"
