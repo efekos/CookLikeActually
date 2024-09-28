@@ -3,7 +3,7 @@
     "plates=none": {
       "model": "cla:block/washing_stand"
     },
-    "plates=singular":{
+    "plates=singular": {
       "model": "cla:block/washing_stand_plate"
     },
     "plates=multiple": {

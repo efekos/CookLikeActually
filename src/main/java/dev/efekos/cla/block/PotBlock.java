@@ -1,7 +1,6 @@
 package dev.efekos.cla.block;
 
 import com.mojang.serialization.MapCodec;
-import dev.efekos.cla.block.entity.PanBlockEntity;
 import dev.efekos.cla.block.entity.PotBlockEntity;
 import dev.efekos.cla.init.ClaBlockEntityTypes;
 import dev.efekos.cla.init.ClaComponentTypes;
@@ -67,7 +66,7 @@ public class PotBlock extends BlockWithOneItem {
     @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         Direction direction = state.get(FACING);
-        return direction==Direction.EAST||direction==Direction.WEST?makeSShape():makeShape();
+        return direction == Direction.EAST || direction == Direction.WEST ? makeSShape() : makeShape();
     }
 
     @Override

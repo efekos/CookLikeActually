@@ -44,7 +44,7 @@ public class FryingRecipe implements RecipeWithArrowProgress<SingleStackRecipeIn
         return burn;
     }
 
-    public boolean hasProgressBar(){
+    public boolean hasProgressBar() {
         return !burn;
     }
 
