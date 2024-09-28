@@ -19,13 +19,13 @@ public class FryingRecipe implements RecipeWithArrowProgress<SingleStackRecipeIn
     private final Ingredient item;
     private final ItemStack result;
     private final int time;
-    private final boolean progressBar;
+    private final boolean burn;
 
-    public FryingRecipe(Ingredient item, ItemStack result, int time, boolean progressBar) {
+    public FryingRecipe(Ingredient item, ItemStack result, int time, boolean burn) {
         this.item = item;
         this.result = result;
         this.time = time;
-        this.progressBar = progressBar;
+        this.burn = burn;
     }
 
     public Ingredient getItem() {
@@ -40,8 +40,12 @@ public class FryingRecipe implements RecipeWithArrowProgress<SingleStackRecipeIn
         return time;
     }
 
-    public boolean hasProgressBar() {
-        return progressBar;
+    public boolean isBurn() {
+        return burn;
+    }
+
+    public boolean hasProgressBar(){
+        return !burn;
     }
 
     @Override
@@ -82,7 +86,7 @@ public class FryingRecipe implements RecipeWithArrowProgress<SingleStackRecipeIn
                 Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("item").forGetter(FryingRecipe::getItem),
                 ItemStack.CODEC.fieldOf("result").forGetter(FryingRecipe::getRes),
                 Codecs.POSITIVE_INT.fieldOf("time").forGetter(FryingRecipe::getTime),
-                Codec.BOOL.optionalFieldOf("progress_bar", true).forGetter(FryingRecipe::hasProgressBar)
+                Codec.BOOL.optionalFieldOf("burn", false).forGetter(FryingRecipe::isBurn)
         ).apply(instance, FryingRecipe::new));
         public final PacketCodec<RegistryByteBuf, FryingRecipe> PACKET_CODEC = PacketCodec.ofStatic(this::write, this::read);
 
@@ -100,15 +104,15 @@ public class FryingRecipe implements RecipeWithArrowProgress<SingleStackRecipeIn
             Ingredient.PACKET_CODEC.encode(buf, recipe.getItem());
             ItemStack.PACKET_CODEC.encode(buf, recipe.getRes());
             buf.writeInt(recipe.getTime());
-            buf.writeBoolean(recipe.progressBar);
+            buf.writeBoolean(recipe.burn);
         }
 
         public FryingRecipe read(RegistryByteBuf buf) {
             Ingredient item = Ingredient.PACKET_CODEC.decode(buf);
             ItemStack result = ItemStack.PACKET_CODEC.decode(buf);
             int cuts = buf.readInt();
-            boolean progressBar = buf.readBoolean();
-            return new FryingRecipe(item, result, cuts, progressBar);
+            boolean burn = buf.readBoolean();
+            return new FryingRecipe(item, result, cuts, burn);
         }
 
     }
