@@ -4,7 +4,7 @@
   "version": "${version}",
   "name": "CookLikeActually",
   "description": "Cook, like actually, as if Minecraft was a cooking game.",
-  "authors": [],
+  "authors": ["efekos"],
   "contact": {},
   "license": "MIT",
   "icon": "assets/cla/icon.png",
@@ -27,5 +27,12 @@
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
     "minecraft": "${minecraft_version}"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://efekos.dev/discord"
+      }
+    }
   }
 }
