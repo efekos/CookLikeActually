@@ -1,0 +1,17 @@
+{
+  "model": "cla:block/plate_chicken_burrito",
+  "nutrition": 3,
+  "saturation": 9,
+  "eat_seconds": 2,
+  "ingredients": [
+    {
+      "item": "cla:tortilla"
+    },
+    {
+      "item": "cla:cubic_cooked_chicken"
+    },
+    {
+      "item": "cla:cooked_rice"
+    }
+  ]
+}

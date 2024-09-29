@@ -1,0 +1,17 @@
+{
+  "model": "cla:block/plate_burrito",
+  "nutrition": 3,
+  "saturation": 8,
+  "eat_seconds": 2,
+  "ingredients": [
+    {
+      "item": "cla:tortilla"
+    },
+    {
+      "item": "cla:cubic_cooked_beef"
+    },
+    {
+      "item": "cla:cooked_rice"
+    }
+  ]
+}
