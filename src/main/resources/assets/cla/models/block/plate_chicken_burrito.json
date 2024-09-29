@@ -1,5 +1,5 @@
 {
-  "parent": "cla:plate_burrito",
+  "parent": "cla:block/plate_burrito",
   "textures": {
     "cubic": "cla:item/cubic_cooked_chicken"
   }
