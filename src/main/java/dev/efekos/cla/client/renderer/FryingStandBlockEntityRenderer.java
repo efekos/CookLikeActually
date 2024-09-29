@@ -61,9 +61,7 @@ public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<Fryin
         matrices.translate(0, 0, 0);
         matrices.scale(1f, 1f, 1f);
         BakedModel bakedModel = MinecraftClient.getInstance().getBakedModelManager().getModel(WATER_ID);
-        RenderSystem.setShaderColor(.5f, .5f, 0, 1f);
-        manager.getModelRenderer().renderFlat(world, bakedModel, state, pos, matrices, vertexConsumers.getBuffer(MinecraftClient.isFabulousGraphicsOrBetter() ? RenderLayer.getSolid() : RenderLayer.getTranslucent()), false, world.getRandom(), lightLevel, OverlayTexture.DEFAULT_UV);
-        RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
+        manager.getModelRenderer().renderSmooth(world, bakedModel, state, pos, matrices, vertexConsumers.getBuffer(MinecraftClient.isFabulousGraphicsOrBetter() ? RenderLayer.getSolid() : RenderLayer.getTranslucent()), false, world.getRandom(), lightLevel, OverlayTexture.DEFAULT_UV);
         matrices.pop();
 
         if (entity.hasItem()) {
