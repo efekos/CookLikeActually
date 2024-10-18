@@ -1,6 +1,7 @@
 package dev.efekos.cla.client;
 
 import dev.efekos.cla.Main;
+import dev.efekos.cla.block.entity.FryingStandBlockEntity;
 import dev.efekos.cla.block.entity.SyncAbleBlockEntity;
 import dev.efekos.cla.client.hud.OrderNotesHud;
 import dev.efekos.cla.client.renderer.*;
@@ -28,8 +29,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.BlockRenderView;
 
+import java.awt.*;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
@@ -46,8 +49,8 @@ public class MainClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(ClaBlockEntityTypes.ITEM_BOX, ItemBoxBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(ClaBlockEntityTypes.FRYING_STAND, FryingStandBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(ClaBlockEntityTypes.WASHING_STAND, WashingStandBlockEntityRenderer::new);
-        ColorProviderRegistry.BLOCK.register(this::provideFryingStandBlock,ClaBlocks.FRYING_STAND);
-        ColorProviderRegistry.ITEM.register(this::provideFryingStandItem,ClaBlocks.FRYING_STAND.asItem());
+        ColorProviderRegistry.BLOCK.register(this::provideFryingStandBlock, ClaBlocks.FRYING_STAND);
+        ColorProviderRegistry.ITEM.register(this::provideFryingStandItem, ClaBlocks.FRYING_STAND.asItem());
 
         // Packet Receivers
         ClientPlayNetworking.registerGlobalReceiver(CuttingBoardSyncS2C.PAYLOAD_ID, CuttingBoardSyncS2C::handle);
@@ -74,17 +77,38 @@ public class MainClient implements ClientModInitializer {
     }
 
     private int provideFryingStandItem(ItemStack itemStack, int i) {
-        return 0xf2b118;
+        return cleanOil.getRGB();
     }
 
+    private final Color cleanOil = new Color(0xf2b118);
+    private final Color badOil = new Color(0x4f3404);
+
     private int provideFryingStandBlock(BlockState blockState, BlockRenderView blockRenderView, BlockPos blockPos, int i) {
-        return 0xf2b118;
+
+        BlockEntity entity = blockRenderView.getBlockEntity(blockPos);
+        if (!(entity instanceof FryingStandBlockEntity stand)) return 0xf2b118;
+
+        double ratio = stand.getOilCleanness() / 100d;
+
+        int initialRed = badOil.getRed();
+        int targetRed = cleanOil.getRed();
+        int initialGreen = badOil.getGreen();
+        int targetGreen = cleanOil.getGreen();
+        int initialBlue = badOil.getBlue();
+        int targetBlue = cleanOil.getBlue();
+
+        int red = MathHelper.clamp((int)(initialRed*(1-ratio) + targetRed*ratio),0,255);
+        int green = MathHelper.clamp((int)(initialGreen*(1-ratio) + targetGreen*ratio),0,255);
+        int blue = MathHelper.clamp((int)(initialBlue*(1-ratio) + targetBlue*ratio),0,255);
+
+        Color color = new Color(red, green, blue);
+        return color.getRGB();
     }
 
     private void loadAndRegisterModels(ModelLoadingPlugin.Context pluginContext) {
         ResourceManager resourceManager = MinecraftClient.getInstance().getResourceManager();
 
-        List<Identifier> modelFiles = resourceManager.findResources("models/block", path -> path.getNamespace().equals(Main.MOD_ID)||path.getPath().contains("course")).keySet()
+        List<Identifier> modelFiles = resourceManager.findResources("models/block", path -> path.getNamespace().equals(Main.MOD_ID) || path.getPath().contains("course")).keySet()
                 .stream()
                 .map(Identifier::getPath)
                 .map(s -> s.substring(7, s.length() - 5))
