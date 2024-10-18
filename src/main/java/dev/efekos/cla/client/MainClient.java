@@ -69,7 +69,7 @@ public class MainClient implements ClientModInitializer {
     private void loadAndRegisterModels(ModelLoadingPlugin.Context pluginContext) {
         ResourceManager resourceManager = MinecraftClient.getInstance().getResourceManager();
 
-        List<Identifier> modelFiles = resourceManager.findResources("models/block", path -> path.getNamespace().equals(Main.MOD_ID)).keySet()
+        List<Identifier> modelFiles = resourceManager.findResources("models/block", path -> path.getNamespace().equals(Main.MOD_ID)||path.getPath().contains("course")).keySet()
                 .stream()
                 .map(Identifier::getPath)
                 .map(s -> s.substring(7, s.length() - 5))
