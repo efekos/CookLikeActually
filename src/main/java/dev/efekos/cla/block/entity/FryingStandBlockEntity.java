@@ -10,6 +10,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
@@ -17,12 +18,14 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class FryingStandBlockEntity extends BlockEntityWithOneItem implements SyncAbleBlockEntity<FryingStandSyncS2C> {
 
     private int ticks;
+    private int oilCleanness;
 
     public FryingStandBlockEntity(BlockPos pos, BlockState state) {
         super(ClaBlockEntityTypes.FRYING_STAND, pos, state);
@@ -42,7 +45,7 @@ public class FryingStandBlockEntity extends BlockEntityWithOneItem implements Sy
     }
 
     public void tick(BlockState state, BlockPos pos, World world) {
-        if (hasRecipe() && state.get(FryingStandBlock.SIEVE)) {
+        if (isOilCleanEnough() && hasRecipe() && state.get(FryingStandBlock.SIEVE)) {
             ticks++;
             world.playSound(pos.getX(), pos.getY(), pos.getZ(), ClaSoundEvents.PAN_COOKING, SoundCategory.BLOCKS, 1f, 1f, true);
             FryingRecipe recipe = getRecipe(world);
@@ -56,9 +59,22 @@ public class FryingStandBlockEntity extends BlockEntityWithOneItem implements Sy
                 }
                 setTicks(0);
                 setItem(recipe.getRes());
+                setOilCleanness(getOilCleanness()-(int)(Math.random()*10));
             }
             markDirty();
         } else if (getTicks() != 0) setTicks(0);
+    }
+
+    private boolean isOilCleanEnough() {
+        return oilCleanness > 0;
+    }
+
+    public int getOilCleanness() {
+        return oilCleanness;
+    }
+
+    public void setOilCleanness(int oilCleanness) {
+        this.oilCleanness = MathHelper.clamp(oilCleanness,0,100);
     }
 
     public int getTicks() {
@@ -73,29 +89,33 @@ public class FryingStandBlockEntity extends BlockEntityWithOneItem implements Sy
     protected void addComponents(ComponentMap.Builder componentMapBuilder) {
         super.addComponents(componentMapBuilder);
         componentMapBuilder.add(ClaComponentTypes.TICKS, ticks);
+        componentMapBuilder.add(ClaComponentTypes.OIL_CLEANNESS,oilCleanness);
     }
 
     @Override
     protected void readComponents(ComponentsAccess components) {
         super.readComponents(components);
         ticks = components.getOrDefault(ClaComponentTypes.TICKS, 0);
+        oilCleanness = MathHelper.clamp(components.getOrDefault(ClaComponentTypes.OIL_CLEANNESS,100),0,100);
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
         nbt.putInt("Ticks", ticks);
+        nbt.putInt("OilCleanness",oilCleanness);
     }
 
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
         ticks = nbt.getInt("Ticks");
+        oilCleanness = nbt.contains("OilCleanness", NbtElement.INT_TYPE)?MathHelper.clamp(nbt.getInt("OilCleanness"),0,100):100;
     }
 
     @Override
     public FryingStandSyncS2C createSyncPacket() {
-        return new FryingStandSyncS2C(hasItem() ? item : ItemStack.EMPTY, ticks, pos);
+        return new FryingStandSyncS2C(hasItem() ? item : ItemStack.EMPTY, ticks, oilCleanness, pos);
     }
 
     public void setItemWithoutReset(ItemStack item) {
