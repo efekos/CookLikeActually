@@ -16,14 +16,19 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientBlockEntityEvents
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.item.ItemStack;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockRenderView;
 
 import java.util.List;
 
@@ -41,6 +46,8 @@ public class MainClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(ClaBlockEntityTypes.ITEM_BOX, ItemBoxBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(ClaBlockEntityTypes.FRYING_STAND, FryingStandBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(ClaBlockEntityTypes.WASHING_STAND, WashingStandBlockEntityRenderer::new);
+        ColorProviderRegistry.BLOCK.register(this::provideFryingStandBlock,ClaBlocks.FRYING_STAND);
+        ColorProviderRegistry.ITEM.register(this::provideFryingStandItem,ClaBlocks.FRYING_STAND.asItem());
 
         // Packet Receivers
         ClientPlayNetworking.registerGlobalReceiver(CuttingBoardSyncS2C.PAYLOAD_ID, CuttingBoardSyncS2C::handle);
@@ -64,6 +71,14 @@ public class MainClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ClaBlocks.TOMATOES, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ClaBlocks.LETTUCES, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ClaBlocks.WASHING_STAND, RenderLayer.getTranslucent());
+    }
+
+    private int provideFryingStandItem(ItemStack itemStack, int i) {
+        return 0xf2b118;
+    }
+
+    private int provideFryingStandBlock(BlockState blockState, BlockRenderView blockRenderView, BlockPos blockPos, int i) {
+        return 0xf2b118;
     }
 
     private void loadAndRegisterModels(ModelLoadingPlugin.Context pluginContext) {

@@ -5,7 +5,8 @@
     "1": "cla:block/cooking_stand_side",
     "3": "cla:block/stand_top",
     "4": "cla:block/frying_sieve",
-    "particle": "cla:block/cooking_stand_bottom"
+    "particle": "cla:block/cooking_stand_bottom",
+    "content": "block/water_still"
   },
   "elements": [
     {
@@ -663,6 +664,89 @@
             4
           ],
           "texture": "#3"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        13,
+        3
+      ],
+      "to": [
+        12,
+        14,
+        13
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          4,
+          12,
+          3
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            8,
+            1
+          ],
+          "texture": "#content",
+          "tintindex": 0
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            10,
+            1
+          ],
+          "texture": "#content",
+          "tintindex": 0
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            8,
+            1
+          ],
+          "texture": "#content",
+          "tintindex": 0
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            10,
+            1
+          ],
+          "texture": "#content",
+          "tintindex": 0
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            8,
+            10
+          ],
+          "texture": "#content",
+          "tintindex": 0
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            8,
+            10
+          ],
+          "texture": "#content",
+          "tintindex": 0
         }
       }
     }

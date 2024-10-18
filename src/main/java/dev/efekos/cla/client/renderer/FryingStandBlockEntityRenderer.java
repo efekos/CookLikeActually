@@ -31,7 +31,6 @@ import org.joml.Quaternionf;
 @Environment(EnvType.CLIENT)
 public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<FryingStandBlockEntity> {
 
-    public static final Identifier WATER_ID = Identifier.of(Main.MOD_ID, "block/frying_stand_water");
     private final ItemRenderer itemRenderer;
     private final BlockEntityRenderDispatcher renderDispatcher;
 
@@ -52,17 +51,7 @@ public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<Fryin
     public void render(FryingStandBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         World world = entity.getWorld();
         BlockPos pos = entity.getPos();
-        BlockState state = world.getBlockState(pos);
-        BlockRenderManager manager = MinecraftClient.getInstance().getBlockRenderManager();
         int lightLevel = getLightLevel(world, pos);
-
-        //oil level
-        matrices.push();
-        matrices.translate(0, 0, 0);
-        matrices.scale(1f, 1f, 1f);
-        BakedModel bakedModel = MinecraftClient.getInstance().getBakedModelManager().getModel(WATER_ID);
-        manager.getModelRenderer().renderSmooth(world, bakedModel, state, pos, matrices, vertexConsumers.getBuffer(MinecraftClient.isFabulousGraphicsOrBetter() ? RenderLayer.getSolid() : RenderLayer.getTranslucent()), false, world.getRandom(), lightLevel, OverlayTexture.DEFAULT_UV);
-        matrices.pop();
 
         if (entity.hasItem()) {
             ItemStack item = entity.getItem();
