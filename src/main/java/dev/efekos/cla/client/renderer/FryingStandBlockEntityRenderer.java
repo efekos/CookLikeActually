@@ -2,6 +2,7 @@ package dev.efekos.cla.client.renderer;
 
 import dev.efekos.cla.block.entity.FryingStandBlockEntity;
 import dev.efekos.cla.client.renderer.bar.ProgressBarRenderer;
+import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.init.ClaTags;
 import dev.efekos.cla.util.IMinecraftClientMixin;
 import net.fabricmc.api.EnvType;
@@ -25,6 +26,7 @@ import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.BlockRenderView;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
 import java.awt.*;
@@ -100,7 +102,7 @@ public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<Fryin
 
 
     public static int provideItemColor(ItemStack itemStack, int i) {
-        return cleanOil.getRGB();
+        return getOilColor(itemStack.getOrDefault(ClaComponentTypes.OIL_CLEANNESS,100)/100d).getRGB();
     }
 
     private static final Color cleanOil = new Color(0xf2b118);
@@ -113,6 +115,11 @@ public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<Fryin
 
         double ratio = stand.getOilCleanness() / 100d;
 
+        Color color = getOilColor(ratio);
+        return color.getRGB();
+    }
+
+    private static @NotNull Color getOilColor(double ratio) {
         int initialRed = badOil.getRed();
         int targetRed = cleanOil.getRed();
         int initialGreen = badOil.getGreen();
@@ -120,12 +127,11 @@ public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<Fryin
         int initialBlue = badOil.getBlue();
         int targetBlue = cleanOil.getBlue();
 
-        int red = MathHelper.clamp((int)(initialRed*(1-ratio) + targetRed*ratio),0,255);
-        int green = MathHelper.clamp((int)(initialGreen*(1-ratio) + targetGreen*ratio),0,255);
-        int blue = MathHelper.clamp((int)(initialBlue*(1-ratio) + targetBlue*ratio),0,255);
+        int red = MathHelper.clamp((int)(initialRed *(1- ratio) + targetRed * ratio),0,255);
+        int green = MathHelper.clamp((int)(initialGreen*(1- ratio) + targetGreen* ratio),0,255);
+        int blue = MathHelper.clamp((int)(initialBlue*(1- ratio) + targetBlue* ratio),0,255);
 
-        Color color = new Color(red, green, blue);
-        return color.getRGB();
+        return new Color(red, green, blue);
     }
 
 
