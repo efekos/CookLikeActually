@@ -7,6 +7,7 @@ import dev.efekos.cla.util.IMinecraftClientMixin;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.BlockRenderManager;
@@ -19,10 +20,14 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
+import net.minecraft.world.BlockRenderView;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import org.joml.Quaternionf;
+
+import java.awt.*;
 
 @Environment(EnvType.CLIENT)
 public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<FryingStandBlockEntity> {
@@ -54,7 +59,7 @@ public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<Fryin
         matrices.push();
         matrices.translate(0, 0, 0);
         matrices.scale(1f, 1f, 1f);
-        manager.renderBlock(state,pos,world,matrices,vertexConsumers.getBuffer(MinecraftClient.isFabulousGraphicsOrBetter()?RenderLayer.getCutoutMipped():RenderLayer.getTranslucent()),true,world.getRandom());
+        manager.renderBlock(state,pos,world,matrices,vertexConsumers.getBuffer(RenderLayer.getCutout()),true,world.getRandom());
         matrices.pop();
 
         if (entity.hasItem()) {
@@ -92,5 +97,36 @@ public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<Fryin
     private int getLightLevel(World world, BlockPos pos) {
         return LightmapTextureManager.pack(world.getLightLevel(LightType.BLOCK, pos), world.getLightLevel(LightType.SKY, pos));
     }
+
+
+    public static int provideItemColor(ItemStack itemStack, int i) {
+        return cleanOil.getRGB();
+    }
+
+    private static final Color cleanOil = new Color(0xf2b118);
+    private static final Color badOil = new Color(0x4f3404);
+
+    public static int provideBlockColor(BlockState blockState, BlockRenderView blockRenderView, BlockPos blockPos, int i) {
+        if(blockState==null) return 0xf2b118;
+        BlockEntity entity = blockRenderView.getBlockEntity(blockPos);
+        if (!(entity instanceof FryingStandBlockEntity stand)) return 0xf2b118;
+
+        double ratio = stand.getOilCleanness() / 100d;
+
+        int initialRed = badOil.getRed();
+        int targetRed = cleanOil.getRed();
+        int initialGreen = badOil.getGreen();
+        int targetGreen = cleanOil.getGreen();
+        int initialBlue = badOil.getBlue();
+        int targetBlue = cleanOil.getBlue();
+
+        int red = MathHelper.clamp((int)(initialRed*(1-ratio) + targetRed*ratio),0,255);
+        int green = MathHelper.clamp((int)(initialGreen*(1-ratio) + targetGreen*ratio),0,255);
+        int blue = MathHelper.clamp((int)(initialBlue*(1-ratio) + targetBlue*ratio),0,255);
+
+        Color color = new Color(red, green, blue);
+        return color.getRGB();
+    }
+
 
 }

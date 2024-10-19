@@ -9,6 +9,7 @@
   "client": [
     "BlockColorsMixin",
     "DrawContextMixin",
+    "ItemColorsMixin",
     "MinecraftClientMixin"
   ],
   "injectors": {
