@@ -10,6 +10,7 @@
     }
   },
   "result": {
-    "id": "cla:empty_oil_bottle"
+    "id": "cla:empty_oil_bottle",
+    "count": 8
   }
 }
