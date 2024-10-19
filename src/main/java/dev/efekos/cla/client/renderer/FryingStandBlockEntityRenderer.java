@@ -1,7 +1,5 @@
 package dev.efekos.cla.client.renderer;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import dev.efekos.cla.Main;
 import dev.efekos.cla.block.entity.FryingStandBlockEntity;
 import dev.efekos.cla.client.renderer.bar.ProgressBarRenderer;
 import dev.efekos.cla.init.ClaTags;
@@ -16,12 +14,10 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.LightType;
@@ -52,6 +48,14 @@ public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<Fryin
         World world = entity.getWorld();
         BlockPos pos = entity.getPos();
         int lightLevel = getLightLevel(world, pos);
+        BlockRenderManager manager = MinecraftClient.getInstance().getBlockRenderManager();
+        BlockState state = world.getBlockState(pos);
+
+        matrices.push();
+        matrices.translate(0, 0, 0);
+        matrices.scale(1f, 1f, 1f);
+        manager.renderBlock(state,pos,world,matrices,vertexConsumers.getBuffer(MinecraftClient.isFabulousGraphicsOrBetter()?RenderLayer.getCutoutMipped():RenderLayer.getTranslucent()),true,world.getRandom());
+        matrices.pop();
 
         if (entity.hasItem()) {
             ItemStack item = entity.getItem();

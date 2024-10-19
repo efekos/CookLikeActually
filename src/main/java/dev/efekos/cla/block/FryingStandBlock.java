@@ -67,7 +67,7 @@ public class FryingStandBlock extends BlockWithOneItem {
 
     @Override
     protected BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+        return BlockRenderType.ENTITYBLOCK_ANIMATED;
     }
 
     @Override

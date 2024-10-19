@@ -84,7 +84,6 @@ public class MainClient implements ClientModInitializer {
     private final Color badOil = new Color(0x4f3404);
 
     private int provideFryingStandBlock(BlockState blockState, BlockRenderView blockRenderView, BlockPos blockPos, int i) {
-
         BlockEntity entity = blockRenderView.getBlockEntity(blockPos);
         if (!(entity instanceof FryingStandBlockEntity stand)) return 0xf2b118;
 
