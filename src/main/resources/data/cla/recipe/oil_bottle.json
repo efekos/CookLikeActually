@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "ABA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:sunflower"
+    },
+    "B": {
+      "item": "cla:empty_oil_bottle"
+    }
+  },
+  "result": {
+    "id": "cla:oil_bottle"
+  }
+}
