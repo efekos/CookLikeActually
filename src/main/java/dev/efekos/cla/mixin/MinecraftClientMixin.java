@@ -1,5 +1,6 @@
 package dev.efekos.cla.mixin;
 
+import dev.efekos.cla.client.renderer.BillboardTextureRenderer;
 import dev.efekos.cla.client.renderer.bar.ProgressBarRenderer;
 import dev.efekos.cla.util.IMinecraftClientMixin;
 import net.minecraft.client.MinecraftClient;
@@ -21,9 +22,18 @@ public class MinecraftClientMixin implements IMinecraftClientMixin {
         return progressBarRenderer;
     }
 
+    @Unique
+    private BillboardTextureRenderer billboardTextureRenderer;
+
+    @Unique
+    public BillboardTextureRenderer cla$getBillboardTextureRenderer() {
+        return billboardTextureRenderer;
+    }
+
     @Inject(method = "<init>", at = @At("TAIL"))
     public void init(RunArgs args, CallbackInfo ci) {
         this.progressBarRenderer = new ProgressBarRenderer();
+        this.billboardTextureRenderer = new BillboardTextureRenderer();
     }
 
 }
