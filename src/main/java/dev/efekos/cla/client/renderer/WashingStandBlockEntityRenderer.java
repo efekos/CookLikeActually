@@ -44,7 +44,7 @@ public class WashingStandBlockEntityRenderer implements BlockEntityRenderer<Wash
         matrices.translate(0.5f, 1.75f, 0.5f);
         matrices.scale(1f, 1f, 1f);
         Camera camera = this.renderDispatcher.camera;
-        matrices.multiply(new Quaternionf().rotationYXZ(-0.017453292F * getBackwardsYaw(camera), -0.017453292F * getNegatedPitch(camera), 0f));
+        matrices.multiply(new Quaternionf().rotationYXZ(3.1415927F - camera.getYaw() * 0.017453292F, -camera.getPitch() * 0.017453292F, 0f));
         barRenderer.renderBar(matrices, ProgressBarRenderer.getDefaultTextures(), entity.getProgress() / 50f, lightLevel);
         matrices.pop();
     }
