@@ -25,7 +25,7 @@ public class ClaGroups {
                             ClaItems.TOMATO_SEEDS, ClaItems.TOMATO, ClaItems.CUT_TOMATO, ClaItems.LETTUCE, ClaItems.CUT_LETTUCE, ClaItems.PATTY, ClaItems.COOKED_PATTY, ClaItems.BURNED_PATTY,
                             ClaItems.CUT_POTATO, ClaItems.FRIES, ClaItems.BURNED_FRIES, ClaItems.CHEESE, ClaItems.CUT_CHEESE, ClaItems.BUNS, ClaItems.FLOUR, ClaItems.FLOUR_PACK, ClaItems.TORTILLA,
                             ClaItems.CUBIC_BEEF, ClaItems.CUBIC_COOKED_BEEF, ClaItems.CUBIC_BURNED_BEEF, ClaItems.CUBIC_CHICKEN, ClaItems.CUBIC_COOKED_CHICKEN, ClaItems.CUBIC_BURNED_CHICKEN,
-                            ClaItems.RICE, ClaItems.COOKED_RICE, ClaItems.BURNED_RICE,
+                            ClaItems.RICE, ClaItems.COOKED_RICE, ClaItems.BURNED_RICE, ClaItems.EMPTY_OIL_BOTTLE, ClaItems.OIL_BOTTLE,
                             ClaItems.PLATE, ClaItems.DIRTY_PLATE, ClaItems.KNIFE, ClaBlocks.CUTTING_BOARD, ClaBlocks.PAN, ClaBlocks.POT, ClaItems.FRYING_SIEVE,
                             ClaBlocks.COOKING_STAND, ClaBlocks.FRYING_STAND, ClaBlocks.STAND, ClaBlocks.WASHING_STAND, ClaBlocks.PLATE_RACK, ClaBlocks.ITEM_BOX, ClaBlocks.TRASH_CAN,
                             ClaItems.ORDER_NOTE

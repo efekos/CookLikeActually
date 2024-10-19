@@ -2,6 +2,7 @@ package dev.efekos.cla.init;
 
 import dev.efekos.cla.Main;
 import dev.efekos.cla.item.KnifeItem;
+import dev.efekos.cla.item.OilBottleItem;
 import dev.efekos.cla.item.OrderNoteItem;
 import dev.efekos.cla.item.PlateItem;
 import net.minecraft.component.type.FoodComponent;
@@ -54,6 +55,8 @@ public class ClaItems {
     public static final Item RICE = register("rice", new Item(new Item.Settings().rarity(Rarity.COMMON).food(new FoodComponent(2, 3, false, 1.5f, Optional.empty(), poison()))));
     public static final Item COOKED_RICE = register("cooked_rice", new Item(new Item.Settings().rarity(Rarity.COMMON).food(rice())));
     public static final Item BURNED_RICE = register("burned_rice", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(rice()))));
+    public static final Item EMPTY_OIL_BOTTLE = register("empty_oil_bottle",new Item(new Item.Settings().rarity(Rarity.COMMON)));
+    public static final OilBottleItem OIL_BOTTLE = register("oil_bottle",new OilBottleItem(new Item.Settings().rarity(Rarity.COMMON).maxCount(1)));
 
     private static @NotNull FoodComponent rice() {
         return new FoodComponent(2, 6, false, 1.5f, Optional.empty(), List.of());
