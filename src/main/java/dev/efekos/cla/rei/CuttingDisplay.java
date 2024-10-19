@@ -25,13 +25,13 @@ public class CuttingDisplay extends BasicDisplay {
                 List.of(EntryIngredient.of(EntryStacks.of(entry.value().getRes()))), entry.value().getCuts());
     }
 
+    public CuttingDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs) {
+        super(inputs, outputs);
+    }
+
     @Override
     public CategoryIdentifier<?> getCategoryIdentifier() {
         return CuttingCategory.ID;
-    }
-
-    public CuttingDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs) {
-        super(inputs, outputs);
     }
 
     @Override

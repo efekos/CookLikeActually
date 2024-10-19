@@ -24,14 +24,14 @@ public class OilBottleItem extends Item {
         World world = context.getWorld();
         BlockPos blockPos = context.getBlockPos();
         BlockEntity entity = world.getBlockEntity(blockPos);
-        if(entity==null)return ActionResult.PASS;
-        if(!(entity instanceof FryingStandBlockEntity stand)) return ActionResult.PASS;
-        if(stand.getOilCleanness()>50) return ActionResult.PASS;
+        if (entity == null) return ActionResult.PASS;
+        if (!(entity instanceof FryingStandBlockEntity stand)) return ActionResult.PASS;
+        if (stand.getOilCleanness() > 50) return ActionResult.PASS;
         stand.setOilCleanness(100);
         stand.markDirty();
         PlayerEntity player = context.getPlayer();
         Hand hand = context.getHand();
-        world.playSound(player,blockPos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS);
+        world.playSound(player, blockPos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS);
         player.setStackInHand(hand, ClaItems.EMPTY_OIL_BOTTLE.getDefaultStack());
         return ActionResult.success(true);
     }

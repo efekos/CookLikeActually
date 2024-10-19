@@ -34,6 +34,8 @@ import java.awt.*;
 @Environment(EnvType.CLIENT)
 public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<FryingStandBlockEntity> {
 
+    private static final Color cleanOil = new Color(0xf2b118);
+    private static final Color badOil = new Color(0x4f3404);
     private final ItemRenderer itemRenderer;
     private final BlockEntityRenderDispatcher renderDispatcher;
 
@@ -50,6 +52,36 @@ public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<Fryin
         return -camera.getPitch();
     }
 
+    public static int provideItemColor(ItemStack itemStack, int i) {
+        return getOilColor(itemStack.getOrDefault(ClaComponentTypes.OIL_CLEANNESS, 100) / 100d).getRGB();
+    }
+
+    public static int provideBlockColor(BlockState blockState, BlockRenderView blockRenderView, BlockPos blockPos, int i) {
+        if (blockState == null) return 0xf2b118;
+        BlockEntity entity = blockRenderView.getBlockEntity(blockPos);
+        if (!(entity instanceof FryingStandBlockEntity stand)) return 0xf2b118;
+
+        double ratio = stand.getOilCleanness() / 100d;
+
+        Color color = getOilColor(ratio);
+        return color.getRGB();
+    }
+
+    private static @NotNull Color getOilColor(double ratio) {
+        int initialRed = badOil.getRed();
+        int targetRed = cleanOil.getRed();
+        int initialGreen = badOil.getGreen();
+        int targetGreen = cleanOil.getGreen();
+        int initialBlue = badOil.getBlue();
+        int targetBlue = cleanOil.getBlue();
+
+        int red = MathHelper.clamp((int) (initialRed * (1 - ratio) + targetRed * ratio), 0, 255);
+        int green = MathHelper.clamp((int) (initialGreen * (1 - ratio) + targetGreen * ratio), 0, 255);
+        int blue = MathHelper.clamp((int) (initialBlue * (1 - ratio) + targetBlue * ratio), 0, 255);
+
+        return new Color(red, green, blue);
+    }
+
     @Override
     public void render(FryingStandBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         World world = entity.getWorld();
@@ -61,7 +93,7 @@ public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<Fryin
         matrices.push();
         matrices.translate(0, 0, 0);
         matrices.scale(1f, 1f, 1f);
-        manager.renderBlock(state,pos,world,matrices,vertexConsumers.getBuffer(RenderLayer.getCutout()),true,world.getRandom());
+        manager.renderBlock(state, pos, world, matrices, vertexConsumers.getBuffer(RenderLayer.getCutout()), true, world.getRandom());
         matrices.pop();
 
         if (entity.hasItem()) {
@@ -98,40 +130,6 @@ public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<Fryin
 
     private int getLightLevel(World world, BlockPos pos) {
         return LightmapTextureManager.pack(world.getLightLevel(LightType.BLOCK, pos), world.getLightLevel(LightType.SKY, pos));
-    }
-
-
-    public static int provideItemColor(ItemStack itemStack, int i) {
-        return getOilColor(itemStack.getOrDefault(ClaComponentTypes.OIL_CLEANNESS,100)/100d).getRGB();
-    }
-
-    private static final Color cleanOil = new Color(0xf2b118);
-    private static final Color badOil = new Color(0x4f3404);
-
-    public static int provideBlockColor(BlockState blockState, BlockRenderView blockRenderView, BlockPos blockPos, int i) {
-        if(blockState==null) return 0xf2b118;
-        BlockEntity entity = blockRenderView.getBlockEntity(blockPos);
-        if (!(entity instanceof FryingStandBlockEntity stand)) return 0xf2b118;
-
-        double ratio = stand.getOilCleanness() / 100d;
-
-        Color color = getOilColor(ratio);
-        return color.getRGB();
-    }
-
-    private static @NotNull Color getOilColor(double ratio) {
-        int initialRed = badOil.getRed();
-        int targetRed = cleanOil.getRed();
-        int initialGreen = badOil.getGreen();
-        int targetGreen = cleanOil.getGreen();
-        int initialBlue = badOil.getBlue();
-        int targetBlue = cleanOil.getBlue();
-
-        int red = MathHelper.clamp((int)(initialRed *(1- ratio) + targetRed * ratio),0,255);
-        int green = MathHelper.clamp((int)(initialGreen*(1- ratio) + targetGreen* ratio),0,255);
-        int blue = MathHelper.clamp((int)(initialBlue*(1- ratio) + targetBlue* ratio),0,255);
-
-        return new Color(red, green, blue);
     }
 
 

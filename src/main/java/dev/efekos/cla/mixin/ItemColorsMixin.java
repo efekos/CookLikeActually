@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ItemColors.class)
 public class ItemColorsMixin {
 
-    @Inject(method = "create",at = @At("TAIL"))
-    private static void create(BlockColors blockColors, CallbackInfoReturnable<ItemColors> cir){
+    @Inject(method = "create", at = @At("TAIL"))
+    private static void create(BlockColors blockColors, CallbackInfoReturnable<ItemColors> cir) {
         ItemColors value = cir.getReturnValue();
 
         value.register(FryingStandBlockEntityRenderer::provideItemColor, ClaBlocks.FRYING_STAND);

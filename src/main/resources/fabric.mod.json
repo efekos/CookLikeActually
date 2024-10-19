@@ -4,7 +4,9 @@
   "version": "${version}",
   "name": "CookLikeActually",
   "description": "Cook, like actually, as if Minecraft was a cooking game.",
-  "authors": ["efekos"],
+  "authors": [
+    "efekos"
+  ],
   "contact": {},
   "license": "MIT",
   "icon": "assets/cla/icon.png",

@@ -13,19 +13,17 @@ import java.util.List;
 
 public class KnifeWidget extends Widget {
 
+    public static final Identifier KNIFE_TEXTURE = Identifier.of(Main.MOD_ID, "knife");
+    public static final Identifier KNIFE_FULL = Identifier.of(Main.MOD_ID, "knife_full");
     private final Point point;
     private int maxCuts = 0;
+    private final NumberAnimator<Integer> cutAnimator = ValueAnimator.ofInt()
+            .withConvention(() -> maxCuts, 5000)
+            .asInt();
 
     public KnifeWidget(Point point) {
         this.point = point;
     }
-
-    public static final Identifier KNIFE_TEXTURE = Identifier.of(Main.MOD_ID, "knife");
-    public static final Identifier KNIFE_FULL = Identifier.of(Main.MOD_ID, "knife_full");
-
-    private final NumberAnimator<Integer> cutAnimator = ValueAnimator.ofInt()
-            .withConvention(() -> maxCuts, 5000)
-            .asInt();
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {

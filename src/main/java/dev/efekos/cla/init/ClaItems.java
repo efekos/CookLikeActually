@@ -55,13 +55,8 @@ public class ClaItems {
     public static final Item RICE = register("rice", new Item(new Item.Settings().rarity(Rarity.COMMON).food(new FoodComponent(2, 3, false, 1.5f, Optional.empty(), poison()))));
     public static final Item COOKED_RICE = register("cooked_rice", new Item(new Item.Settings().rarity(Rarity.COMMON).food(rice())));
     public static final Item BURNED_RICE = register("burned_rice", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(rice()))));
-    public static final Item EMPTY_OIL_BOTTLE = register("empty_oil_bottle",new Item(new Item.Settings().rarity(Rarity.COMMON)));
-    public static final OilBottleItem OIL_BOTTLE = register("oil_bottle",new OilBottleItem(new Item.Settings().rarity(Rarity.COMMON).maxCount(1)));
-
-    private static @NotNull FoodComponent rice() {
-        return new FoodComponent(2, 6, false, 1.5f, Optional.empty(), List.of());
-    }
-
+    public static final Item EMPTY_OIL_BOTTLE = register("empty_oil_bottle", new Item(new Item.Settings().rarity(Rarity.COMMON)));
+    public static final OilBottleItem OIL_BOTTLE = register("oil_bottle", new OilBottleItem(new Item.Settings().rarity(Rarity.COMMON).maxCount(1)));
     public static final Item BURNED_BEEF = register("burned_beef", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_BEEF))));
     public static final Item BURNED_CHICKEN = register("burned_chicken", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_CHICKEN))));
     public static final Item BURNED_MUTTON = register("burned_mutton", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_MUTTON))));
@@ -69,6 +64,10 @@ public class ClaItems {
     public static final Item BURNED_COD = register("burned_cod", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_COD))));
     public static final Item BURNED_RABBIT = register("burned_rabbit", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_RABBIT))));
     public static final Item BURNED_PORKCHOP = register("burned_porkchop", new Item(new Item.Settings().rarity(Rarity.COMMON).food(burn(FoodComponents.COOKED_PORKCHOP))));
+
+    private static @NotNull FoodComponent rice() {
+        return new FoodComponent(2, 6, false, 1.5f, Optional.empty(), List.of());
+    }
 
     private static FoodComponent burn(FoodComponent component) {
         return new FoodComponent(0, Math.max(0.25f, component.saturation() / 4f), component.canAlwaysEat(), component.eatSeconds() / 2f, Optional.empty(), poison());

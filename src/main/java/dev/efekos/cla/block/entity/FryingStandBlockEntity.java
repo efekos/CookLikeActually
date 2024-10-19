@@ -59,7 +59,7 @@ public class FryingStandBlockEntity extends BlockEntityWithOneItem implements Sy
                 }
                 setTicks(0);
                 setItem(recipe.getRes());
-                setOilCleanness(getOilCleanness()-(int)(Math.random()*10));
+                setOilCleanness(getOilCleanness() - (int) (Math.random() * 10));
             }
             markDirty();
         } else if (getTicks() != 0) setTicks(0);
@@ -74,7 +74,7 @@ public class FryingStandBlockEntity extends BlockEntityWithOneItem implements Sy
     }
 
     public void setOilCleanness(int oilCleanness) {
-        this.oilCleanness = MathHelper.clamp(oilCleanness,0,100);
+        this.oilCleanness = MathHelper.clamp(oilCleanness, 0, 100);
     }
 
     public int getTicks() {
@@ -89,28 +89,28 @@ public class FryingStandBlockEntity extends BlockEntityWithOneItem implements Sy
     protected void addComponents(ComponentMap.Builder componentMapBuilder) {
         super.addComponents(componentMapBuilder);
         componentMapBuilder.add(ClaComponentTypes.TICKS, ticks);
-        componentMapBuilder.add(ClaComponentTypes.OIL_CLEANNESS,oilCleanness);
+        componentMapBuilder.add(ClaComponentTypes.OIL_CLEANNESS, oilCleanness);
     }
 
     @Override
     protected void readComponents(ComponentsAccess components) {
         super.readComponents(components);
         ticks = components.getOrDefault(ClaComponentTypes.TICKS, 0);
-        oilCleanness = MathHelper.clamp(components.getOrDefault(ClaComponentTypes.OIL_CLEANNESS,100),0,100);
+        oilCleanness = MathHelper.clamp(components.getOrDefault(ClaComponentTypes.OIL_CLEANNESS, 100), 0, 100);
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
         nbt.putInt("Ticks", ticks);
-        nbt.putInt("OilCleanness",oilCleanness);
+        nbt.putInt("OilCleanness", oilCleanness);
     }
 
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
         ticks = nbt.getInt("Ticks");
-        oilCleanness = nbt.contains("OilCleanness", NbtElement.INT_TYPE)?MathHelper.clamp(nbt.getInt("OilCleanness"),0,100):100;
+        oilCleanness = nbt.contains("OilCleanness", NbtElement.INT_TYPE) ? MathHelper.clamp(nbt.getInt("OilCleanness"), 0, 100) : 100;
     }
 
     @Override
