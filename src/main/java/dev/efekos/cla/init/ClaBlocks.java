@@ -9,6 +9,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
 public class ClaBlocks {
@@ -27,6 +28,22 @@ public class ClaBlocks {
     public static final Block COOKING_STAND = register("cooking_stand", new Block(STAND_BLOCK_SETTINGS));
     public static final Block FRYING_STAND = register("frying_stand", new FryingStandBlock(STAND_BLOCK_SETTINGS.nonOpaque()));
     public static final Block STAND = register("stand", new Block(STAND_BLOCK_SETTINGS));
+    public static final Block WHITE_STAND = register("white_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.WHITE)));
+    public static final Block LIGHT_GRAY_STAND = register("light_gray_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.LIGHT_GRAY)));
+    public static final Block GRAY_STAND = register("gray_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.GRAY)));
+    public static final Block BLACK_STAND = register("black_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.BLACK)));
+    public static final Block BROWN_STAND = register("brown_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.BROWN)));
+    public static final Block RED_STAND = register("red_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.RED)));
+    public static final Block ORANGE_STAND = register("orange_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.ORANGE)));
+    public static final Block YELLOW_STAND = register("yellow_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.YELLOW)));
+    public static final Block GREEN_STAND = register("green_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.GREEN)));
+    public static final Block LIME_STAND = register("lime_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.LIME)));
+    public static final Block CYAN_STAND = register("cyan_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.CYAN)));
+    public static final Block LIGHT_BLUE_STAND = register("light_blue_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.LIGHT_BLUE)));
+    public static final Block BLUE_STAND = register("light_blue_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.BLUE)));
+    public static final Block PURPLE_STAND = register("purple_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.PURPLE)));
+    public static final Block MAGENTA_STAND = register("magenta_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.MAGENTA)));
+    public static final Block PINK_STAND = register("pink_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.PINK)));
     public static final Block WASHING_STAND = register("washing_stand", new WashingStandBlock(STAND_BLOCK_SETTINGS.nonOpaque()));
 
     public static void run() {
