@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AA",
+    "BB"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:yellow_wool"
+    },
+    "B": {
+      "item": "minecraft:cobblestone"
+    }
+  },
+  "result": {
+    "id": "cla:yellow_stand",
+    "count": 1
+  }
+}

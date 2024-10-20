@@ -1,0 +1,21 @@
+{
+  "values": [
+    "cla:stand",
+    "cla:white_stand",
+    "cla:light_gray_stand",
+    "cla:gray_stand",
+    "cla:black_stand",
+    "cla:brown_stand",
+    "cla:red_stand",
+    "cla:orange_stand",
+    "cla:yellow_stand",
+    "cla:lime_stand",
+    "cla:green_stand",
+    "cla:cyan_stand",
+    "cla:light_blue_stand",
+    "cla:blue_stand",
+    "cla:purple_stand",
+    "cla:magenta_stand",
+    "cla:pink_stand"
+  ]
+}

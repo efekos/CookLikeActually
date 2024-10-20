@@ -6,14 +6,14 @@
   ],
   "key": {
     "A": {
-      "tag": "minecraft:wool"
+      "item": "minecraft:black_wool"
     },
     "B": {
       "item": "minecraft:cobblestone"
     }
   },
   "result": {
-    "id": "cla:stand",
+    "id": "cla:black_stand",
     "count": 1
   }
 }
