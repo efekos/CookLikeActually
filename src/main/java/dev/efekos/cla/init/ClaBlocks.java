@@ -40,7 +40,7 @@ public class ClaBlocks {
     public static final Block LIME_STAND = register("lime_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.LIME)));
     public static final Block CYAN_STAND = register("cyan_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.CYAN)));
     public static final Block LIGHT_BLUE_STAND = register("light_blue_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.LIGHT_BLUE)));
-    public static final Block BLUE_STAND = register("light_blue_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.BLUE)));
+    public static final Block BLUE_STAND = register("blue_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.BLUE)));
     public static final Block PURPLE_STAND = register("purple_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.PURPLE)));
     public static final Block MAGENTA_STAND = register("magenta_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.MAGENTA)));
     public static final Block PINK_STAND = register("pink_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.PINK)));
