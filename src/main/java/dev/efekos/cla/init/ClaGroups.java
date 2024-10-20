@@ -29,20 +29,22 @@ public class ClaGroups {
                             ClaItems.PLATE, ClaItems.DIRTY_PLATE, ClaItems.KNIFE, ClaBlocks.CUTTING_BOARD, ClaBlocks.PAN, ClaBlocks.POT, ClaItems.FRYING_SIEVE,
                             ClaBlocks.COOKING_STAND, ClaBlocks.FRYING_STAND, ClaBlocks.STAND, ClaBlocks.WASHING_STAND, ClaBlocks.PLATE_RACK, ClaBlocks.ITEM_BOX, ClaBlocks.TRASH_CAN,
                             ClaItems.ORDER_NOTE
-                    )) entries.add(item);
+                    ))
+                        entries.add(item);
                 }).build());
 
-        Registry.register(Registries.ITEM_GROUP, Identifier.of(Main.MOD_ID,"colorful_stands"), new ItemGroup.Builder(ItemGroup.Row.TOP,3)
-                        .displayName(Text.translatable("itemGroup.cla.colorful_stands")).icon(ClaBlocks.WHITE_STAND.asItem()::getDefaultStack)
-                        .entries((displayContext, entries) -> {
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(Main.MOD_ID, "colorful_stands"), new ItemGroup.Builder(ItemGroup.Row.TOP, 3)
+                .displayName(Text.translatable("itemGroup.cla.colorful_stands")).icon(ClaBlocks.WHITE_STAND.asItem()::getDefaultStack)
+                .entries((displayContext, entries) -> {
 
-                            for(ItemConvertible i : List.of(
-                                    ClaBlocks.WHITE_STAND,ClaBlocks.LIGHT_GRAY_STAND,ClaBlocks.GRAY_STAND,ClaBlocks.BLACK_STAND,ClaBlocks.BROWN_STAND,ClaBlocks.RED_STAND,ClaBlocks.ORANGE_STAND,
-                                    ClaBlocks.YELLOW_STAND,ClaBlocks.LIME_STAND,ClaBlocks.GREEN_STAND,ClaBlocks.CYAN_STAND,ClaBlocks.LIGHT_BLUE_STAND,ClaBlocks.BLUE_STAND,ClaBlocks.PURPLE_STAND,
-                                    ClaBlocks.MAGENTA_STAND,ClaBlocks.PINK_STAND
-                            )) entries.add(i);
+                    for (ItemConvertible i : List.of(
+                            ClaBlocks.WHITE_STAND, ClaBlocks.LIGHT_GRAY_STAND, ClaBlocks.GRAY_STAND, ClaBlocks.BLACK_STAND, ClaBlocks.BROWN_STAND, ClaBlocks.RED_STAND, ClaBlocks.ORANGE_STAND,
+                            ClaBlocks.YELLOW_STAND, ClaBlocks.LIME_STAND, ClaBlocks.GREEN_STAND, ClaBlocks.CYAN_STAND, ClaBlocks.LIGHT_BLUE_STAND, ClaBlocks.BLUE_STAND, ClaBlocks.PURPLE_STAND,
+                            ClaBlocks.MAGENTA_STAND, ClaBlocks.PINK_STAND
+                    ))
+                        entries.add(i);
 
-                        })
+                })
                 .build()
         );
 

@@ -16,14 +16,13 @@ public class MinecraftClientMixin implements IMinecraftClientMixin {
 
     @Unique
     private ProgressBarRenderer progressBarRenderer;
+    @Unique
+    private BillboardTextureRenderer billboardTextureRenderer;
 
     @Unique
     public ProgressBarRenderer cla$getProgressBarRenderer() {
         return progressBarRenderer;
     }
-
-    @Unique
-    private BillboardTextureRenderer billboardTextureRenderer;
 
     @Unique
     public BillboardTextureRenderer cla$getBillboardTextureRenderer() {

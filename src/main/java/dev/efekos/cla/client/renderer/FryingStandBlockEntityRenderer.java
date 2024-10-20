@@ -1,6 +1,5 @@
 package dev.efekos.cla.client.renderer;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import dev.efekos.cla.block.entity.FryingStandBlockEntity;
 import dev.efekos.cla.client.renderer.bar.ProgressBarRenderer;
 import dev.efekos.cla.init.ClaComponentTypes;
@@ -21,7 +20,6 @@ import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
@@ -36,11 +34,11 @@ import java.awt.*;
 @Environment(EnvType.CLIENT)
 public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<FryingStandBlockEntity> {
 
+    public static final SignTextures USED_OIL_SIGN = new SignTextures("oil", "oil_urgent");
     private static final Color cleanOil = new Color(0xf2b118);
     private static final Color badOil = new Color(0x4f3404);
     private final ItemRenderer itemRenderer;
     private final BlockEntityRenderDispatcher renderDispatcher;
-    public static final SignTextures USED_OIL_SIGN = new SignTextures("oil","oil_urgent");
 
     public FryingStandBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
         this.itemRenderer = ctx.getItemRenderer();
@@ -131,13 +129,13 @@ public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<Fryin
         }
 
         //warnings
-        if(entity.getOilCleanness()<=50){
+        if (entity.getOilCleanness() <= 50) {
             matrices.push();
             matrices.translate(0.5f, 1.45f, 0.5f);
             matrices.scale(.4f, .4f, .4f);
             Camera camera = this.renderDispatcher.camera;
-            matrices.multiply(new Quaternionf().rotationYXZ(3.1415927F - camera.getYaw() * 0.017453292F, -camera.getPitch() * 0.017453292F,0f));
-            BillboardTextureRenderer.getInstanceFromClient().render(matrices,USED_OIL_SIGN.get(entity.getOilCleanness()<=10),lightLevel);
+            matrices.multiply(new Quaternionf().rotationYXZ(3.1415927F - camera.getYaw() * 0.017453292F, -camera.getPitch() * 0.017453292F, 0f));
+            BillboardTextureRenderer.getInstanceFromClient().render(matrices, USED_OIL_SIGN.get(entity.getOilCleanness() <= 10), lightLevel);
             matrices.pop();
         }
     }

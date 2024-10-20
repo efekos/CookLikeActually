@@ -11,9 +11,9 @@ import org.lwjgl.opengl.GL11;
 
 public class BillboardTextureRenderer {
 
-    public static BillboardTextureRenderer getInstanceFromClient(){
+    public static BillboardTextureRenderer getInstanceFromClient() {
         MinecraftClient client = MinecraftClient.getInstance();
-        if(client==null)return null;
+        if (client == null) return null;
         IMinecraftClientMixin clientMixin = (IMinecraftClientMixin) client;
         return clientMixin.cla$getBillboardTextureRenderer();
     }
