@@ -6,7 +6,7 @@
     "south": "cla:block/light_blue_stand_side",
     "east": "cla:block/light_blue_stand_side",
     "west": "cla:block/light_blue_stand_side",
-    "down": "cla:block/cooking_stand_bottom",
+    "down": "cla:block/stand_bottom",
     "up": "cla:block/light_blue_stand_top"
   }
 }

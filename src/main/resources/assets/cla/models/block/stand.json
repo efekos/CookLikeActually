@@ -1,12 +1,12 @@
 {
   "parent": "block/cube",
   "textures": {
-    "particle": "cla:block/cooking_stand_side",
-    "north": "cla:block/cooking_stand_side",
-    "south": "cla:block/cooking_stand_side",
-    "east": "cla:block/cooking_stand_side",
-    "west": "cla:block/cooking_stand_side",
-    "down": "cla:block/cooking_stand_bottom",
+    "particle": "cla:block/stand_side",
+    "north": "cla:block/stand_side",
+    "south": "cla:block/stand_side",
+    "east": "cla:block/stand_side",
+    "west": "cla:block/stand_side",
+    "down": "cla:block/stand_bottom",
     "up": "cla:block/stand_top"
   }
 }
