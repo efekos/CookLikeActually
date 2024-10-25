@@ -1,7 +1,7 @@
 {
   "parent": "block/cube",
   "textures": {
-    "particle": "cla:block/cooking_stand_side",
+    "particle": "cla:block/stand_side",
     "north": "cla:block/stand_side",
     "south": "cla:block/stand_side",
     "east": "cla:block/stand_side",

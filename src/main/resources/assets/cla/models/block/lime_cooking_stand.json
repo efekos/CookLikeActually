@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "particle": "cla:block/lime_stand_side",
+        "north": "cla:block/lime_stand_side",
+        "south": "cla:block/lime_stand_side",
+        "east": "cla:block/lime_stand_side",
+        "west": "cla:block/lime_stand_side",
+        "down": "cla:block/stand_bottom",
+        "up": "cla:block/lime_cooking_stand_top"
+    }
+}
