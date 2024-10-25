@@ -1,11 +1,10 @@
 {
-  "credit": "Made with Blockbench",
   "parent": "block/block",
   "textures": {
-    "0": "cla:block/cooking_stand_bottom",
-    "1": "cla:block/cooking_stand_side",
+    "0": "cla:block/stand_bottom",
+    "1": "cla:block/stand_side",
     "2": "cla:block/stand_top",
-    "particle": "cla:block/cooking_stand_bottom"
+    "particle": "cla:block/stand_bottom"
   },
   "elements": [
     {
