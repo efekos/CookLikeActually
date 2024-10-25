@@ -7,7 +7,7 @@
   ],
   "key": {
     "A": {
-      "item": "minecraft:white_carpet"
+      "item": "minecraft:red_wool"
     },
     "B": {
       "item": "minecraft:cobblestone"
@@ -17,7 +17,7 @@
     }
   },
   "result": {
-    "id": "cla:cooking_stand",
+    "id": "cla:red_cooking_stand",
     "count": 1
   }
 }

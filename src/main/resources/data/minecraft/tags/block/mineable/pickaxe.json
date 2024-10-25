@@ -1,10 +1,10 @@
 {
   "values": [
     "cla:frying_stand",
-    "cla:cooking_stand",
     "cla:pan",
     "cla:washing_stand",
-    "#cla:stands"
+    "#cla:stands",
+    "#cla:cooking_stands"
   ],
   "replace": false
 }
