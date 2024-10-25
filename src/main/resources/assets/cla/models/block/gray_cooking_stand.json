@@ -1,12 +1,12 @@
 {
-    "parent": "block/cube",
-    "textures": {
-        "particle": "cla:block/gray_stand_side",
-        "north": "cla:block/gray_stand_side",
-        "south": "cla:block/gray_stand_side",
-        "east": "cla:block/gray_stand_side",
-        "west": "cla:block/gray_stand_side",
-        "down": "cla:block/stand_bottom",
-        "up": "cla:block/gray_cooking_stand_top"
-    }
+  "parent": "block/cube",
+  "textures": {
+    "particle": "cla:block/gray_stand_side",
+    "north": "cla:block/gray_stand_side",
+    "south": "cla:block/gray_stand_side",
+    "east": "cla:block/gray_stand_side",
+    "west": "cla:block/gray_stand_side",
+    "down": "cla:block/stand_bottom",
+    "up": "cla:block/gray_cooking_stand_top"
+  }
 }

@@ -1,7 +1,7 @@
 {
-    "variants": {
-        "": {
-            "model": "cla:block/green_cooking_stand"
-        }
+  "variants": {
+    "": {
+      "model": "cla:block/green_cooking_stand"
     }
+  }
 }
