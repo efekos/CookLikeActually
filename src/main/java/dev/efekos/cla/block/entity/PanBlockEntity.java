@@ -1,9 +1,6 @@
 package dev.efekos.cla.block.entity;
 
-import dev.efekos.cla.init.ClaBlockEntityTypes;
-import dev.efekos.cla.init.ClaBlocks;
-import dev.efekos.cla.init.ClaComponentTypes;
-import dev.efekos.cla.init.ClaSoundEvents;
+import dev.efekos.cla.init.*;
 import dev.efekos.cla.packet.PanSyncS2C;
 import dev.efekos.cla.recipe.PanningRecipe;
 import net.minecraft.block.BlockState;
@@ -47,7 +44,7 @@ public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBl
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
-        if (hasRecipe(world) && world.getBlockState(pos.down()).isOf(ClaBlocks.COOKING_STAND)) {
+        if (hasRecipe(world) && world.getBlockState(pos.down()).isIn(ClaTags.COOKING_STANDS)) {
             ticks++;
             world.playSound(pos.getX(), pos.getY(), pos.getZ(), ClaSoundEvents.PAN_COOKING, SoundCategory.BLOCKS, 1f, 1f, true);
             PanningRecipe recipe = getRecipe(world);
