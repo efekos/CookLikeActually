@@ -46,6 +46,24 @@ public class ClaBlocks {
     public static final Block PINK_STAND = register("pink_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.PINK)));
     public static final Block WASHING_STAND = register("washing_stand", new WashingStandBlock(STAND_BLOCK_SETTINGS.nonOpaque()));
 
+    public static final Block WHITE_COOKING_STAND = register("white_cooking_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.WHITE)));
+    public static final Block LIGHT_GRAY_COOKING_STAND = register("light_gray_cooking_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.LIGHT_GRAY)));
+    public static final Block GRAY_COOKING_STAND = register("gray_cooking_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.GRAY)));
+    public static final Block BLACK_COOKING_STAND = register("black_cooking_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.BLACK)));
+    public static final Block BROWN_COOKING_STAND = register("brown_cooking_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.BROWN)));
+    public static final Block RED_COOKING_STAND = register("red_cooking_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.RED)));
+    public static final Block ORANGE_COOKING_STAND = register("orange_cooking_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.ORANGE)));
+    public static final Block YELLOW_COOKING_STAND = register("yellow_cooking_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.YELLOW)));
+    public static final Block GREEN_COOKING_STAND = register("green_cooking_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.GREEN)));
+    public static final Block LIME_COOKING_STAND = register("lime_cooking_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.LIME)));
+    public static final Block CYAN_COOKING_STAND = register("cyan_cooking_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.CYAN)));
+    public static final Block LIGHT_BLUE_COOKING_STAND = register("light_blue_cooking_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.LIGHT_BLUE)));
+    public static final Block BLUE_COOKING_STAND = register("blue_cooking_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.BLUE)));
+    public static final Block PURPLE_COOKING_STAND = register("purple_cooking_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.PURPLE)));
+    public static final Block MAGENTA_COOKING_STAND = register("magenta_cooking_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.MAGENTA)));
+    public static final Block PINK_COOKING_STAND = register("pink_cooking_stand", new Block(STAND_BLOCK_SETTINGS.mapColor(DyeColor.PINK)));
+
+
     public static void run() {
 
     }

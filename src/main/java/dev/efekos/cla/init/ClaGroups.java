@@ -40,7 +40,11 @@ public class ClaGroups {
                     for (ItemConvertible i : List.of(
                             ClaBlocks.WHITE_STAND, ClaBlocks.LIGHT_GRAY_STAND, ClaBlocks.GRAY_STAND, ClaBlocks.BLACK_STAND, ClaBlocks.BROWN_STAND, ClaBlocks.RED_STAND, ClaBlocks.ORANGE_STAND,
                             ClaBlocks.YELLOW_STAND, ClaBlocks.LIME_STAND, ClaBlocks.GREEN_STAND, ClaBlocks.CYAN_STAND, ClaBlocks.LIGHT_BLUE_STAND, ClaBlocks.BLUE_STAND, ClaBlocks.PURPLE_STAND,
-                            ClaBlocks.MAGENTA_STAND, ClaBlocks.PINK_STAND
+                            ClaBlocks.MAGENTA_STAND, ClaBlocks.PINK_STAND,
+                            ClaBlocks.WHITE_COOKING_STAND, ClaBlocks.LIGHT_GRAY_COOKING_STAND, ClaBlocks.GRAY_COOKING_STAND, ClaBlocks.BLACK_COOKING_STAND, ClaBlocks.BROWN_COOKING_STAND,
+                            ClaBlocks.RED_COOKING_STAND, ClaBlocks.ORANGE_COOKING_STAND, ClaBlocks.YELLOW_COOKING_STAND, ClaBlocks.LIME_COOKING_STAND, ClaBlocks.GREEN_COOKING_STAND,
+                            ClaBlocks.CYAN_COOKING_STAND, ClaBlocks.LIGHT_BLUE_COOKING_STAND, ClaBlocks.BLUE_COOKING_STAND, ClaBlocks.PURPLE_COOKING_STAND, ClaBlocks.MAGENTA_COOKING_STAND,
+                            ClaBlocks.PINK_COOKING_STAND
                     ))
                         entries.add(i);
 
