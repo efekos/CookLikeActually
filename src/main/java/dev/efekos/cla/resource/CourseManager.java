@@ -1,38 +1,39 @@
 package dev.efekos.cla.resource;
 
-import com.google.gson.*;
-import com.mojang.logging.LogUtils;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.JsonOps;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.efekos.cla.Main;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.registry.RegistryOps;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
+import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.profiler.Profiler;
-import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
 
 import java.util.*;
 
-public class CourseManager extends JsonDataLoader implements IdentifiableResourceReloadListener {
+public class CourseManager extends JsonDataLoader<Course> implements IdentifiableResourceReloadListener {
 
     public static final Identifier ID = Identifier.of(Main.MOD_ID, "course");
 
-    private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
-    private static final Logger log = LogUtils.getLogger();
     private static CourseManager instance;
-    private final RegistryWrapper.WrapperLookup wrapperLookup;
     private final Map<Identifier, Course> courses = new HashMap<>();
 
-    public CourseManager(RegistryWrapper.WrapperLookup wrapperLookup) {
-        super(GSON, "course");
-        this.wrapperLookup = wrapperLookup;
+    public static final MapCodec<Course> CODEC = RecordCodecBuilder.mapCodec(i->i.group(
+            Identifier.CODEC.fieldOf("model").forGetter(Course::modelId),
+            Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(Course::ingredients),
+            Codecs.NON_NEGATIVE_INT.fieldOf("nutrition").forGetter(Course::nutrition),
+            Codecs.NON_NEGATIVE_INT.fieldOf("saturation").forGetter(Course::saturation),
+            Codec.STRING.optionalFieldOf("key").forGetter(course -> Optional.of(course.translationKey())),
+            Ingredient.CODEC.listOf().fieldOf("transformers").forGetter(Course::transformers)
+    ).apply(i, (mid, ingredients, nutrition, saturation, key, transformers) -> new Course(null,mid,ingredients,nutrition,saturation,key.orElse(null),transformers)));
+
+    public CourseManager(RegistryWrapper.WrapperLookup registries, Codec<Course> codec, String dataType) {
+        super(registries, codec, dataType);
         instance = this;
     }
 
@@ -40,51 +41,20 @@ public class CourseManager extends JsonDataLoader implements IdentifiableResourc
         return instance;
     }
 
-    private static @NotNull List<Ingredient> readArray(Identifier identifier, JsonObject root, RegistryOps<JsonElement> ops, String key) {
-        List<Ingredient> transformers = new ArrayList<>();
-
-        for (JsonElement element : JsonHelper.getArray(root, key)) {
-            DataResult<Ingredient> parse = Ingredient.DISALLOW_EMPTY_CODEC.parse(ops, element);
-            if (parse.isError())
-                log.error("Could not parse course: '{}'.", identifier, new JsonParseException(parse.error().orElseThrow().message()));
-            else transformers.add(parse.getOrThrow());
-        }
-        return transformers;
+    @Override
+    protected void apply(Map<Identifier, Course> prepared, ResourceManager manager, Profiler profiler) {
+        prepared.forEach((identifier, course) ->
+            courses.put(identifier,course.copyWithId(identifier).copyWithTranslationKey(course.translationKey()==null?createTranslationKey(identifier):course.translationKey()))
+        );
     }
 
-    private static @NotNull String createTranslationKey(Identifier identifier) {
-        return "course." + identifier.getNamespace() + "." + identifier.getPath();
+    private String createTranslationKey(Identifier identifier) {
+        return "course."+identifier.getNamespace()+"."+identifier.getPath();
     }
 
     @Override
     public Identifier getFabricId() {
         return ID;
-    }
-
-    @Override
-    protected void apply(Map<Identifier, JsonElement> prepared, ResourceManager manager, Profiler profiler) {
-        this.courses.clear();
-        prepared.forEach((identifier, jsonElement) -> {
-            try {
-                readCourse(identifier, jsonElement);
-            } catch (IllegalArgumentException | JsonParseException e) {
-                log.error("Could not read course '{}'.", identifier, e);
-            }
-        });
-    }
-
-    private void readCourse(Identifier identifier, JsonElement jsonElement) {
-        if (!jsonElement.isJsonObject())
-            throw new JsonSyntaxException("Expected course '" + identifier + "' to be an object.");
-        JsonObject root = jsonElement.getAsJsonObject();
-
-        String model = JsonHelper.getString(root, "model");
-        int nutrition = JsonHelper.getInt(root, "nutrition");
-        int saturation = JsonHelper.getInt(root, "saturation");
-        float eat_seconds = JsonHelper.getFloat(root, "eat_seconds");
-
-        RegistryOps<JsonElement> ops = this.wrapperLookup.getOps(JsonOps.INSTANCE);
-        courses.put(identifier, new Course(identifier, Identifier.tryParse(model), readArray(identifier, root, ops, "ingredients"), nutrition, saturation, eat_seconds, root.has("key") ? root.get("key").getAsString() : createTranslationKey(identifier), root.has("transformers") ? readArray(identifier, root, ops, "transformers") : new ArrayList<>()));
     }
 
     public Optional<Course> getCourse(Identifier id) {
@@ -108,8 +78,8 @@ public class CourseManager extends JsonDataLoader implements IdentifiableResourc
         return IdentifiableResourceReloadListener.super.getFabricDependencies();
     }
 
-
     public Collection<Course> all() {
         return courses.values();
     }
+
 }

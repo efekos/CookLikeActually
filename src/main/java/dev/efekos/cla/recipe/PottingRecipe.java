@@ -8,9 +8,8 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.particle.SimpleParticleType;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.*;
+import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.dynamic.Codecs;
@@ -72,23 +71,28 @@ public class PottingRecipe implements RecipeWithArrowProgress<SingleStackRecipeI
     }
 
     @Override
-    public boolean fits(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registriesLookup) {
-        return result;
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<SingleStackRecipeInput>> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<SingleStackRecipeInput>> getType() {
         return Type.INSTANCE;
+    }
+
+    @Override
+    public IngredientPlacement getIngredientPlacement() {
+        return IngredientPlacement.NONE;
+    }
+
+    @Override
+    public RecipeBookCategory getRecipeBookCategory() {
+        return null;
+    }
+
+    @Override
+    public boolean isIgnoredInRecipeBook() {
+        return true;
     }
 
     public static final class Serializer implements RecipeSerializer<PottingRecipe> {
@@ -96,7 +100,7 @@ public class PottingRecipe implements RecipeWithArrowProgress<SingleStackRecipeI
         public static final Serializer INSTANCE = new Serializer();
 
         public static final MapCodec<PottingRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("item").forGetter(PottingRecipe::getItem),
+                Ingredient.CODEC.fieldOf("item").forGetter(PottingRecipe::getItem),
                 ItemStack.CODEC.fieldOf("result").forGetter(PottingRecipe::getRes),
                 Codecs.POSITIVE_INT.fieldOf("time").forGetter(PottingRecipe::getTime),
                 Codec.BOOL.optionalFieldOf("burn", false).forGetter(PottingRecipe::isBurnRecipe)

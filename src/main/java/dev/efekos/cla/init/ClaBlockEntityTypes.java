@@ -2,6 +2,7 @@ package dev.efekos.cla.init;
 
 import dev.efekos.cla.Main;
 import dev.efekos.cla.block.entity.*;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -12,8 +13,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class ClaBlockEntityTypes {
 
-    private static <T extends BlockEntity> @Nullable BlockEntityType<T> register(String name, BlockEntityType.BlockEntityFactory<T> factory, Block block) {
-        return Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(Main.MOD_ID, name), BlockEntityType.Builder.create(factory, block).build());
+    private static <T extends BlockEntity> @Nullable BlockEntityType<T> register(String name, FabricBlockEntityTypeBuilder.Factory<T> factory, Block block) {
+        return Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(Main.MOD_ID, name), FabricBlockEntityTypeBuilder.create(factory,block).build());
     }
 
     public static void run() {

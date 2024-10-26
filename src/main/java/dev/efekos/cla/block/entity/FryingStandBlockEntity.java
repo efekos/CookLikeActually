@@ -13,8 +13,10 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -26,29 +28,31 @@ public class FryingStandBlockEntity extends BlockEntityWithOneItem implements Sy
 
     private int ticks;
     private int oilCleanness;
+    private final ServerRecipeManager.MatchGetter<SingleStackRecipeInput,FryingRecipe> matchGetter;
 
     public FryingStandBlockEntity(BlockPos pos, BlockState state) {
         super(ClaBlockEntityTypes.FRYING_STAND, pos, state);
+        matchGetter = ServerRecipeManager.createCachedMatchGetter(FryingRecipe.Type.INSTANCE);
     }
 
     public boolean hasRecipe() {
-        return hasRecipe(this.world);
+        return this.world.isClient || hasRecipe(((ServerWorld) this.world));
     }
 
-    public boolean hasRecipe(World world) {
+    public boolean hasRecipe(ServerWorld world) {
         if (!hasItem()) return false;
-        return world.getRecipeManager().getFirstMatch(FryingRecipe.Type.INSTANCE, new SingleStackRecipeInput(item), world).isPresent();
+        return matchGetter.getFirstMatch(new SingleStackRecipeInput(item),world).isPresent();
     }
 
-    public FryingRecipe getRecipe(World world) {
-        return world.getRecipeManager().getFirstMatch(FryingRecipe.Type.INSTANCE, new SingleStackRecipeInput(item), world).map(RecipeEntry::value).orElse(null);
+    public FryingRecipe getRecipe(ServerWorld world) {
+        return matchGetter.getFirstMatch(new SingleStackRecipeInput(item), world).map(RecipeEntry::value).orElse(null);
     }
 
     public void tick(BlockState state, BlockPos pos, World world) {
-        if (isOilCleanEnough() && hasRecipe() && state.get(FryingStandBlock.SIEVE)) {
+        if (isOilCleanEnough() && world instanceof ServerWorld sw && hasRecipe(sw) && state.get(FryingStandBlock.SIEVE)) {
             ticks++;
             world.playSound(pos.getX(), pos.getY(), pos.getZ(), ClaSoundEvents.PAN_COOKING, SoundCategory.BLOCKS, 1f, 1f, true);
-            FryingRecipe recipe = getRecipe(world);
+            FryingRecipe recipe = getRecipe(sw);
             if (getTicks() >= recipe.getTime()) {
                 if (world.isClient()) {
                     Box box = new Box(new Vec3d(pos.getX() + .25, pos.getY() + .85, pos.getZ() + .25), new Vec3d(pos.getX() + .75, pos.getY() + 1.1, pos.getZ() + .75));

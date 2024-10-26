@@ -20,7 +20,7 @@ public class ArrowProgressDisplay extends BasicDisplay {
     }
 
     public ArrowProgressDisplay(CategoryIdentifier<?> id, RecipeWithArrowProgress<?> entry) {
-        this(List.of(EntryIngredient.of(EntryStacks.of(entry.getItem().getMatchingStacks()[0]))), List.of(EntryIngredient.of(EntryStacks.of(entry.getRes()))), entry.getTime(), id);
+        this(List.of(EntryIngredient.of(EntryStacks.of(entry.getItem().getMatchingItems().getFirst().value()))), List.of(EntryIngredient.of(EntryStacks.of(entry.getRes()))), entry.getTime(), id);
     }
 
     @Override

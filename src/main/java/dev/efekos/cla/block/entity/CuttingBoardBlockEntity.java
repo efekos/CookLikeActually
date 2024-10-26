@@ -4,13 +4,16 @@ import dev.efekos.cla.init.ClaBlockEntityTypes;
 import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.packet.CuttingBoardSyncS2C;
 import dev.efekos.cla.recipe.CuttingRecipe;
+import dev.efekos.cla.recipe.FryingRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -21,9 +24,11 @@ public class CuttingBoardBlockEntity extends BlockEntityWithOneItem implements S
     private int cuts;
     private CuttingRecipe currentRecipe;
     private int maxCutsNeeded;
+    private final ServerRecipeManager.MatchGetter<SingleStackRecipeInput, CuttingRecipe> matchGetter;
 
     public CuttingBoardBlockEntity(BlockPos pos, BlockState state) {
         super(ClaBlockEntityTypes.CUTTING_BOARD, pos, state);
+        this.matchGetter = ServerRecipeManager.createCachedMatchGetter(CuttingRecipe.Type.INSTANCE);
     }
 
     @Override
@@ -42,7 +47,7 @@ public class CuttingBoardBlockEntity extends BlockEntityWithOneItem implements S
 
     public void setCuts(int cuts) {
         this.cuts = cuts;
-        if (hasRecipe(world) && cuts == maxCutsNeeded) {
+        if (world instanceof ServerWorld sw && hasRecipe(sw) && cuts == maxCutsNeeded) {
             this.item = this.currentRecipe.getRes();
             this.cuts = 0;
             this.maxCutsNeeded = 0;
@@ -66,9 +71,9 @@ public class CuttingBoardBlockEntity extends BlockEntityWithOneItem implements S
         cuts = components.getOrDefault(ClaComponentTypes.CUTS, 0);
     }
 
-    public boolean hasRecipe(World world) {
+    public boolean hasRecipe(ServerWorld world) {
         if (!hasItem()) return false;
-        Optional<RecipeEntry<CuttingRecipe>> match = world.getRecipeManager().getFirstMatch(CuttingRecipe.Type.INSTANCE, new SingleStackRecipeInput(getItem()), world);
+        Optional<RecipeEntry<CuttingRecipe>> match = matchGetter.getFirstMatch(new SingleStackRecipeInput(getItem()), world);
         if (match.isPresent()) {
             CuttingRecipe valued = match.get().value();
             this.currentRecipe = valued;

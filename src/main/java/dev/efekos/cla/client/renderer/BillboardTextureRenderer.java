@@ -3,6 +3,7 @@ package dev.efekos.cla.client.renderer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.efekos.cla.util.IMinecraftClientMixin;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
@@ -19,7 +20,7 @@ public class BillboardTextureRenderer {
     }
 
     public void render(MatrixStack matrices, Identifier id, int lightLevel) {
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+        RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX);
         RenderSystem.setShaderTexture(0, id);
         RenderSystem.depthFunc(GL11.GL_ALWAYS);
         Matrix4f matrix = matrices.peek().getPositionMatrix();
