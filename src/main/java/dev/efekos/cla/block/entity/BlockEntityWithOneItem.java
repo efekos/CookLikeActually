@@ -42,7 +42,7 @@ public abstract class BlockEntityWithOneItem extends BlockEntity {
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
-        if (hasItem()) nbt.put("Item", item.encode(registryLookup));
+        if (hasItem()) nbt.put("Item", item.toNbt(registryLookup));
     }
 
     @Override

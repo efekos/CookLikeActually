@@ -12,8 +12,8 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -27,6 +27,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
+import net.minecraft.world.block.WireOrientation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -76,13 +77,13 @@ public class PlateBlock extends BlockWithEntity {
     }
 
     @Override
-    protected List<ItemStack> getDroppedStacks(BlockState state, LootContextParameterSet.Builder builder) {
+    protected List<ItemStack> getDroppedStacks(BlockState state, LootWorldContext.Builder builder) {
         BlockEntity entity = builder.get(LootContextParameters.BLOCK_ENTITY);
         return entity instanceof PlateBlockEntity plate ? List.of(createStack(plate)) : List.of(ClaItems.PLATE.getDefaultStack());
     }
 
     @Override
-    protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+    protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
         if (world.isAir(pos.down())) world.breakBlock(pos, true);
     }
 
@@ -108,7 +109,7 @@ public class PlateBlock extends BlockWithEntity {
             plate.setItems(new ArrayList<>());
             plate.markDirty();
             world.playSound(player, pos, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.BLOCKS);
-            return ActionResult.SUCCESS;
+            return world.isClient?ActionResult.SUCCESS:ActionResult.SUCCESS_SERVER;
         } else {
             if (plate.hasCourse() && playerStack.isEmpty()) return pickup(world, pos, player, plate, hand);
             if (!plate.acceptsItems(playerStack) || playerStack.isEmpty() || stacks.stream().anyMatch(itemStack -> itemStack.isOf(playerStack.getItem())))
@@ -118,7 +119,7 @@ public class PlateBlock extends BlockWithEntity {
             plate.markDirty();
             playerStack.decrement(1);
             world.playSound(player, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS);
-            return ActionResult.success(true);
+            return world.isClient?ActionResult.SUCCESS:ActionResult.SUCCESS_SERVER;
         }
 
     }
@@ -128,7 +129,7 @@ public class PlateBlock extends BlockWithEntity {
         player.setStackInHand(hand, stack);
         world.playSound(player, pos, ClaSoundEvents.PLATE_PICKUP, SoundCategory.BLOCKS);
         world.removeBlock(pos, false);
-        return ActionResult.SUCCESS;
+        return world.isClient?ActionResult.SUCCESS:ActionResult.SUCCESS_SERVER;
     }
 
 }

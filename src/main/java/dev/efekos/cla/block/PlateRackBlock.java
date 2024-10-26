@@ -9,10 +9,10 @@ import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.context.LootContextParameterSet;
+import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
@@ -31,7 +31,7 @@ import java.util.List;
 public class PlateRackBlock extends Block {
 
     public static final IntProperty PLATES = IntProperty.of("plates", 0, 7);
-    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
     private static final VoxelShape shape1 = VoxelShapes.union(
             VoxelShapes.cuboid(0.4375, 0.125, 0, 0.5625, 0.875, 0.0625),
             VoxelShapes.cuboid(0.4375, 0, 0, 0.5625, 0.125, 1),
@@ -71,7 +71,7 @@ public class PlateRackBlock extends Block {
     }
 
     @Override
-    protected List<ItemStack> getDroppedStacks(BlockState state, LootContextParameterSet.Builder builder) {
+    protected List<ItemStack> getDroppedStacks(BlockState state, LootWorldContext.Builder builder) {
         ItemStack stack = new ItemStack(ClaItems.PLATE, state.get(PLATES));
         return List.of(stack, asItem().getDefaultStack());
     }
