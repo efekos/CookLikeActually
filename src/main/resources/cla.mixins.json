@@ -4,7 +4,7 @@
   "package": "dev.efekos.cla.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "BlockEntityMixin",
+    "BlockEntityMixin"
   ],
   "client": [
     "BlockColorsMixin",
