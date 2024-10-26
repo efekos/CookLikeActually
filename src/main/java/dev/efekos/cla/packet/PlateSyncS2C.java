@@ -33,7 +33,7 @@ public class PlateSyncS2C implements CustomPayload {
     }
 
     public PlateSyncS2C(RegistryByteBuf buf) {
-        items = buf.readBoolean() ? ItemStack.LIST_PACKET_CODEC.decode(buf) : new ArrayList<>();
+        items = buf.readBoolean() ? ItemStack.OPTIONAL_LIST_PACKET_CODEC.decode(buf) : new ArrayList<>();
         pos = buf.readBlockPos();
         if (buf.readBoolean()) course = CourseManager.getInstance().getCourse(buf.readIdentifier()).orElseThrow();
     }
@@ -41,7 +41,7 @@ public class PlateSyncS2C implements CustomPayload {
     public void write(RegistryByteBuf buf) {
         boolean b = items == null || items.isEmpty();
         buf.writeBoolean(!b);
-        if (!b) ItemStack.LIST_PACKET_CODEC.encode(buf, items);
+        if (!b) ItemStack.OPTIONAL_LIST_PACKET_CODEC.encode(buf, items);
         buf.writeBlockPos(pos);
         buf.writeBoolean(course != null);
         if (course != null) buf.writeIdentifier(course.id());

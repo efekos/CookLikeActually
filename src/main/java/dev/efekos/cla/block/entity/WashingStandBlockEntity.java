@@ -49,7 +49,7 @@ public class WashingStandBlockEntity extends BlockEntity implements SyncAbleBloc
         super.writeNbt(nbt, registryLookup);
         if (hasPlates()) {
             NbtList list = new NbtList();
-            for (ItemStack plate : getPlates()) list.add(plate.encode(registryLookup));
+            for (ItemStack plate : getPlates()) list.add(plate.toNbt(registryLookup));
             nbt.put("Plates", list);
         }
         nbt.putInt("LastInteraction", lastInteraction);

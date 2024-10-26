@@ -49,7 +49,7 @@ public class PlateBlockEntity extends BlockEntity implements SyncAbleBlockEntity
         super.writeNbt(nbt, registryLookup);
         if (!items.isEmpty()) {
             NbtList list = new NbtList();
-            for (ItemStack item : items) list.add(item.encode(registryLookup));
+            for (ItemStack item : items) list.add(item.toNbt(registryLookup));
             nbt.put("Items", list);
         }
         if (this.currentCourse != null) nbt.putString("Course", this.currentCourse.id().toString());
@@ -68,7 +68,7 @@ public class PlateBlockEntity extends BlockEntity implements SyncAbleBlockEntity
             }
         }
         if (nbt.contains("Course"))
-            this.currentCourse = CourseManager.getInstance().getCourse(Identifier.tryParse(nbt.getString("Course"))).orElseThrow();
+            this.currentCourse = CourseManager.getInstance().getCourse(Identifier.tryParse(nbt.getString("Course"))).orElse(null);
     }
 
     public List<ItemStack> getItems() {

@@ -23,7 +23,7 @@ public class CourseManager extends JsonDataLoader<Course> implements Identifiabl
     private static CourseManager instance;
     private final Map<Identifier, Course> courses = new HashMap<>();
 
-    public static final MapCodec<Course> CODEC = RecordCodecBuilder.mapCodec(i->i.group(
+    public static final Codec<Course> CODEC = RecordCodecBuilder.create(i->i.group(
             Identifier.CODEC.fieldOf("model").forGetter(Course::modelId),
             Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(Course::ingredients),
             Codecs.NON_NEGATIVE_INT.fieldOf("nutrition").forGetter(Course::nutrition),
@@ -32,8 +32,8 @@ public class CourseManager extends JsonDataLoader<Course> implements Identifiabl
             Ingredient.CODEC.listOf().fieldOf("transformers").forGetter(Course::transformers)
     ).apply(i, (mid, ingredients, nutrition, saturation, key, transformers) -> new Course(null,mid,ingredients,nutrition,saturation,key.orElse(null),transformers)));
 
-    public CourseManager(RegistryWrapper.WrapperLookup registries, Codec<Course> codec, String dataType) {
-        super(registries, codec, dataType);
+    public CourseManager(RegistryWrapper.WrapperLookup registries) {
+        super(registries, CODEC, "course");
         instance = this;
     }
 

@@ -45,14 +45,6 @@ public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<Fryin
         this.renderDispatcher = ctx.getRenderDispatcher();
     }
 
-    private static float getBackwardsYaw(Camera camera) {
-        return camera.getYaw() - 180.0F;
-    }
-
-    private static float getNegatedPitch(Camera camera) {
-        return -camera.getPitch();
-    }
-
     public static int provideItemColor(ItemStack itemStack, int i) {
         return getOilColor(itemStack.getOrDefault(ClaComponentTypes.OIL_CLEANNESS, 100) / 100d).getRGB();
     }
@@ -114,19 +106,19 @@ public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<Fryin
         }
 
         // progress bar
-        if (entity.hasRecipe(world) && entity.getRecipe(world).hasProgressBar()) {
-            float v = entity.getTicks() / (float) entity.getRecipe(world).getTime();
-            // cut status
-            ProgressBarRenderer barRenderer = ((IMinecraftClientMixin) MinecraftClient.getInstance()).cla$getProgressBarRenderer();
+        //if (entity.hasRecipe(world) && entity.getRecipe(world).hasProgressBar()) {
+        //    float v = entity.getTicks() / (float) entity.getRecipe(world).getTime();
+        //    // cut status
+        //    ProgressBarRenderer barRenderer = ((IMinecraftClientMixin) MinecraftClient.getInstance()).cla$getProgressBarRenderer();
 
-            matrices.push();
-            matrices.translate(0.5f, 1.75f, 0.5f);
-            matrices.scale(1f, 1f, 1f);
-            Camera camera = this.renderDispatcher.camera;
-            matrices.multiply(new Quaternionf().rotationYXZ(3.1415927F - camera.getYaw() * 0.017453292F, -camera.getPitch() * 0.017453292F, 0f));
-            barRenderer.renderBar(matrices, ProgressBarRenderer.getDefaultTextures(), v, lightLevel);
-            matrices.pop();
-        }
+        //    matrices.push();
+        //    matrices.translate(0.5f, 1.75f, 0.5f);
+        //    matrices.scale(1f, 1f, 1f);
+        //    Camera camera = this.renderDispatcher.camera;
+        //    matrices.multiply(new Quaternionf().rotationYXZ(3.1415927F - camera.getYaw() * 0.017453292F, -camera.getPitch() * 0.017453292F, 0f));
+        //    barRenderer.renderBar(matrices, ProgressBarRenderer.getDefaultTextures(), v, lightLevel);
+        //    matrices.pop();
+        //}
 
         //warnings
         if (entity.getOilCleanness() <= 50) {

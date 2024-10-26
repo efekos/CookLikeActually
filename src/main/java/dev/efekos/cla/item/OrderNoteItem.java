@@ -25,7 +25,7 @@ public class OrderNoteItem extends Item {
         if (course.isPresent()) {
             Course crs = course.get();
             for (Ingredient ingredient : crs.ingredients())
-                tooltip.add(ingredient.getMatchingStacks()[0].getName().copy().formatted(Formatting.GRAY));
+                tooltip.add(ingredient.getMatchingItems().getFirst().value().getName().copy().formatted(Formatting.GRAY));
         }
     }
 
