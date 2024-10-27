@@ -54,6 +54,7 @@ public class PlateBlock extends BlockWithEntity {
             Course course = plate.getCurrentCourse();
             stack.set(ClaComponentTypes.COURSE_ID, course.id());
             stack.set(DataComponentTypes.FOOD, new FoodComponent(course.nutrition(), course.saturation(), false));
+            stack.set(DataComponentTypes.CONSUMABLE,ConsumableComponents.FOOD);
         }
         if (!stacks.isEmpty()) stack.set(ClaComponentTypes.ITEMS, stacks);
         return stack;
