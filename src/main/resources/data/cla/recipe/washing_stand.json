@@ -6,15 +6,9 @@
     "BBB"
   ],
   "key": {
-    "A": {
-      "tag": "minecraft:wool"
-    },
-    "B": {
-      "item": "minecraft:cobblestone"
-    },
-    "C": {
-      "item": "minecraft:water_bucket"
-    }
+    "A": "#minecraft:wool",
+    "B": "minecraft:cobblestone",
+    "C": "minecraft:water_bucket"
   },
   "result": {
     "id": "cla:washing_stand",

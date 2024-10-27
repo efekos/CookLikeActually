@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "cla:flour"
-    }
+    "cla:flour"
   ],
   "result": {
     "id": "cla:tortilla",

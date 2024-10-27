@@ -1,9 +1,7 @@
 {
   "type": "cla:panning",
   "time": 100,
-  "item": {
-    "item": "cooked_chicken"
-  },
+  "item": "cooked_chicken",
   "result": {
     "id": "cla:burned_chicken"
   },

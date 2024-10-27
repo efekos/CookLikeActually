@@ -4,12 +4,8 @@
     "ABA"
   ],
   "key": {
-    "A": {
-      "item": "minecraft:stick"
-    },
-    "B": {
-      "tag": "minecraft:planks"
-    }
+    "A": "minecraft:stick",
+    "B": "#minecraft:planks"
   },
   "result": {
     "id": "cla:plate_rack",

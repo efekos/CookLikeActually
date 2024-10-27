@@ -1,9 +1,7 @@
 {
   "type": "cla:frying",
   "time": 150,
-  "item": {
-    "item": "cla:cut_potato"
-  },
+  "item": "cla:cut_potato",
   "result": {
     "id": "cla:fries"
   }

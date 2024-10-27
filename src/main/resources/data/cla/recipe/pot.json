@@ -6,12 +6,8 @@
     "AA "
   ],
   "key": {
-    "A": {
-      "item": "minecraft:iron_ingot"
-    },
-    "B": {
-      "item": "minecraft:chain"
-    }
+    "A": "minecraft:iron_ingot",
+    "B": "minecraft:chain"
   },
   "result": {
     "id": "cla:pot"

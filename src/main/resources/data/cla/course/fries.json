@@ -4,8 +4,6 @@
   "saturation": 4,
   "eat_seconds": 1.5,
   "ingredients": [
-    {
-      "item": "cla:fries"
-    }
+    "cla:fries"
   ]
 }

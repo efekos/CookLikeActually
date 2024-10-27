@@ -1,9 +1,7 @@
 {
   "type": "cla:panning",
   "time": 100,
-  "item": {
-    "item": "cooked_rabbit"
-  },
+  "item": "cooked_rabbit",
   "result": {
     "id": "cla:burned_rabbit"
   },

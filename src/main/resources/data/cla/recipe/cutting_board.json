@@ -7,9 +7,7 @@
     " A"
   ],
   "key": {
-    "A": {
-      "item": "minecraft:oak_planks"
-    }
+    "A": "minecraft:oak_planks"
   },
   "result": {
     "id": "cla:cutting_board"

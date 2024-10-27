@@ -4,14 +4,8 @@
   "saturation": 8,
   "eat_seconds": 2,
   "ingredients": [
-    {
-      "item": "cla:tortilla"
-    },
-    {
-      "item": "cla:cubic_cooked_beef"
-    },
-    {
-      "item": "cla:cooked_rice"
-    }
+    "cla:tortilla",
+    "cla:cubic_cooked_beef",
+    "cla:cooked_rice"
   ]
 }

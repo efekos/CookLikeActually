@@ -6,9 +6,7 @@
     "AA"
   ],
   "key": {
-    "A": {
-      "item": "cla:flour"
-    }
+    "A": "cla:flour"
   },
   "result": {
     "id": "cla:flour_pack",

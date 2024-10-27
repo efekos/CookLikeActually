@@ -4,9 +4,7 @@
     "BB"
   ],
   "key": {
-    "B": {
-      "item": "minecraft:white_concrete"
-    }
+    "B": "minecraft:white_concrete"
   },
   "result": {
     "id": "cla:plate",

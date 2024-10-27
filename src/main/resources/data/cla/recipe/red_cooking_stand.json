@@ -6,15 +6,9 @@
     "BBB"
   ],
   "key": {
-    "A": {
-      "item": "minecraft:red_wool"
-    },
-    "B": {
-      "item": "minecraft:cobblestone"
-    },
-    "C": {
-      "item": "minecraft:campfire"
-    }
+    "A": "minecraft:red_wool",
+    "B": "minecraft:cobblestone",
+    "C": "minecraft:campfire"
   },
   "result": {
     "id": "cla:red_cooking_stand",

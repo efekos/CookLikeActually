@@ -5,22 +5,12 @@
   "eat_seconds": 3,
   "key": "course.cla.cheeseburger",
   "ingredients": [
-    {
-      "item": "cla:cooked_patty"
-    },
-    {
-      "item": "cla:buns"
-    },
-    {
-      "item": "cla:cut_cheese"
-    },
-    {
-      "item": "cla:cut_lettuce"
-    }
+    "cla:cooked_patty",
+    "cla:buns",
+    "cla:cut_cheese",
+    "cla:cut_lettuce"
   ],
   "transformers": [
-    {
-      "item": "cla:cut_tomato"
-    }
+    "cla:cut_tomato"
   ]
 }

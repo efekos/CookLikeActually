@@ -1,9 +1,7 @@
 {
   "type": "cla:panning",
   "time": 180,
-  "item": {
-    "item": "cla:cubic_beef"
-  },
+  "item": "cla:cubic_beef",
   "result": {
     "id": "cla:cubic_cooked_beef"
   }

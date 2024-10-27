@@ -6,15 +6,9 @@
     "BBB"
   ],
   "key": {
-    "A": {
-      "item": "minecraft:light_gray_wool"
-    },
-    "B": {
-      "item": "minecraft:cobblestone"
-    },
-    "C": {
-      "item": "minecraft:campfire"
-    }
+    "A": "minecraft:light_gray_wool",
+    "B": "minecraft:cobblestone",
+    "C": "minecraft:campfire"
   },
   "result": {
     "id": "cla:light_gray_cooking_stand",

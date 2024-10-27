@@ -5,12 +5,8 @@
     "BB"
   ],
   "key": {
-    "A": {
-      "item": "minecraft:black_wool"
-    },
-    "B": {
-      "item": "minecraft:cobblestone"
-    }
+    "A": "minecraft:black_wool",
+    "B": "minecraft:cobblestone"
   },
   "result": {
     "id": "cla:black_stand",

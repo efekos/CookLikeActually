@@ -1,9 +1,7 @@
 {
   "type": "cla:panning",
   "time": 200,
-  "item": {
-    "item": "rabbit"
-  },
+  "item": "rabbit",
   "result": {
     "id": "cooked_rabbit"
   }

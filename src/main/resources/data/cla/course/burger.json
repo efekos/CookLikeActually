@@ -4,22 +4,12 @@
   "saturation": 6,
   "eat_seconds": 3,
   "ingredients": [
-    {
-      "item": "cla:cooked_patty"
-    },
-    {
-      "item": "cla:buns"
-    }
+    "cla:cooked_patty",
+    "cla:buns"
   ],
   "transformers": [
-    {
-      "item": "cla:cut_lettuce"
-    },
-    {
-      "item": "cla:cut_tomato"
-    },
-    {
-      "item": "cla:cut_cheese"
-    }
+    "cla:cut_lettuce",
+    "cla:cut_tomato",
+    "cla:cut_cheese"
   ]
 }

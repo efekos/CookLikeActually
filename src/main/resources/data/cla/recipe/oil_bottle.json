@@ -6,12 +6,8 @@
     "AAA"
   ],
   "key": {
-    "A": {
-      "item": "minecraft:sunflower"
-    },
-    "B": {
-      "item": "cla:empty_oil_bottle"
-    }
+    "A": "minecraft:sunflower",
+    "B": "cla:empty_oil_bottle"
   },
   "result": {
     "id": "cla:oil_bottle"
