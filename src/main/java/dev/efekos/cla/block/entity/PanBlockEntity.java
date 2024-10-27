@@ -5,7 +5,6 @@ import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.init.ClaSoundEvents;
 import dev.efekos.cla.init.ClaTags;
 import dev.efekos.cla.packet.PanSyncS2C;
-import dev.efekos.cla.recipe.CuttingRecipe;
 import dev.efekos.cla.recipe.PanningRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.ComponentMap;
@@ -26,6 +25,7 @@ import net.minecraft.world.World;
 public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBlockEntity<PanSyncS2C> {
 
     private int ticks = 0;
+    private int maxTicks = 0;
     private final ServerRecipeManager.MatchGetter<SingleStackRecipeInput, PanningRecipe> matchGetter;
 
     public PanBlockEntity(BlockPos pos, BlockState state) {
@@ -49,6 +49,7 @@ public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBl
     public void setItem(ItemStack item) {
         super.setItem(item);
         setTicks(0);
+        updateDataForClient();
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
@@ -76,12 +77,20 @@ public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBl
 
     public boolean hasRecipe(ServerWorld world) {
         if (!hasItem()) return false;
-        return matchGetter.getFirstMatch(new SingleStackRecipeInput(getItem()), world).isPresent();
+        return updateDataForClient(matchGetter.getFirstMatch(new SingleStackRecipeInput(getItem()), world).map(RecipeEntry::value).orElse(null))!=null;
     }
 
     public PanningRecipe getRecipe(ServerWorld world) {
         if (!hasItem()) return null;
-        return matchGetter.getFirstMatch(new SingleStackRecipeInput(getItem()), world).map(RecipeEntry::value).orElse(null);
+        return updateDataForClient(matchGetter.getFirstMatch(new SingleStackRecipeInput(getItem()), world).map(RecipeEntry::value).orElse(null));
+    }
+
+    private void updateDataForClient(){
+        if(world instanceof ServerWorld sw) updateDataForClient(getRecipe(sw));
+    }
+
+    public void setMaxTicks(int maxTicks) {
+        this.maxTicks = maxTicks;
     }
 
     public boolean hasRecipe() {
@@ -90,13 +99,24 @@ public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBl
 
     @Override
     public PanSyncS2C createSyncPacket() {
-        return new PanSyncS2C(hasItem() ? item : ItemStack.EMPTY, ticks, pos);
+        return new PanSyncS2C(hasItem() ? item : ItemStack.EMPTY, ticks, pos,maxTicks,shouldRenderProgressBar);
     }
 
     @Override
     protected void readComponents(ComponentsAccess components) {
         super.readComponents(components);
         ticks = components.getOrDefault(ClaComponentTypes.TICKS, 0);
+    }
+
+    private PanningRecipe updateDataForClient(PanningRecipe recipe){
+        if(recipe==null){
+            setMaxTicks(0);
+            shouldRenderProgressBar = false;
+            return null;
+        }
+        setMaxTicks(recipe.getTime());
+        shouldRenderProgressBar = recipe.hasProgressBar();
+        return recipe;
     }
 
     @Override
@@ -118,10 +138,22 @@ public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBl
     }
 
     public int getMaxTicks() {
+        if(world!=null && world.isClient) return maxTicks;
         return hasRecipe() ? getRecipe((ServerWorld) world).getTime() : 0;
+    }
+
+    private boolean shouldRenderProgressBar;
+
+    public boolean shouldRenderProgressBar() {
+        return maxTicks>0 && shouldRenderProgressBar;
     }
 
     public void setItemWithoutReset(ItemStack item) {
         super.setItem(item);
     }
+
+    public void setShouldRenderProgressBar(boolean shouldRenderProgressBar) {
+        this.shouldRenderProgressBar = shouldRenderProgressBar;
+    }
+
 }
