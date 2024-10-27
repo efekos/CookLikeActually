@@ -20,6 +20,9 @@
     ],
     "rei_client": [
       "dev.efekos.cla.rei.ClaRei"
+    ],
+    "rei_common": [
+      "dev.efekos.cla.rei.ClaReiServer"
     ]
   },
   "mixins": [
