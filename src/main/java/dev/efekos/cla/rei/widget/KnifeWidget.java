@@ -29,9 +29,9 @@ public class KnifeWidget extends Widget {
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         cutAnimator.update(delta);
-        context.drawGuiTexture(RenderLayer::getGuiTextured,KNIFE_TEXTURE, point.x, point.y, 32, 11);
+        context.drawGuiTexture(RenderLayer::getGuiTextured, KNIFE_TEXTURE, point.x, point.y, 32, 11);
         if (cutAnimator.value() > 0)
-            context.drawGuiTexture(RenderLayer::getGuiTextured,KNIFE_FULL, 33, 12, 0, 0, point.x, point.y, (int) ((cutAnimator.value() / (float) maxCuts) * 33), 12);
+            context.drawGuiTexture(RenderLayer::getGuiTextured, KNIFE_FULL, 33, 12, 0, 0, point.x, point.y, (int) ((cutAnimator.value() / (float) maxCuts) * 33), 12);
     }
 
     public KnifeWidget maxCuts(int i) {

@@ -1,7 +1,6 @@
 package dev.efekos.cla.resource;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.efekos.cla.Main;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
@@ -19,18 +18,16 @@ import java.util.*;
 public class CourseManager extends JsonDataLoader<Course> implements IdentifiableResourceReloadListener {
 
     public static final Identifier ID = Identifier.of(Main.MOD_ID, "course");
-
-    private static CourseManager instance;
-    private final Map<Identifier, Course> courses = new HashMap<>();
-
-    public static final Codec<Course> CODEC = RecordCodecBuilder.create(i->i.group(
+    public static final Codec<Course> CODEC = RecordCodecBuilder.create(i -> i.group(
             Identifier.CODEC.fieldOf("model").forGetter(Course::modelId),
             Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(Course::ingredients),
             Codecs.NON_NEGATIVE_INT.fieldOf("nutrition").forGetter(Course::nutrition),
             Codecs.NON_NEGATIVE_INT.fieldOf("saturation").forGetter(Course::saturation),
             Codec.STRING.optionalFieldOf("key").forGetter(course -> Optional.of(course.translationKey())),
             Ingredient.CODEC.listOf().optionalFieldOf("transformers").forGetter(Course::trnsfrmrs)
-    ).apply(i, (mid, ingredients, nutrition, saturation, key, transformers) -> new Course(null,mid,ingredients,nutrition,saturation,key.orElse(null),transformers)));
+    ).apply(i, (mid, ingredients, nutrition, saturation, key, transformers) -> new Course(null, mid, ingredients, nutrition, saturation, key.orElse(null), transformers)));
+    private static CourseManager instance;
+    private final Map<Identifier, Course> courses = new HashMap<>();
 
     public CourseManager(RegistryWrapper.WrapperLookup registries) {
         super(registries, CODEC, "course");
@@ -44,12 +41,12 @@ public class CourseManager extends JsonDataLoader<Course> implements Identifiabl
     @Override
     protected void apply(Map<Identifier, Course> prepared, ResourceManager manager, Profiler profiler) {
         prepared.forEach((identifier, course) ->
-            courses.put(identifier,course.copyWithId(identifier).copyWithTranslationKey(course.translationKey()==null?createTranslationKey(identifier):course.translationKey()))
+                courses.put(identifier, course.copyWithId(identifier).copyWithTranslationKey(course.translationKey() == null ? createTranslationKey(identifier) : course.translationKey()))
         );
     }
 
     private String createTranslationKey(Identifier identifier) {
-        return "course."+identifier.getNamespace()+"."+identifier.getPath();
+        return "course." + identifier.getNamespace() + "." + identifier.getPath();
     }
 
     @Override

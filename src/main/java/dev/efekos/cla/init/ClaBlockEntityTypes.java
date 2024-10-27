@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 public class ClaBlockEntityTypes {
 
     private static <T extends BlockEntity> @Nullable BlockEntityType<T> register(String name, FabricBlockEntityTypeBuilder.Factory<T> factory, Block block) {
-        return Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(Main.MOD_ID, name), FabricBlockEntityTypeBuilder.create(factory,block).build());
+        return Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(Main.MOD_ID, name), FabricBlockEntityTypeBuilder.create(factory, block).build());
     }
 
     public static void run() {

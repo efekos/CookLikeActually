@@ -68,7 +68,7 @@ public class PanBlockEntityRenderer implements BlockEntityRenderer<PanBlockEntit
 
         // progress bar
         if (entity.shouldRenderProgressBar()) {
-            if(entity.getMaxTicks()<1)return;
+            if (entity.getMaxTicks() < 1) return;
             float v = entity.getTicks() / (float) entity.getMaxTicks(); // TODO either ticks or max ticks randomly start returning 0, causing the bar to look glitchy
             // cut status
             ProgressBarRenderer barRenderer = ((IMinecraftClientMixin) MinecraftClient.getInstance()).cla$getProgressBarRenderer();

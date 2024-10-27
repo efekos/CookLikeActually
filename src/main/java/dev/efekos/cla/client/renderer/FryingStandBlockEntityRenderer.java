@@ -1,10 +1,8 @@
 package dev.efekos.cla.client.renderer;
 
 import dev.efekos.cla.block.entity.FryingStandBlockEntity;
-import dev.efekos.cla.client.renderer.bar.ProgressBarRenderer;
 import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.init.ClaTags;
-import dev.efekos.cla.util.IMinecraftClientMixin;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;

@@ -12,10 +12,10 @@ public class ClaReiServer implements REICommonPlugin {
 
     @Override
     public void registerDisplaySerializer(DisplaySerializerRegistry registry) {
-        registry.register(CuttingCategory.ID,CuttingDisplay.SERIALIZER);
+        registry.register(CuttingCategory.ID, CuttingDisplay.SERIALIZER);
         registry.register(FryingCategory.ID, ArrowProgressDisplay.Serializer.get(FryingCategory.CATEGORY_ID));
-        registry.register(PanningCategory.ID,ArrowProgressDisplay.Serializer.get(PanningCategory.CATEGORY_ID));
-        registry.register(PottingCategory.ID,ArrowProgressDisplay.Serializer.get(PottingCategory.CATEGORY_ID));
+        registry.register(PanningCategory.ID, ArrowProgressDisplay.Serializer.get(PanningCategory.CATEGORY_ID));
+        registry.register(PottingCategory.ID, ArrowProgressDisplay.Serializer.get(PottingCategory.CATEGORY_ID));
     }
 
     @Override
@@ -27,15 +27,15 @@ public class ClaReiServer implements REICommonPlugin {
 
         registry.beginRecipeFiller(FryingRecipe.class)
                 .filterType(FryingRecipe.Type.INSTANCE)
-                .fill(entry -> new ArrowProgressDisplay(FryingCategory.CATEGORY_ID,entry.value()));
+                .fill(entry -> new ArrowProgressDisplay(FryingCategory.CATEGORY_ID, entry.value()));
 
         registry.beginRecipeFiller(PottingRecipe.class)
                 .filterType(PottingRecipe.Type.INSTANCE)
-                .fill(entry -> new ArrowProgressDisplay(PottingCategory.CATEGORY_ID,entry.value()));
+                .fill(entry -> new ArrowProgressDisplay(PottingCategory.CATEGORY_ID, entry.value()));
 
         registry.beginRecipeFiller(PanningRecipe.class)
                 .filterType(PanningRecipe.Type.INSTANCE)
-                .fill(entry -> new ArrowProgressDisplay(PanningCategory.CATEGORY_ID,entry.value()));
+                .fill(entry -> new ArrowProgressDisplay(PanningCategory.CATEGORY_ID, entry.value()));
 
     }
 

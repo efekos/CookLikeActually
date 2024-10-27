@@ -2,7 +2,6 @@ package dev.efekos.cla.rei;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.efekos.cla.recipe.FryingRecipe;
 import dev.efekos.cla.recipe.RecipeWithArrowProgress;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
@@ -13,7 +12,6 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.util.dynamic.Codecs;
 import org.jetbrains.annotations.Nullable;
 
@@ -54,12 +52,31 @@ public class ArrowProgressDisplay extends BasicDisplay {
     public static class Serializer implements DisplaySerializer<ArrowProgressDisplay> {
 
 
-        private static final Map<CategoryIdentifier<?>,Serializer> instances = new HashMap<>();
+        private static final Map<CategoryIdentifier<?>, Serializer> instances = new HashMap<>();
         private final CategoryIdentifier<?> categoryIdentifier;
+        private final MapCodec<ArrowProgressDisplay> codec;
+        private final PacketCodec<RegistryByteBuf, ArrowProgressDisplay> packetCodec;
 
-        public static Serializer get(CategoryIdentifier<?> id){
-            if(instances.containsKey(id))return instances.get(id);
-            System.out.println("created new instance of serializer for "+id);
+        private Serializer(CategoryIdentifier<?> categoryIdentifier) {
+            this.categoryIdentifier = categoryIdentifier;
+
+            this.codec = RecordCodecBuilder.mapCodec(i -> i.group(
+                    EntryIngredient.codec().listOf().fieldOf("inputs").forGetter(ArrowProgressDisplay::getInputEntries),
+                    EntryIngredient.codec().listOf().fieldOf("outputs").forGetter(ArrowProgressDisplay::getOutputEntries),
+                    Codecs.NON_NEGATIVE_INT.fieldOf("time").forGetter(ArrowProgressDisplay::getTime)
+            ).apply(i, (entryIngredients, entryIngredients2, integer) -> new ArrowProgressDisplay(entryIngredients, entryIngredients2, integer, this.categoryIdentifier)));
+
+            this.packetCodec = PacketCodecs.registryCodec(RecordCodecBuilder.create(i -> i.group(
+                    EntryIngredient.codec().listOf().fieldOf("inputs").forGetter(ArrowProgressDisplay::getInputEntries),
+                    EntryIngredient.codec().listOf().fieldOf("outputs").forGetter(ArrowProgressDisplay::getOutputEntries),
+                    Codecs.NON_NEGATIVE_INT.fieldOf("time").forGetter(ArrowProgressDisplay::getTime)
+            ).apply(i, (ei, ei2, i2) -> new ArrowProgressDisplay(ei, ei2, i2, this.categoryIdentifier))));
+
+        }
+
+        public static Serializer get(CategoryIdentifier<?> id) {
+            if (instances.containsKey(id)) return instances.get(id);
+            System.out.println("created new instance of serializer for " + id);
             Serializer value = new Serializer(id);
             instances.put(id, value);
             return value;
@@ -77,26 +94,6 @@ public class ArrowProgressDisplay extends BasicDisplay {
         public int hashCode() {
             return Objects.hash(categoryIdentifier, codec, packetCodec);
         }
-
-        private Serializer(CategoryIdentifier<?> categoryIdentifier) {
-            this.categoryIdentifier = categoryIdentifier;
-
-            this.codec = RecordCodecBuilder.mapCodec(i->i.group(
-                    EntryIngredient.codec().listOf().fieldOf("inputs").forGetter(ArrowProgressDisplay::getInputEntries),
-                    EntryIngredient.codec().listOf().fieldOf("outputs").forGetter(ArrowProgressDisplay::getOutputEntries),
-                    Codecs.NON_NEGATIVE_INT.fieldOf("time").forGetter(ArrowProgressDisplay::getTime)
-            ).apply(i,(entryIngredients, entryIngredients2, integer) -> new ArrowProgressDisplay(entryIngredients,entryIngredients2,integer,this.categoryIdentifier)));
-
-            this.packetCodec = PacketCodecs.registryCodec(RecordCodecBuilder.create(i->i.group(
-                    EntryIngredient.codec().listOf().fieldOf("inputs").forGetter(ArrowProgressDisplay::getInputEntries),
-                    EntryIngredient.codec().listOf().fieldOf("outputs").forGetter(ArrowProgressDisplay::getOutputEntries),
-                    Codecs.NON_NEGATIVE_INT.fieldOf("time").forGetter(ArrowProgressDisplay::getTime)
-            ).apply(i,(ei,ei2,i2)->new ArrowProgressDisplay(ei,ei2,i2,this.categoryIdentifier))));
-
-        }
-
-        private final MapCodec<ArrowProgressDisplay> codec;
-        private final PacketCodec<RegistryByteBuf,ArrowProgressDisplay> packetCodec;
 
         @Override
         public MapCodec<ArrowProgressDisplay> codec() {

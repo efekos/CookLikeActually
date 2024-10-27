@@ -18,7 +18,7 @@ import java.util.Optional;
 public class KnifeItem extends SwordItem {
 
     public KnifeItem(ToolMaterial toolMaterial, Settings settings) {
-        super(toolMaterial, 4,-.8f, settings);
+        super(toolMaterial, 4, -.8f, settings);
     }
 
     @Override

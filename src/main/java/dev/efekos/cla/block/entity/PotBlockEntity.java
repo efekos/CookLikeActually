@@ -5,7 +5,6 @@ import dev.efekos.cla.init.ClaBlocks;
 import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.init.ClaSoundEvents;
 import dev.efekos.cla.packet.PotSyncS2C;
-import dev.efekos.cla.recipe.CuttingRecipe;
 import dev.efekos.cla.recipe.PottingRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.ComponentMap;
@@ -25,8 +24,8 @@ import net.minecraft.world.World;
 
 public class PotBlockEntity extends BlockEntityWithOneItem implements SyncAbleBlockEntity<PotSyncS2C> {
 
-    private int ticks = 0;
     private final ServerRecipeManager.MatchGetter<SingleStackRecipeInput, PottingRecipe> matchGetter;
+    private int ticks = 0;
 
 
     public PotBlockEntity(BlockPos pos, BlockState state) {

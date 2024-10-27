@@ -34,11 +34,12 @@ public abstract class DrawContextMixin implements IDrawContextMixin {
     @Shadow
     @Final
     private MatrixStack matrices;
+    @Shadow
+    @Final
+    private VertexConsumerProvider.Immediate vertexConsumers;
 
     @Shadow
     public abstract void draw();
-
-    @Shadow @Final private VertexConsumerProvider.Immediate vertexConsumers;
 
     @Override
     @Unique
