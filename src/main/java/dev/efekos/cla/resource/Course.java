@@ -4,9 +4,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public record Course(Identifier id, Identifier modelId, List<Ingredient> ingredients, int nutrition, int saturation, String translationKey, List<Ingredient> transformers) {
+public record Course(Identifier id, Identifier modelId, List<Ingredient> ingredients, int nutrition, int saturation, String translationKey, Optional<List<Ingredient>> trnsfrmrs) {
 
     public boolean matches(List<ItemStack> stacks) {
         for (Ingredient ingredient : ingredients) if (stacks.stream().noneMatch(ingredient)) return false;
@@ -15,16 +17,20 @@ public record Course(Identifier id, Identifier modelId, List<Ingredient> ingredi
         return true;
     }
 
+    public List<Ingredient> transformers(){
+        return trnsfrmrs.orElseGet(ArrayList::new);
+    }
+
     public boolean canTransform(ItemStack stack) {
-        return transformers.stream().anyMatch(ingredient -> ingredient.test(stack));
+        return transformers().stream().anyMatch(ingredient -> ingredient.test(stack));
     }
 
-    public Course copyWithId(Identifier id){
-        return new Course(id, modelId, ingredients, nutrition, saturation, translationKey, transformers);
+    public Course copyWithId(Identifier _id){
+        return new Course(_id, modelId, ingredients, nutrition, saturation, translationKey, trnsfrmrs);
     }
 
-    public Course copyWithTranslationKey(String translationKey){
-        return new Course(modelId, id, ingredients, nutrition, saturation, translationKey, transformers);
+    public Course copyWithTranslationKey(String key){
+        return new Course(id, modelId, ingredients, nutrition, saturation, key, trnsfrmrs);
     }
 
 }

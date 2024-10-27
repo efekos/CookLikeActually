@@ -29,7 +29,7 @@ public class CourseManager extends JsonDataLoader<Course> implements Identifiabl
             Codecs.NON_NEGATIVE_INT.fieldOf("nutrition").forGetter(Course::nutrition),
             Codecs.NON_NEGATIVE_INT.fieldOf("saturation").forGetter(Course::saturation),
             Codec.STRING.optionalFieldOf("key").forGetter(course -> Optional.of(course.translationKey())),
-            Ingredient.CODEC.listOf().fieldOf("transformers").forGetter(Course::transformers)
+            Ingredient.CODEC.listOf().optionalFieldOf("transformers").forGetter(Course::trnsfrmrs)
     ).apply(i, (mid, ingredients, nutrition, saturation, key, transformers) -> new Course(null,mid,ingredients,nutrition,saturation,key.orElse(null),transformers)));
 
     public CourseManager(RegistryWrapper.WrapperLookup registries) {
