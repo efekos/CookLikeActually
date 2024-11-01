@@ -22,12 +22,14 @@ public class FryingStandSyncS2C implements CustomPayload {
     private final int ticks;
     private final BlockPos pos;
     private final int oilCleanness;
+    private final int maxTicks;
 
-    public FryingStandSyncS2C(ItemStack item, int ticks, int oilCleanness, BlockPos pos) {
+    public FryingStandSyncS2C(ItemStack item, int ticks, int oilCleanness, BlockPos pos,int maxTicks) {
         this.item = item;
         this.ticks = ticks;
         this.pos = pos;
         this.oilCleanness = oilCleanness;
+        this.maxTicks = maxTicks;
     }
 
     public FryingStandSyncS2C(RegistryByteBuf buf) {
@@ -36,6 +38,7 @@ public class FryingStandSyncS2C implements CustomPayload {
         this.item = b ? ItemStack.PACKET_CODEC.decode(buf) : ItemStack.EMPTY;
         this.pos = buf.readBlockPos();
         this.oilCleanness = buf.readInt();
+        this.maxTicks = buf.readInt();
     }
 
     public void write(RegistryByteBuf buf) {
@@ -45,6 +48,7 @@ public class FryingStandSyncS2C implements CustomPayload {
         if (b) ItemStack.PACKET_CODEC.encode(buf, this.item);
         buf.writeBlockPos(this.pos);
         buf.writeInt(this.oilCleanness);
+        buf.writeInt(this.maxTicks);
     }
 
     @Override
@@ -59,6 +63,7 @@ public class FryingStandSyncS2C implements CustomPayload {
         pan.setItemWithoutReset(item);
         pan.setTicks(ticks);
         pan.setOilCleanness(oilCleanness);
+        pan.setMaxTicks(maxTicks);
     }
 
 }
