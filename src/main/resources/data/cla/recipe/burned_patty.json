@@ -1,7 +1,9 @@
 {
   "type": "cla:panning",
   "time": 100,
-  "item": "cla:cooked_patty",
+  "item": {
+    "item": "cla:cooked_patty"
+  },
   "result": {
     "id": "cla:burned_patty"
   },

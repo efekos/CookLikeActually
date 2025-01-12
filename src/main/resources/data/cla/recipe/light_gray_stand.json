@@ -5,8 +5,12 @@
     "BB"
   ],
   "key": {
-    "A": "minecraft:light_gray_wool",
-    "B": "minecraft:cobblestone"
+    "A": {
+      "item": "minecraft:light_gray_wool"
+    },
+    "B": {
+      "item": "minecraft:cobblestone"
+    }
   },
   "result": {
     "id": "cla:light_gray_stand",

@@ -1,7 +1,9 @@
 {
   "type": "cla:panning",
   "time": 100,
-  "item": "cooked_mutton",
+  "item": {
+    "item": "cooked_mutton"
+  },
   "result": {
     "id": "cla:burned_mutton"
   },

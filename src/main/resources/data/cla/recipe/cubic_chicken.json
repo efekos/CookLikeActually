@@ -1,7 +1,9 @@
 {
   "type": "cla:cutting",
   "cuts": 6,
-  "item": "chicken",
+  "item": {
+    "item": "chicken"
+  },
   "result": {
     "id": "cla:cubic_chicken"
   }

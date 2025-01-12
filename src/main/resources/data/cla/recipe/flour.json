@@ -2,7 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "cla:flour_pack"
+    {
+      "item": "cla:flour_pack"
+    }
   ],
   "result": {
     "id": "cla:flour",

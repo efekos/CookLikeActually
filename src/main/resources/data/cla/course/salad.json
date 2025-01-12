@@ -4,7 +4,11 @@
   "saturation": 3,
   "eat_seconds": 1.5,
   "ingredients": [
-    "cla:cut_tomato",
-    "cla:cut_lettuce"
+    {
+      "item": "cla:cut_tomato"
+    },
+    {
+      "item": "cla:cut_lettuce"
+    }
   ]
 }

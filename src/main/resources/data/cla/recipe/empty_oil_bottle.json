@@ -5,7 +5,9 @@
     "A"
   ],
   "key": {
-    "A": "minecraft:glass"
+    "A": {
+      "item": "minecraft:glass"
+    }
   },
   "result": {
     "id": "cla:empty_oil_bottle",

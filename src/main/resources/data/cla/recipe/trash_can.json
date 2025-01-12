@@ -6,8 +6,12 @@
     "A"
   ],
   "key": {
-    "A": "minecraft:cobblestone",
-    "B": "minecraft:chest"
+    "A": {
+      "item": "minecraft:cobblestone"
+    },
+    "B": {
+      "item": "minecraft:chest"
+    }
   },
   "result": {
     "id": "cla:trash_can",

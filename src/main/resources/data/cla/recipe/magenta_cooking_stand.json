@@ -6,9 +6,15 @@
     "BBB"
   ],
   "key": {
-    "A": "minecraft:magenta_wool",
-    "B": "minecraft:cobblestone",
-    "C": "minecraft:campfire"
+    "A": {
+      "item": "minecraft:magenta_wool"
+    },
+    "B": {
+      "item": "minecraft:cobblestone"
+    },
+    "C": {
+      "item": "minecraft:campfire"
+    }
   },
   "result": {
     "id": "cla:magenta_cooking_stand",

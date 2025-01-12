@@ -1,7 +1,9 @@
 {
   "type": "cla:cutting",
   "cuts": 4,
-  "item": "bread",
+  "item": {
+    "item": "bread"
+  },
   "result": {
     "id": "cla:buns"
   }

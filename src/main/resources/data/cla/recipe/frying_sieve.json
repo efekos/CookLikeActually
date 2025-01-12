@@ -5,7 +5,9 @@
     "AA"
   ],
   "key": {
-    "A": "minecraft:chain"
+    "A": {
+      "item": "minecraft:chain"
+    }
   },
   "result": {
     "id": "cla:frying_sieve",

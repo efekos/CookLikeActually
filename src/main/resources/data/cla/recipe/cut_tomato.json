@@ -1,7 +1,9 @@
 {
   "type": "cla:cutting",
   "cuts": 5,
-  "item": "cla:tomato",
+  "item": {
+    "item": "cla:tomato"
+  },
   "result": {
     "id": "cla:cut_tomato"
   }

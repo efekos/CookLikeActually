@@ -1,7 +1,9 @@
 {
   "type": "cla:panning",
   "time": 200,
-  "item": "cod",
+  "item": {
+    "item": "cod"
+  },
   "result": {
     "id": "cooked_cod"
   }

@@ -1,7 +1,9 @@
 {
   "type": "cla:potting",
   "time": 100,
-  "item": "cla:cooked_rice",
+  "item": {
+    "item": "cla:cooked_rice"
+  },
   "result": {
     "id": "cla:burned_rice"
   },

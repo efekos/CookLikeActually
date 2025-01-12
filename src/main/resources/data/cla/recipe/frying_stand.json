@@ -6,9 +6,15 @@
     "BBB"
   ],
   "key": {
-    "A": "#minecraft:wool",
-    "B": "minecraft:cobblestone",
-    "C": "minecraft:furnace"
+    "A": {
+      "tag": "minecraft:wool"
+    },
+    "B": {
+      "item": "minecraft:cobblestone"
+    },
+    "C": {
+      "item": "minecraft:furnace"
+    }
   },
   "result": {
     "id": "cla:frying_stand",

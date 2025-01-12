@@ -1,7 +1,9 @@
 {
   "type": "cla:panning",
   "time": 100,
-  "item": "cooked_porkchop",
+  "item": {
+    "item": "cooked_porkchop"
+  },
   "result": {
     "id": "cla:burned_porkchop"
   },

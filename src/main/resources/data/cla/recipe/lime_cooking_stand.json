@@ -6,9 +6,15 @@
     "BBB"
   ],
   "key": {
-    "A": "minecraft:lime_wool",
-    "B": "minecraft:cobblestone",
-    "C": "minecraft:campfire"
+    "A": {
+      "item": "minecraft:lime_wool"
+    },
+    "B": {
+      "item": "minecraft:cobblestone"
+    },
+    "C": {
+      "item": "minecraft:campfire"
+    }
   },
   "result": {
     "id": "cla:lime_cooking_stand",

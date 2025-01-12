@@ -1,7 +1,9 @@
 {
   "type": "cla:frying",
   "time": 75,
-  "item": "cla:fries",
+  "item": {
+    "item": "cla:fries"
+  },
   "result": {
     "id": "cla:burned_fries"
   },

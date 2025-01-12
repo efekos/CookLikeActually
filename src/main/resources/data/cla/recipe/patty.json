@@ -1,7 +1,9 @@
 {
   "type": "cla:cutting",
   "cuts": 8,
-  "item": "beef",
+  "item": {
+    "item": "beef"
+  },
   "result": {
     "id": "cla:patty"
   }
