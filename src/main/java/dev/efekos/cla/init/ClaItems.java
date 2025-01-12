@@ -32,8 +32,7 @@ public class ClaItems {
     public static final Item LETTUCE = register("lettuce",settings ->  new BlockItem(ClaBlocks.LETTUCES, settings.useItemPrefixedTranslationKey().rarity(Rarity.COMMON).food(new FoodComponent(4, 2, false))));
     public static final Item CUT_TOMATO = register("cut_tomato", settings -> new Item(settings.rarity(Rarity.COMMON).food(new FoodComponent(2, 4, false))));
     public static final Item CUT_LETTUCE = register("cut_lettuce", settings -> new Item(settings.rarity(Rarity.COMMON).food(new FoodComponent(4, 2, false))));
-    public static final Item DIRTY_PLATE = register("dirty_plate", settings -> new Item(settings.rarity(Rarity.COMMON).maxCount(1)));
-    public static final Item PLATE = register("plate", settings -> new PlateItem(settings.rarity(Rarity.COMMON).useRemainder(DIRTY_PLATE)));
+    public static final Item PLATE = register("plate", settings -> new PlateItem(settings.rarity(Rarity.COMMON)));
     public static final Item PATTY = register("patty", settings -> new Item(settings.rarity(Rarity.COMMON).food(FoodComponents.BEEF)));
     public static final Item COOKED_PATTY = register("cooked_patty", settings -> new Item(settings.rarity(Rarity.COMMON).food(FoodComponents.COOKED_BEEF)));
     public static final Item BURNED_PATTY = register("burned_patty", settings -> new Item(settings.rarity(Rarity.COMMON)));
@@ -47,6 +46,7 @@ public class ClaItems {
     public static final Item CUT_CHEESE = register("cut_cheese", settings -> new Item(settings.rarity(Rarity.COMMON)));
     public static final Item ORDER_NOTE = register("order_note", settings -> new OrderNoteItem(settings.rarity(Rarity.COMMON).maxCount(1).component(ClaComponentTypes.COURSE_ID, Identifier.of("cla", "salad"))));
     public static final Item TOMATO_SEEDS = register("tomato_seeds", settings -> new BlockItem(ClaBlocks.TOMATOES, settings.useItemPrefixedTranslationKey().rarity(Rarity.COMMON)));
+    public static final Item DIRTY_PLATE = register("dirty_plate", settings -> new Item(settings.rarity(Rarity.COMMON).maxCount(1)));
     public static final Item FLOUR = register("flour", settings -> new Item(settings.rarity(Rarity.COMMON)));
     public static final Item FLOUR_PACK = register("flour_pack", settings -> new Item(settings.rarity(Rarity.COMMON)));
     public static final Item TORTILLA = register("tortilla", settings -> new Item(settings.rarity(Rarity.COMMON)));

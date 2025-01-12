@@ -13,7 +13,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.component.ComponentChanges;
 import net.minecraft.entity.player.PlayerInventory;
@@ -34,7 +33,7 @@ public class OrderNotesHud implements HudRenderCallback {
     private static final CachedFunction<Identifier, ItemStack> courseIdToStack = new CachedFunction<>(identifier -> new ItemStack(RegistryEntry.of(ClaItems.PLATE), 1, ComponentChanges.builder().add(ClaComponentTypes.COURSE_ID, identifier).build()));
     private static final CachedFunction<Identifier, List<ItemStack>> courseIdToIngredients = new CachedFunction<>(identifier -> {
         Optional<Course> course = CourseManager.getInstance().getCourse(identifier);
-        return course.map(value -> value.ingredients().stream().map(ingredient -> new ItemStack(ingredient.getMatchingItems().getFirst().value(),1)).toList()).orElseGet(ArrayList::new);
+        return course.map(value -> value.ingredients().stream().map(ingredient -> ingredient.getMatchingStacks()[0]).toList()).orElseGet(ArrayList::new);
     });
 
     @Override
@@ -53,7 +52,7 @@ public class OrderNotesHud implements HudRenderCallback {
 
         for (int i = 0; i < stacks.size(); i++) {
             int x = i * 80 + 10;
-            drawContext.drawGuiTexture(RenderLayer::getGuiTextured,NOTE_TEXTURE, x - 1, 0, 71, 100);
+            drawContext.drawGuiTexture(NOTE_TEXTURE, x - 1, 0, 71, 100);
 
             ItemStack noteStack = stacks.get(i);
             Identifier courseId = noteStack.get(ClaComponentTypes.COURSE_ID);
@@ -68,7 +67,7 @@ public class OrderNotesHud implements HudRenderCallback {
                 ItemStack stack = ingredientStacks.get(j);
                 int x1 = startX + (j % 4) * 17;
                 int y = ((int) Math.floor(j / 4d)) * 17 + 36;
-                drawContext.drawGuiTexture(RenderLayer::getGuiTextured,SLOT_TEXTURE, x1, y, 16, 16);
+                drawContext.drawGuiTexture(SLOT_TEXTURE, x1, y, 16, 16);
                 ((IDrawContextMixin) drawContext).cla$drawItemWithScale(stack, x1, y, 12f);
             }
         }

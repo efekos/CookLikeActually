@@ -31,12 +31,12 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     // REI API
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:17.0.789"
-    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:17.0.789"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:16.0.754"
+    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:16.0.754"
 
     compileOnly "me.shedaniel.cloth:basic-math:0.6.1"
-    compileOnly "me.shedaniel.cloth:cloth-config-fabric:16.0.141"
-    compileOnly "dev.architectury:architectury-fabric:14.0.3"
+    compileOnly "me.shedaniel.cloth:cloth-config-fabric:16.0.131"
+    compileOnly "dev.architectury:architectury-fabric:13.0.6"
 }
 
 processResources {

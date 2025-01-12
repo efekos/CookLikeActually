@@ -5,7 +5,6 @@ import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.resource.Course;
 import dev.efekos.cla.resource.CourseManager;
 import net.minecraft.component.ComponentMap;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
@@ -36,13 +35,9 @@ public class PlateItem extends BlockItem {
         return getDefaultStack();
     }
 
-    public String getTranslationKey(ItemStack stack) {
-        return Optional.ofNullable(stack.get(ClaComponentTypes.COURSE_ID)).flatMap(identifier -> CourseManager.getInstance() == null ? Optional.empty() : CourseManager.getInstance().getCourse(identifier)).map(Course::translationKey).orElse(super.getTranslationKey());
-    }
-
     @Override
-    public Text getName(ItemStack stack) {
-        return stack.getComponents().getOrDefault(DataComponentTypes.ITEM_NAME, Text.translatable(getTranslationKey(stack)));
+    public String getTranslationKey(ItemStack stack) {
+        return Optional.ofNullable(stack.get(ClaComponentTypes.COURSE_ID)).flatMap(identifier -> CourseManager.getInstance() == null ? Optional.empty() : CourseManager.getInstance().getCourse(identifier)).map(Course::translationKey).orElse(super.getTranslationKey(stack));
     }
 
 }

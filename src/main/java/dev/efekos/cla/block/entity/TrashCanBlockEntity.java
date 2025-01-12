@@ -53,7 +53,7 @@ public class TrashCanBlockEntity extends BlockEntity {
         super.writeNbt(nbt, registryLookup);
         if (containsItems()) {
             NbtList list = new NbtList();
-            for (ItemStack item : items) list.add(item.toNbt(registryLookup));
+            for (ItemStack item : items) list.add(item.encode(registryLookup));
             nbt.put("Items", list);
         }
     }

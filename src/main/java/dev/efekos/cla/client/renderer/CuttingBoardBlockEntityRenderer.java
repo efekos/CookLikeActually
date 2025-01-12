@@ -36,6 +36,14 @@ public class CuttingBoardBlockEntityRenderer implements BlockEntityRenderer<Cutt
         this.renderDispatcher = ctx.getRenderDispatcher();
     }
 
+    private static float getBackwardsYaw(Camera camera) {
+        return camera.getYaw() - 180.0F;
+    }
+
+    private static float getNegatedPitch(Camera camera) {
+        return -camera.getPitch();
+    }
+
     @Override
     public void render(CuttingBoardBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         World world = entity.getWorld();
@@ -57,7 +65,7 @@ public class CuttingBoardBlockEntityRenderer implements BlockEntityRenderer<Cutt
             matrices.pop();
         }
 
-        if (entity.getMaxCutsNeeded()>0) {
+        if (entity.hasRecipe(world)) {
             float v = entity.getCuts() / (float) entity.getMaxCutsNeeded();
 
             // cut status

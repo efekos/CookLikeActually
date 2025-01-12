@@ -5,7 +5,6 @@ import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.init.ClaSoundEvents;
 import dev.efekos.cla.init.ClaTags;
 import dev.efekos.cla.packet.PanSyncS2C;
-import dev.efekos.cla.recipe.CuttingRecipe;
 import dev.efekos.cla.recipe.PanningRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.ComponentMap;
@@ -13,10 +12,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -26,11 +23,9 @@ import net.minecraft.world.World;
 public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBlockEntity<PanSyncS2C> {
 
     private int ticks = 0;
-    private final ServerRecipeManager.MatchGetter<SingleStackRecipeInput, PanningRecipe> matchGetter;
 
     public PanBlockEntity(BlockPos pos, BlockState state) {
         super(ClaBlockEntityTypes.PAN, pos, state);
-        this.matchGetter = ServerRecipeManager.createCachedMatchGetter(PanningRecipe.Type.INSTANCE);
     }
 
     public static void tick(World world, BlockPos blockPos, BlockState blockState, PanBlockEntity panBlockEntity) {
@@ -52,10 +47,10 @@ public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBl
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
-        if (world instanceof ServerWorld sw && hasRecipe(sw) && world.getBlockState(pos.down()).isIn(ClaTags.COOKING_STANDS)) {
+        if (hasRecipe(world) && world.getBlockState(pos.down()).isIn(ClaTags.COOKING_STANDS)) {
             ticks++;
             world.playSound(pos.getX(), pos.getY(), pos.getZ(), ClaSoundEvents.PAN_COOKING, SoundCategory.BLOCKS, 1f, 1f, true);
-            PanningRecipe recipe = getRecipe(sw);
+            PanningRecipe recipe = getRecipe(world);
             if (getTicks() >= recipe.getTime()) {
 
                 if (world.isClient()) {
@@ -74,18 +69,18 @@ public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBl
     }
 
 
-    public boolean hasRecipe(ServerWorld world) {
+    public boolean hasRecipe(World world) {
         if (!hasItem()) return false;
-        return matchGetter.getFirstMatch(new SingleStackRecipeInput(getItem()), world).isPresent();
+        return world.getRecipeManager().getFirstMatch(PanningRecipe.Type.INSTANCE, new SingleStackRecipeInput(getItem()), world).isPresent();
     }
 
-    public PanningRecipe getRecipe(ServerWorld world) {
+    public PanningRecipe getRecipe(World world) {
         if (!hasItem()) return null;
-        return matchGetter.getFirstMatch(new SingleStackRecipeInput(getItem()), world).map(RecipeEntry::value).orElse(null);
+        return world.getRecipeManager().getFirstMatch(PanningRecipe.Type.INSTANCE, new SingleStackRecipeInput(getItem()), world).map(RecipeEntry::value).orElse(null);
     }
 
     public boolean hasRecipe() {
-        return world instanceof ServerWorld sw && hasRecipe(sw);
+        return hasRecipe(world);
     }
 
     @Override
@@ -118,7 +113,7 @@ public class PanBlockEntity extends BlockEntityWithOneItem implements SyncAbleBl
     }
 
     public int getMaxTicks() {
-        return hasRecipe() ? getRecipe((ServerWorld) world).getTime() : 0;
+        return hasRecipe() ? getRecipe(world).getTime() : 0;
     }
 
     public void setItemWithoutReset(ItemStack item) {

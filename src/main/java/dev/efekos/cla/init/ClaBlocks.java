@@ -81,7 +81,7 @@ public class ClaBlocks {
     private static <T extends Block> T register(String id, AbstractBlock.Settings settings, Function<AbstractBlock.Settings,T> blockCreator) {
         Identifier identifier = Identifier.of(Main.MOD_ID, id);
         T registered = Registry.register(Registries.BLOCK, identifier, blockCreator.apply(settings.registryKey(RegistryKey.of(RegistryKeys.BLOCK,identifier))));
-        Registry.register(Registries.ITEM, identifier, new BlockItem(registered, new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM,identifier)).useBlockPrefixedTranslationKey()));
+        Registry.register(Registries.ITEM, identifier, new BlockItem(registered, new Item.Settings().useBlockPrefixedTranslationKey()));
         return registered;
     }
 

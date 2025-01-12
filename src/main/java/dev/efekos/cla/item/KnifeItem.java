@@ -6,7 +6,6 @@ import dev.efekos.cla.init.ClaSoundEvents;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -18,7 +17,7 @@ import java.util.Optional;
 public class KnifeItem extends SwordItem {
 
     public KnifeItem(ToolMaterial toolMaterial, Settings settings) {
-        super(toolMaterial, 4,-.8f, settings);
+        super(toolMaterial, settings);
     }
 
     @Override
@@ -29,10 +28,10 @@ public class KnifeItem extends SwordItem {
         Optional<CuttingBoardBlockEntity> blockEntityOptional = world.getBlockEntity(pos, ClaBlockEntityTypes.CUTTING_BOARD);
         if (blockEntityOptional.isEmpty()) return ActionResult.PASS;
         CuttingBoardBlockEntity blockEntity = blockEntityOptional.get();
-        if (world instanceof ServerWorld sw && !blockEntity.hasRecipe(sw)) return ActionResult.PASS;
+        if (!blockEntity.hasRecipe(world)) return ActionResult.PASS;
         blockEntity.setCuts(blockEntity.getCuts() + 1);
         world.playSound(context.getPlayer(), pos, ClaSoundEvents.KNIFE_SLICE, SoundCategory.BLOCKS);
-        return ActionResult.SUCCESS;
+        return ActionResult.success(true);
     }
 
 }

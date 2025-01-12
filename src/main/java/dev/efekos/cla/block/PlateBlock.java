@@ -9,12 +9,9 @@ import dev.efekos.cla.resource.Course;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ConsumableComponent;
-import net.minecraft.component.type.ConsumableComponents;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.consume.UseAction;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.sound.SoundCategory;
@@ -53,7 +50,7 @@ public class PlateBlock extends BlockWithEntity {
         if (plate.hasCourse()) {
             Course course = plate.getCurrentCourse();
             stack.set(ClaComponentTypes.COURSE_ID, course.id());
-            stack.set(DataComponentTypes.FOOD, new FoodComponent(course.nutrition(), course.saturation(), false));
+            stack.set(DataComponentTypes.FOOD, new FoodComponent(course.nutrition(), course.saturation(), false, course.eatSeconds(), Optional.of(ClaItems.DIRTY_PLATE.getDefaultStack()), List.of()));
         }
         if (!stacks.isEmpty()) stack.set(ClaComponentTypes.ITEMS, stacks);
         return stack;

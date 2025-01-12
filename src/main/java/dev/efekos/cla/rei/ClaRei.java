@@ -8,7 +8,6 @@ import dev.efekos.cla.recipe.PottingRecipe;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
-import me.shedaniel.rei.api.client.registry.display.DynamicDisplayGenerator;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 
 public class ClaRei implements REIClientPlugin {
@@ -27,7 +26,10 @@ public class ClaRei implements REIClientPlugin {
 
     @Override
     public void registerDisplays(DisplayRegistry registry) {
-        //TODO
+        registry.registerRecipeFiller(CuttingRecipe.class, CuttingRecipe.Type.INSTANCE, CuttingDisplay::new);
+        registry.registerRecipeFiller(FryingRecipe.class, FryingRecipe.Type.INSTANCE, entry -> new ArrowProgressDisplay(FryingCategory.CATEGORY_ID, entry.value()));
+        registry.registerRecipeFiller(PanningRecipe.class, PanningRecipe.Type.INSTANCE, entry -> new ArrowProgressDisplay(PanningCategory.CATEGORY_ID, entry.value()));
+        registry.registerRecipeFiller(PottingRecipe.class, PottingRecipe.Type.INSTANCE, entry -> new ArrowProgressDisplay(PottingCategory.CATEGORY_ID, entry.value()));
     }
 
 }

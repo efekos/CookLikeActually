@@ -33,7 +33,7 @@ public class OilBottleItem extends Item {
         Hand hand = context.getHand();
         world.playSound(player, blockPos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS);
         player.setStackInHand(hand, ClaItems.EMPTY_OIL_BOTTLE.getDefaultStack());
-        return ActionResult.SUCCESS;
+        return ActionResult.success(true);
     }
 
 }

@@ -1,20 +1,10 @@
 package dev.efekos.cla.rei;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.efekos.cla.recipe.CuttingRecipe;
 import dev.efekos.cla.recipe.RecipeWithArrowProgress;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
-import me.shedaniel.rei.api.common.display.Display;
-import me.shedaniel.rei.api.common.display.DisplaySerializer;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.util.dynamic.Codecs;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -40,11 +30,6 @@ public class ArrowProgressDisplay extends BasicDisplay {
 
     public int getTime() {
         return time;
-    }
-
-    @Override
-    public @Nullable DisplaySerializer<? extends Display> getSerializer() {
-        return null; //TODO
     }
 
 }
