@@ -36,6 +36,14 @@ public class PanBlockEntityRenderer implements BlockEntityRenderer<PanBlockEntit
         this.renderDispatcher = ctx.getRenderDispatcher();
     }
 
+    private static float getBackwardsYaw(Camera camera) {
+        return camera.getYaw() - 180.0F;
+    }
+
+    private static float getNegatedPitch(Camera camera) {
+        return -camera.getPitch();
+    }
+
     @Override
     public void render(PanBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         World world = entity.getWorld();

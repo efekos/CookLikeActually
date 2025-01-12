@@ -24,6 +24,14 @@ public class WashingStandBlockEntityRenderer implements BlockEntityRenderer<Wash
         this.renderDispatcher = context.getRenderDispatcher();
     }
 
+    private static float getBackwardsYaw(Camera camera) {
+        return camera.getYaw() - 180.0F;
+    }
+
+    private static float getNegatedPitch(Camera camera) {
+        return -camera.getPitch();
+    }
+
     @Override
     public void render(WashingStandBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         if (!entity.hasPlates()) return;
