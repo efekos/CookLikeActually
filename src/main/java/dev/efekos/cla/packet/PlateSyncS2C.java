@@ -35,7 +35,7 @@ public class PlateSyncS2C implements CustomPayload {
     public PlateSyncS2C(RegistryByteBuf buf) {
         items = buf.readBoolean() ? ItemStack.OPTIONAL_LIST_PACKET_CODEC.decode(buf) : new ArrayList<>();
         pos = buf.readBlockPos();
-        if (buf.readBoolean()) course = CourseManager.getInstance().getCourse(buf.readIdentifier()).orElse(null);
+        if (buf.readBoolean()) course = CourseManager.getInstance().getCourse(buf.readIdentifier()).orElseThrow();
     }
 
     public void write(RegistryByteBuf buf) {
