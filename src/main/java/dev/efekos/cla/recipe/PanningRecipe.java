@@ -99,6 +99,7 @@ public class PanningRecipe implements RecipeWithArrowProgress<SingleStackRecipeI
     public static final class Serializer implements RecipeSerializer<PanningRecipe> {
 
 
+
         public static final Serializer INSTANCE = new Serializer();
 
         public static final MapCodec<PanningRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(

@@ -1,9 +1,12 @@
 package dev.efekos.cla.client.renderer;
 
 import dev.efekos.cla.block.entity.PotBlockEntity;
+import dev.efekos.cla.client.renderer.bar.ProgressBarRenderer;
 import dev.efekos.cla.init.ClaTags;
+import dev.efekos.cla.util.IMinecraftClientMixin;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.OverlayTexture;
@@ -20,6 +23,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
+import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
 public class PotBlockEntityRenderer implements BlockEntityRenderer<PotBlockEntity> {
@@ -66,7 +70,7 @@ public class PotBlockEntityRenderer implements BlockEntityRenderer<PotBlockEntit
         //if (entity.hasRecipe(world) && entity.getRecipe(world).hasProgressBar()) {
         //    float v = entity.getTicks() / (float) entity.getMaxTicks();
         //    // cut status
-        //   ProgressBarRenderer barRenderer = ((IMinecraftClientMixin) MinecraftClient.getInstance()).cla$getProgressBarRenderer();
+         //   ProgressBarRenderer barRenderer = ((IMinecraftClientMixin) MinecraftClient.getInstance()).cla$getProgressBarRenderer();
 
         //    matrices.push();
         //    matrices.translate(0.5f, .75f, 0.5f);

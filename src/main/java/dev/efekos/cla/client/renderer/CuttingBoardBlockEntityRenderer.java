@@ -57,7 +57,7 @@ public class CuttingBoardBlockEntityRenderer implements BlockEntityRenderer<Cutt
             matrices.pop();
         }
 
-        if (entity.getMaxCutsNeeded() > 0) {
+        if (entity.getMaxCutsNeeded()>0) {
             float v = entity.getCuts() / (float) entity.getMaxCutsNeeded();
 
             // cut status

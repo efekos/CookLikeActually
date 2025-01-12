@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public record Course(Identifier id, Identifier modelId, List<Ingredient> ingredients, int nutrition, int saturation,
-                     String translationKey, Optional<List<Ingredient>> trnsfrmrs) {
+public record Course(Identifier id, Identifier modelId, List<Ingredient> ingredients, int nutrition, int saturation, String translationKey, Optional<List<Ingredient>> trnsfrmrs) {
 
     public boolean matches(List<ItemStack> stacks) {
         for (Ingredient ingredient : ingredients) if (stacks.stream().noneMatch(ingredient)) return false;
@@ -18,7 +17,7 @@ public record Course(Identifier id, Identifier modelId, List<Ingredient> ingredi
         return true;
     }
 
-    public List<Ingredient> transformers() {
+    public List<Ingredient> transformers(){
         return trnsfrmrs.orElseGet(ArrayList::new);
     }
 
@@ -26,11 +25,11 @@ public record Course(Identifier id, Identifier modelId, List<Ingredient> ingredi
         return transformers().stream().anyMatch(ingredient -> ingredient.test(stack));
     }
 
-    public Course copyWithId(Identifier _id) {
+    public Course copyWithId(Identifier _id){
         return new Course(_id, modelId, ingredients, nutrition, saturation, translationKey, trnsfrmrs);
     }
 
-    public Course copyWithTranslationKey(String key) {
+    public Course copyWithTranslationKey(String key){
         return new Course(id, modelId, ingredients, nutrition, saturation, key, trnsfrmrs);
     }
 

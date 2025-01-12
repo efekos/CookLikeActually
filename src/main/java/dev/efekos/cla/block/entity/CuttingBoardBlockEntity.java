@@ -4,6 +4,7 @@ import dev.efekos.cla.init.ClaBlockEntityTypes;
 import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.packet.CuttingBoardSyncS2C;
 import dev.efekos.cla.recipe.CuttingRecipe;
+import dev.efekos.cla.recipe.FryingRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.item.ItemStack;
@@ -14,15 +15,17 @@ import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 public class CuttingBoardBlockEntity extends BlockEntityWithOneItem implements SyncAbleBlockEntity<CuttingBoardSyncS2C> {
 
-    private final ServerRecipeManager.MatchGetter<SingleStackRecipeInput, CuttingRecipe> matchGetter;
     private int cuts;
     private CuttingRecipe currentRecipe;
     private int maxCutsNeeded;
+    private final ServerRecipeManager.MatchGetter<SingleStackRecipeInput, CuttingRecipe> matchGetter;
 
     public CuttingBoardBlockEntity(BlockPos pos, BlockState state) {
         super(ClaBlockEntityTypes.CUTTING_BOARD, pos, state);

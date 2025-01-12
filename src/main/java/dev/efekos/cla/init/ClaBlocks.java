@@ -19,19 +19,21 @@ import java.util.function.Function;
 
 public class ClaBlocks {
 
-    public static final BlockSoundGroup PLATE_SOUNDS = new BlockSoundGroup(1f, 1f, SoundEvents.BLOCK_STONE_BREAK, SoundEvents.BLOCK_GLASS_STEP, ClaSoundEvents.PLATE_PLACE, SoundEvents.BLOCK_GLASS_HIT, SoundEvents.BLOCK_GLASS_FALL);
-    public static final CuttingBoardBlock CUTTING_BOARD = register("cutting_board", copy(Blocks.OAK_PLANKS), CuttingBoardBlock::new);
-    public static final PlateBlock PLATE = registerWithoutItem("plate", copy(Blocks.GLASS).sounds(PLATE_SOUNDS), PlateBlock::new);
-    public static final PanBlock PAN = register("pan", copy(Blocks.GLASS).sounds(PLATE_SOUNDS), PanBlock::new);
-    public static final PotBlock POT = register("pot", copy(Blocks.GLASS).sounds(PLATE_SOUNDS), PotBlock::new);
-    public static final PlateRackBlock PLATE_RACK = register("plate_rack", copy(Blocks.DIRT).mapColor(MapColor.WHITE_GRAY).sounds(BlockSoundGroup.WOOD).nonOpaque(), PlateRackBlock::new);
-    public static final ItemBoxBlock ITEM_BOX = register("item_box", copy(Blocks.OAK_PLANKS), ItemBoxBlock::new);
-    public static final TrashCanBlock TRASH_CAN = register("trash_can", copy(Blocks.DIRT).mapColor(MapColor.GRAY).sounds(BlockSoundGroup.WOOD), TrashCanBlock::new);
-    public static final CropBlock TOMATOES = register("tomatoes", copy(Blocks.CARROTS).mapColor(MapColor.DULL_RED), CropBlock::new);
-    public static final LettuceBlock LETTUCES = register("lettuces", copy(Blocks.CARROTS).mapColor(MapColor.GREEN), LettuceBlock::new);
     private static final AbstractBlock.Settings STAND_BLOCK_SETTINGS = AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).hardness(2.5f).resistance(3).mapColor(MapColor.PURPLE);
+
+    public static final BlockSoundGroup PLATE_SOUNDS = new BlockSoundGroup(1f, 1f, SoundEvents.BLOCK_STONE_BREAK, SoundEvents.BLOCK_GLASS_STEP, ClaSoundEvents.PLATE_PLACE, SoundEvents.BLOCK_GLASS_HIT, SoundEvents.BLOCK_GLASS_FALL);
+    public static final CuttingBoardBlock CUTTING_BOARD = register("cutting_board", copy(Blocks.OAK_PLANKS),CuttingBoardBlock::new);
+    public static final PlateBlock PLATE = registerWithoutItem("plate", copy(Blocks.GLASS).sounds(PLATE_SOUNDS),PlateBlock::new);
+    public static final PanBlock PAN = register("pan", copy(Blocks.GLASS).sounds(PLATE_SOUNDS),PanBlock::new);
+    public static final PotBlock POT = register("pot", copy(Blocks.GLASS).sounds(PLATE_SOUNDS),PotBlock::new);
+    public static final PlateRackBlock PLATE_RACK = register("plate_rack", copy(Blocks.DIRT).mapColor(MapColor.WHITE_GRAY).sounds(BlockSoundGroup.WOOD).nonOpaque(), PlateRackBlock::new);
+    public static final ItemBoxBlock ITEM_BOX = register("item_box", copy(Blocks.OAK_PLANKS),ItemBoxBlock::new);
+    public static final TrashCanBlock TRASH_CAN = register("trash_can", copy(Blocks.DIRT).mapColor(MapColor.GRAY).sounds(BlockSoundGroup.WOOD),TrashCanBlock::new);
+    public static final CropBlock TOMATOES = register("tomatoes", copy(Blocks.CARROTS).mapColor(MapColor.DULL_RED),CropBlock::new);
+    public static final LettuceBlock LETTUCES = register("lettuces", copy(Blocks.CARROTS).mapColor(MapColor.GREEN),LettuceBlock::new);
+
     public static final Block COOKING_STAND = register("cooking_stand", STAND_BLOCK_SETTINGS);
-    public static final Block FRYING_STAND = register("frying_stand", STAND_BLOCK_SETTINGS.nonOpaque(), FryingStandBlock::new);
+    public static final Block FRYING_STAND = register("frying_stand", STAND_BLOCK_SETTINGS.nonOpaque(),FryingStandBlock::new);
     public static final Block STAND = register("stand", STAND_BLOCK_SETTINGS);
     public static final Block WHITE_STAND = register("white_stand", STAND_BLOCK_SETTINGS.mapColor(DyeColor.WHITE));
     public static final Block LIGHT_GRAY_STAND = register("light_gray_stand", STAND_BLOCK_SETTINGS.mapColor(DyeColor.LIGHT_GRAY));
@@ -49,7 +51,7 @@ public class ClaBlocks {
     public static final Block PURPLE_STAND = register("purple_stand", STAND_BLOCK_SETTINGS.mapColor(DyeColor.PURPLE));
     public static final Block MAGENTA_STAND = register("magenta_stand", STAND_BLOCK_SETTINGS.mapColor(DyeColor.MAGENTA));
     public static final Block PINK_STAND = register("pink_stand", STAND_BLOCK_SETTINGS.mapColor(DyeColor.PINK));
-    public static final Block WASHING_STAND = register("washing_stand", STAND_BLOCK_SETTINGS.nonOpaque(), WashingStandBlock::new);
+    public static final Block WASHING_STAND = register("washing_stand", STAND_BLOCK_SETTINGS.nonOpaque(),WashingStandBlock::new);
     public static final Block WHITE_COOKING_STAND = register("white_cooking_stand", STAND_BLOCK_SETTINGS.mapColor(DyeColor.WHITE));
 
     public static final Block LIGHT_GRAY_COOKING_STAND = register("light_gray_cooking_stand", STAND_BLOCK_SETTINGS.mapColor(DyeColor.LIGHT_GRAY));
@@ -76,20 +78,20 @@ public class ClaBlocks {
         return AbstractBlock.Settings.copy(b);
     }
 
-    private static <T extends Block> T register(String id, AbstractBlock.Settings settings, Function<AbstractBlock.Settings, T> blockCreator) {
+    private static <T extends Block> T register(String id, AbstractBlock.Settings settings, Function<AbstractBlock.Settings,T> blockCreator) {
         Identifier identifier = Identifier.of(Main.MOD_ID, id);
-        T registered = Registry.register(Registries.BLOCK, identifier, blockCreator.apply(settings.registryKey(RegistryKey.of(RegistryKeys.BLOCK, identifier))));
-        Registry.register(Registries.ITEM, identifier, new BlockItem(registered, new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM, identifier)).useBlockPrefixedTranslationKey()));
+        T registered = Registry.register(Registries.BLOCK, identifier, blockCreator.apply(settings.registryKey(RegistryKey.of(RegistryKeys.BLOCK,identifier))));
+        Registry.register(Registries.ITEM, identifier, new BlockItem(registered, new Item.Settings().registryKey(RegistryKey.of(RegistryKeys.ITEM,identifier)).useBlockPrefixedTranslationKey()));
         return registered;
     }
 
     private static Block register(String id, AbstractBlock.Settings settings) {
-        return register(id, settings, Block::new);
+        return register(id,settings,Block::new);
     }
 
-    private static <T extends Block> T registerWithoutItem(String id, AbstractBlock.Settings settings, Function<AbstractBlock.Settings, T> blockCreator) {
+    private static <T extends Block> T registerWithoutItem(String id, AbstractBlock.Settings settings, Function<AbstractBlock.Settings,T> blockCreator) {
         Identifier identifier = Identifier.of(Main.MOD_ID, id);
-        return Registry.register(Registries.BLOCK, identifier, blockCreator.apply(settings.registryKey(RegistryKey.of(RegistryKeys.BLOCK, identifier))));
+        return Registry.register(Registries.BLOCK, identifier, blockCreator.apply(settings.registryKey(RegistryKey.of(RegistryKeys.BLOCK,identifier))));
     }
 
 }

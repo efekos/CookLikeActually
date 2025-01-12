@@ -9,10 +9,12 @@ import dev.efekos.cla.resource.Course;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ConsumableComponent;
 import net.minecraft.component.type.ConsumableComponents;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.consume.UseAction;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.sound.SoundCategory;
@@ -52,7 +54,7 @@ public class PlateBlock extends BlockWithEntity {
             Course course = plate.getCurrentCourse();
             stack.set(ClaComponentTypes.COURSE_ID, course.id());
             stack.set(DataComponentTypes.FOOD, new FoodComponent(course.nutrition(), course.saturation(), false));
-            stack.set(DataComponentTypes.CONSUMABLE, ConsumableComponents.FOOD);
+            stack.set(DataComponentTypes.CONSUMABLE,ConsumableComponents.FOOD);
         }
         if (!stacks.isEmpty()) stack.set(ClaComponentTypes.ITEMS, stacks);
         return stack;
@@ -111,7 +113,7 @@ public class PlateBlock extends BlockWithEntity {
             plate.setItems(new ArrayList<>());
             plate.markDirty();
             world.playSound(player, pos, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER.value(), SoundCategory.BLOCKS);
-            return world.isClient ? ActionResult.SUCCESS : ActionResult.SUCCESS_SERVER;
+            return world.isClient?ActionResult.SUCCESS:ActionResult.SUCCESS_SERVER;
         } else {
             if (plate.hasCourse() && playerStack.isEmpty()) return pickup(world, pos, player, plate, hand);
             if (!plate.acceptsItems(playerStack) || playerStack.isEmpty() || stacks.stream().anyMatch(itemStack -> itemStack.isOf(playerStack.getItem())))
@@ -121,7 +123,7 @@ public class PlateBlock extends BlockWithEntity {
             plate.markDirty();
             playerStack.decrement(1);
             world.playSound(player, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS);
-            return world.isClient ? ActionResult.SUCCESS : ActionResult.SUCCESS_SERVER;
+            return world.isClient?ActionResult.SUCCESS:ActionResult.SUCCESS_SERVER;
         }
 
     }
@@ -131,7 +133,7 @@ public class PlateBlock extends BlockWithEntity {
         player.setStackInHand(hand, stack);
         world.playSound(player, pos, ClaSoundEvents.PLATE_PICKUP, SoundCategory.BLOCKS);
         world.removeBlock(pos, false);
-        return world.isClient ? ActionResult.SUCCESS : ActionResult.SUCCESS_SERVER;
+        return world.isClient?ActionResult.SUCCESS:ActionResult.SUCCESS_SERVER;
     }
 
 }

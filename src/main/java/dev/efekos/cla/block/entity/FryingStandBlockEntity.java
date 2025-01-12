@@ -26,9 +26,9 @@ import net.minecraft.world.World;
 
 public class FryingStandBlockEntity extends BlockEntityWithOneItem implements SyncAbleBlockEntity<FryingStandSyncS2C> {
 
-    private final ServerRecipeManager.MatchGetter<SingleStackRecipeInput, FryingRecipe> matchGetter;
     private int ticks;
     private int oilCleanness;
+    private final ServerRecipeManager.MatchGetter<SingleStackRecipeInput,FryingRecipe> matchGetter;
 
     public FryingStandBlockEntity(BlockPos pos, BlockState state) {
         super(ClaBlockEntityTypes.FRYING_STAND, pos, state);
@@ -41,7 +41,7 @@ public class FryingStandBlockEntity extends BlockEntityWithOneItem implements Sy
 
     public boolean hasRecipe(ServerWorld world) {
         if (!hasItem()) return false;
-        return matchGetter.getFirstMatch(new SingleStackRecipeInput(item), world).isPresent();
+        return matchGetter.getFirstMatch(new SingleStackRecipeInput(item),world).isPresent();
     }
 
     public FryingRecipe getRecipe(ServerWorld world) {
