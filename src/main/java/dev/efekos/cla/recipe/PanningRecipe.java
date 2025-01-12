@@ -8,8 +8,9 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.particle.SimpleParticleType;
-import net.minecraft.recipe.*;
-import net.minecraft.recipe.book.RecipeBookCategory;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.dynamic.Codecs;
@@ -70,40 +71,32 @@ public class PanningRecipe implements RecipeWithArrowProgress<SingleStackRecipeI
         return result;
     }
 
+    @Override
+    public boolean fits(int width, int height) {
+        return true;
+    }
 
     @Override
-    public RecipeSerializer<? extends Recipe<SingleStackRecipeInput>> getSerializer() {
+    public ItemStack getResult(RegistryWrapper.WrapperLookup registriesLookup) {
+        return result;
+    }
+
+    @Override
+    public RecipeSerializer<?> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<? extends Recipe<SingleStackRecipeInput>> getType() {
+    public RecipeType<?> getType() {
         return Type.INSTANCE;
-    }
-
-    @Override
-    public IngredientPlacement getIngredientPlacement() {
-        return IngredientPlacement.NONE;
-    }
-
-    @Override
-    public RecipeBookCategory getRecipeBookCategory() {
-        return null;
-    }
-
-    @Override
-    public boolean isIgnoredInRecipeBook() {
-        return true;
     }
 
     public static final class Serializer implements RecipeSerializer<PanningRecipe> {
 
-
-
         public static final Serializer INSTANCE = new Serializer();
 
         public static final MapCodec<PanningRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                Ingredient.CODEC.fieldOf("item").forGetter(PanningRecipe::getItem),
+                Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("item").forGetter(PanningRecipe::getItem),
                 ItemStack.CODEC.fieldOf("result").forGetter(PanningRecipe::getRes),
                 Codecs.POSITIVE_INT.fieldOf("time").forGetter(PanningRecipe::getTime),
                 Codec.BOOL.optionalFieldOf("burn", false).forGetter(PanningRecipe::isBurnRecipe)

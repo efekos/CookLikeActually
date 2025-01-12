@@ -6,7 +6,8 @@ import net.minecraft.util.Identifier;
 
 import java.util.List;
 
-public record Course(Identifier id, Identifier modelId, List<Ingredient> ingredients, int nutrition, int saturation, String translationKey, List<Ingredient> transformers) {
+public record Course(Identifier id, Identifier modelId, List<Ingredient> ingredients, int nutrition, int saturation,
+                     float eatSeconds, String translationKey, List<Ingredient> transformers) {
 
     public boolean matches(List<ItemStack> stacks) {
         for (Ingredient ingredient : ingredients) if (stacks.stream().noneMatch(ingredient)) return false;
@@ -17,14 +18,6 @@ public record Course(Identifier id, Identifier modelId, List<Ingredient> ingredi
 
     public boolean canTransform(ItemStack stack) {
         return transformers.stream().anyMatch(ingredient -> ingredient.test(stack));
-    }
-
-    public Course copyWithId(Identifier id){
-        return new Course(id, modelId, ingredients, nutrition, saturation, translationKey, transformers);
-    }
-
-    public Course copyWithTranslationKey(String translationKey){
-        return new Course(modelId, id, ingredients, nutrition, saturation, translationKey, transformers);
     }
 
 }
