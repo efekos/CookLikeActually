@@ -21,15 +21,11 @@ public class PanSyncS2C implements CustomPayload {
     private final ItemStack item;
     private final int ticks;
     private final BlockPos pos;
-    private final int maxTicks;
-    private final boolean shouldRenderProgressBar;
 
-    public PanSyncS2C(ItemStack item, int ticks, BlockPos pos, int maxTicks, boolean shouldRenderProgressBar) {
+    public PanSyncS2C(ItemStack item, int ticks, BlockPos pos) {
         this.item = item;
         this.ticks = ticks;
         this.pos = pos;
-        this.maxTicks = maxTicks;
-        this.shouldRenderProgressBar = shouldRenderProgressBar;
     }
 
     public PanSyncS2C(RegistryByteBuf buf) {
@@ -37,8 +33,6 @@ public class PanSyncS2C implements CustomPayload {
         boolean b = buf.readBoolean();
         this.item = b ? ItemStack.PACKET_CODEC.decode(buf) : ItemStack.EMPTY;
         this.pos = buf.readBlockPos();
-        this.maxTicks = buf.readInt();
-        this.shouldRenderProgressBar = buf.readBoolean();
     }
 
     public void write(RegistryByteBuf buf) {
@@ -47,8 +41,6 @@ public class PanSyncS2C implements CustomPayload {
         buf.writeBoolean(b);
         if (b) ItemStack.PACKET_CODEC.encode(buf, this.item);
         buf.writeBlockPos(this.pos);
-        buf.writeInt(this.maxTicks);
-        buf.writeBoolean(this.shouldRenderProgressBar);
     }
 
     @Override
@@ -62,8 +54,6 @@ public class PanSyncS2C implements CustomPayload {
         if (!(entity instanceof PanBlockEntity pan)) return;
         pan.setItemWithoutReset(item);
         pan.setTicks(ticks);
-        pan.setMaxTicks(maxTicks);
-        pan.setShouldRenderProgressBar(shouldRenderProgressBar);
     }
 
 }
