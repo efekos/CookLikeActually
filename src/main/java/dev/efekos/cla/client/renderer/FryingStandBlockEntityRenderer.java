@@ -1,10 +1,8 @@
 package dev.efekos.cla.client.renderer;
 
 import dev.efekos.cla.block.entity.FryingStandBlockEntity;
-import dev.efekos.cla.client.renderer.bar.ProgressBarRenderer;
 import dev.efekos.cla.init.ClaComponentTypes;
 import dev.efekos.cla.init.ClaTags;
-import dev.efekos.cla.util.IMinecraftClientMixin;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -106,20 +104,19 @@ public class FryingStandBlockEntityRenderer implements BlockEntityRenderer<Fryin
         }
 
         // progress bar
-        if (entity.getMaxTicks()!=0) {
-            if(entity.getMaxTicks()<1)return;
-            float v = entity.getTicks() / (float) entity.getMaxTicks();
-            // cut status
-            ProgressBarRenderer barRenderer = ((IMinecraftClientMixin) MinecraftClient.getInstance()).cla$getProgressBarRenderer();
+        //if (entity.hasRecipe(world) && entity.getRecipe(world).hasProgressBar()) {
+        //    float v = entity.getTicks() / (float) entity.getRecipe(world).getTime();
+        //    // cut status
+        //    ProgressBarRenderer barRenderer = ((IMinecraftClientMixin) MinecraftClient.getInstance()).cla$getProgressBarRenderer();
 
-            matrices.push();
-            matrices.translate(0.5f, 1.75f, 0.5f);
-            matrices.scale(1f, 1f, 1f);
-            Camera camera = this.renderDispatcher.camera;
-            matrices.multiply(new Quaternionf().rotationYXZ(3.1415927F - camera.getYaw() * 0.017453292F, -camera.getPitch() * 0.017453292F, 0f));
-            barRenderer.renderBar(matrices, ProgressBarRenderer.getDefaultTextures(), v, lightLevel);
-            matrices.pop();
-        }
+        //    matrices.push();
+        //    matrices.translate(0.5f, 1.75f, 0.5f);
+        //    matrices.scale(1f, 1f, 1f);
+        //    Camera camera = this.renderDispatcher.camera;
+        //    matrices.multiply(new Quaternionf().rotationYXZ(3.1415927F - camera.getYaw() * 0.017453292F, -camera.getPitch() * 0.017453292F, 0f));
+        //    barRenderer.renderBar(matrices, ProgressBarRenderer.getDefaultTextures(), v, lightLevel);
+        //    matrices.pop();
+        //}
 
         //warnings
         if (entity.getOilCleanness() <= 50) {

@@ -28,7 +28,6 @@ public class FryingStandBlockEntity extends BlockEntityWithOneItem implements Sy
 
     private final ServerRecipeManager.MatchGetter<SingleStackRecipeInput, FryingRecipe> matchGetter;
     private int ticks;
-    private int maxTicks;
     private int oilCleanness;
 
     public FryingStandBlockEntity(BlockPos pos, BlockState state) {
@@ -42,20 +41,11 @@ public class FryingStandBlockEntity extends BlockEntityWithOneItem implements Sy
 
     public boolean hasRecipe(ServerWorld world) {
         if (!hasItem()) return false;
-        return updateMaxTicks(matchGetter.getFirstMatch(new SingleStackRecipeInput(item), world).map(RecipeEntry::value).orElse(null))!=null;
+        return matchGetter.getFirstMatch(new SingleStackRecipeInput(item), world).isPresent();
     }
 
     public FryingRecipe getRecipe(ServerWorld world) {
-        return updateMaxTicks(matchGetter.getFirstMatch(new SingleStackRecipeInput(item), world).map(RecipeEntry::value).orElse(null));
-    }
-
-    public int getMaxTicks() {
-        return maxTicks;
-    }
-
-    private FryingRecipe updateMaxTicks(FryingRecipe recipe){
-        if(world!=null&&!world.isClient()) maxTicks = recipe!=null&&recipe.hasProgressBar() ? recipe.getTime() : 0;
-        return recipe;
+        return matchGetter.getFirstMatch(new SingleStackRecipeInput(item), world).map(RecipeEntry::value).orElse(null);
     }
 
     public void tick(BlockState state, BlockPos pos, World world) {
@@ -129,7 +119,7 @@ public class FryingStandBlockEntity extends BlockEntityWithOneItem implements Sy
 
     @Override
     public FryingStandSyncS2C createSyncPacket() {
-        return new FryingStandSyncS2C(hasItem() ? item : ItemStack.EMPTY, ticks, oilCleanness, pos, maxTicks);
+        return new FryingStandSyncS2C(hasItem() ? item : ItemStack.EMPTY, ticks, oilCleanness, pos);
     }
 
     public void setItemWithoutReset(ItemStack item) {
@@ -140,10 +130,6 @@ public class FryingStandBlockEntity extends BlockEntityWithOneItem implements Sy
     public void setItem(ItemStack item) {
         super.setItem(item);
         setTicks(0);
-    }
-
-    public void setMaxTicks(int maxTicks) {
-        this.maxTicks = maxTicks;
     }
 
 }
