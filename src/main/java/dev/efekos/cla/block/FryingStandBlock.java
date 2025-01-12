@@ -14,15 +14,14 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.context.LootWorldContext;
+import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.EnumProperty;
+import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,7 +29,7 @@ import java.util.List;
 
 public class FryingStandBlock extends BlockWithOneItem {
 
-    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
+    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     public static final BooleanProperty SIEVE = BooleanProperty.of("sieve");
     public static final MapCodec<FryingStandBlock> CODEC = createCodec(FryingStandBlock::new);
 
@@ -72,7 +71,7 @@ public class FryingStandBlock extends BlockWithOneItem {
     }
 
     @Override
-    protected List<ItemStack> getDroppedStacks(BlockState state, LootWorldContext.Builder builder) {
+    protected List<ItemStack> getDroppedStacks(BlockState state, LootContextParameterSet.Builder builder) {
         List<ItemStack> stacks = super.getDroppedStacks(state, builder);
         if (state.get(SIEVE)) stacks.add(new ItemStack(ClaItems.FRYING_SIEVE));
         return stacks;

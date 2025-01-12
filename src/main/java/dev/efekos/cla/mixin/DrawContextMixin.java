@@ -9,10 +9,10 @@ import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ModelTransformationMode;
 import net.minecraft.util.crash.CrashException;
 import net.minecraft.util.crash.CrashReport;
 import net.minecraft.util.crash.CrashReportSection;
@@ -38,7 +38,8 @@ public abstract class DrawContextMixin implements IDrawContextMixin {
     @Shadow
     public abstract void draw();
 
-    @Shadow @Final private VertexConsumerProvider.Immediate vertexConsumers;
+    @Shadow
+    public abstract VertexConsumerProvider.Immediate getVertexConsumers();
 
     @Override
     @Unique
@@ -60,7 +61,7 @@ public abstract class DrawContextMixin implements IDrawContextMixin {
                     DiffuseLighting.disableGuiDepthLighting();
                 }
 
-                this.client.getItemRenderer().renderItem(stack, ModelTransformationMode.GUI, false, this.matrices, this.vertexConsumers, 15728880, OverlayTexture.DEFAULT_UV, bakedModel);
+                this.client.getItemRenderer().renderItem(stack, ModelTransformationMode.GUI, false, this.matrices, this.getVertexConsumers(), 15728880, OverlayTexture.DEFAULT_UV, bakedModel);
                 this.draw();
                 if (bl) {
                     DiffuseLighting.enableGuiDepthLighting();
