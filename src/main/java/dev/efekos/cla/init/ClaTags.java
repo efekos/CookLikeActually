@@ -15,7 +15,6 @@ public class ClaTags {
     private static TagKey<Item> item(String id) {
         return TagKey.of(RegistryKeys.ITEM, Identifier.of(Main.MOD_ID, id));
     }
-
     private static TagKey<Block> block(String id) {
         return TagKey.of(RegistryKeys.BLOCK, Identifier.of(Main.MOD_ID, id));
     }

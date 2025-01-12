@@ -1,9 +1,6 @@
 package dev.efekos.cla.block.entity;
 
-import dev.efekos.cla.init.ClaBlockEntityTypes;
-import dev.efekos.cla.init.ClaComponentTypes;
-import dev.efekos.cla.init.ClaSoundEvents;
-import dev.efekos.cla.init.ClaTags;
+import dev.efekos.cla.init.*;
 import dev.efekos.cla.packet.PanSyncS2C;
 import dev.efekos.cla.recipe.PanningRecipe;
 import net.minecraft.block.BlockState;
